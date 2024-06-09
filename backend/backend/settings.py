@@ -65,6 +65,12 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'frontend',
+    'profiles',
+    'category',
+    'invite',
+    'project',
+    'task',
+    'workstream',
 ]
 SITE_ID = 1
 
