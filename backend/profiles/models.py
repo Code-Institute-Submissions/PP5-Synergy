@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
+from workstream.models import Workstream
 
 
 class Profile(models.Model):
@@ -12,6 +13,7 @@ class Profile(models.Model):
     avatar = models.ImageField(
         upload_to='images/avatar/', default='../default_profile_dkfqgb'
     )
+    default_workstream = models.OneToOneField(Workstream, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         ordering = ['-created_at']
@@ -24,4 +26,12 @@ def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(owner=instance)
 
+def assign_default(sender, instance, created, **kwargs):
+    if created:
+        profile = Profile.objects.get(owner=instance.owner)
+        profile.default_workstream = instance
+        profile.save()
+
 post_save.connect(create_profile, sender=User)
+
+post_save.connect(assign_default, sender=Workstream)
