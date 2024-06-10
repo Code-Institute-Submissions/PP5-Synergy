@@ -28,5 +28,6 @@ urlpatterns = [
     path(
         'dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')
     ),
+    path('api/', include('profiles.urls')),
     # path("", include("frontend.urls")),
 ]
