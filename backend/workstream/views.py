@@ -1,7 +1,7 @@
 from rest_framework import generics
-from backend.permissions import IsOwnerOrReadOnly
+from backend.permissions import IsOwnerOrReadOnly, IsStaffOrReadOnly
 from .models import Workstream, Participant
-from .serializers import WorkstreamSerializer
+from .serializers import WorkstreamSerializer, ParticipantSerializer
 
 
 class WorkstreamList(generics.ListCreateAPIView):
@@ -23,3 +23,22 @@ class WorkstreamDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = WorkstreamSerializer
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Workstream.objects.all()
+
+
+class ParticipantList(generics.ListAPIView):
+    """
+    List all profiles.
+    No create view as profile creation is handled by django signals.
+    """
+    queryset = Participant.objects.all()
+    serializer_class = ParticipantSerializer
+
+
+
+class ParticipantDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Retrieve a post and edit or delete it if you own it.
+    """
+    serializer_class = ParticipantSerializer
+    permission_classes = [IsStaffOrReadOnly]
+    queryset = Participant.objects.all()
