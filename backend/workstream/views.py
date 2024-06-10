@@ -1,5 +1,5 @@
 from rest_framework import generics
-from backend.permissions import IsOwnerOrReadOnly, IsStaffOrReadOnly
+from backend.permissions import IsOwnerOrReadOnly, IsWorkstreamOwnerOrReadOnly
 from .models import Workstream, Participant
 from .serializers import WorkstreamSerializer, ParticipantSerializer
 
@@ -40,5 +40,5 @@ class ParticipantDetail(generics.RetrieveUpdateDestroyAPIView):
     Retrieve a post and edit or delete it if you own it.
     """
     serializer_class = ParticipantSerializer
-    permission_classes = [IsStaffOrReadOnly]
+    permission_classes = [IsWorkstreamOwnerOrReadOnly]
     queryset = Participant.objects.all()
