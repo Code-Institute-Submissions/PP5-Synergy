@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class Workstream(models.Model):
-    owner = models.OneToOneField(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=255, blank=True)
@@ -18,17 +18,17 @@ class Workstream(models.Model):
         return self.name
 
 class Participant(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_participant')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_participant')
     workstream = models.ForeignKey(Workstream, on_delete=models.CASCADE, related_name='ws_participants')
     is_staff = models.BooleanField(default=False)
 
 
     def __str__(self):
-        return f'{self.user.username} in {self.workstream.name}'
+        return f'{self.owner.username} in {self.workstream.name}'
     
 
 def assign_owner(sender, instance, created, **kwargs):
     if created:
-        Participant.objects.create(user=instance.owner, workstream=instance, is_staff=True)
+        Participant.objects.create(owner=instance.owner, workstream=instance, is_staff=True)
 
 post_save.connect(assign_owner, sender=Workstream)
