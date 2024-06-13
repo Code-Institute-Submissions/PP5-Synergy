@@ -5,7 +5,6 @@ from workstream.models import Workstream
 class UserWorkstreamForeignKey(serializers.PrimaryKeyRelatedField):
     def get_queryset(self):
         user = self.context['request'].user
-        print(Workstream.objects.filter(ws_participants__owner=user))
         return Workstream.objects.filter(ws_participants__owner=user)
 
 
