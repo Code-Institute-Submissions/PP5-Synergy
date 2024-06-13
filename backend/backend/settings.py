@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     'profiles',
     'workstream',
     'category',
-    'task'
+    'task',
+    'project',
 ]
 
 MIDDLEWARE = [

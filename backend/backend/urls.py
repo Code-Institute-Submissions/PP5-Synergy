@@ -23,4 +23,5 @@ urlpatterns = [
     path('api/', include('workstream.urls')),
     path('api/', include('category.urls')),
     path('api/', include('task.urls')),
+    path('api/', include('project.urls')),
 ]
