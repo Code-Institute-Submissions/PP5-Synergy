@@ -14,6 +14,15 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
             return True
         return obj.author == request.user
 
+
+class IsParticipantOrReadOnly(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return request.user in obj.category.workstream.users.all()
+
+
+
 class IsWorkstreamOwnerOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
@@ -22,9 +31,7 @@ class IsWorkstreamOwnerOrReadOnly(permissions.BasePermission):
 
 
 class IsStaffOrReadOnly(permissions.BasePermission):
-    print('start')
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
-        print(request.user.user_participant.get(workstream=request.user.profile.default_workstream).is_staff)
         return request.user.user_participant.get(workstream=request.user.profile.default_workstream).is_staff
