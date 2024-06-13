@@ -13,7 +13,7 @@ class Task(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    name = models.CharField(max_length=255, blank=True)
+    name = models.CharField(max_length=255)
     detail = models.TextField(blank=True)
     priority = models.IntegerField(choices=PRIORITY_LEVELS, default=1)
     is_completed = models.BooleanField(default=False)
