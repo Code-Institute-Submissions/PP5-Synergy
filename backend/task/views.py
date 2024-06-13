@@ -1,5 +1,5 @@
 from rest_framework import generics
-from backend.permissions import IsOwnerOrReadOnly, IsAuthorOrReadOnly
+from backend.permissions import IsOwnerOrReadOnly, IsAuthorOrReadOnly, IsParticipantOrReadOnly
 from .models import Task
 from .serializers import TaskSerializer, TaskAssignSerializer
 
@@ -31,7 +31,7 @@ class TaskAssignAdmin(generics.UpdateAPIView):
 
 
 class TaskAssignSelf(generics.UpdateAPIView):
-    permission_classes = [IsAuthorOrReadOnly]
+    permission_classes = [IsParticipantOrReadOnly]
     serializer_class = TaskAssignSerializer
     queryset = Task.objects.all()
 
