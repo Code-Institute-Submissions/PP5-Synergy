@@ -22,4 +22,5 @@ urlpatterns = [
     path('api/', include('profiles.urls')),
     path('api/', include('workstream.urls')),
     path('api/', include('category.urls')),
+    path('api/', include('task.urls')),
 ]
