@@ -27,3 +27,12 @@ class TaskSerializer(serializers.ModelSerializer):
             'is_owner', 'priority', 'is_completed', 'category', 'author',
             'deadline'
         ]
+
+
+class TaskAssignSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Task
+        fields = [
+            'owner',
+        ]
