@@ -13,7 +13,7 @@ class Profile(models.Model):
     avatar = models.ImageField(
         upload_to='images/avatar/', default='../default_profile_dkfqgb'
     )
-    default_workstream = models.OneToOneField(Workstream, null=True, on_delete=models.SET_NULL)
+    default_workstream = models.ForeignKey(Workstream, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         ordering = ['-created_at']
