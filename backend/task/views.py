@@ -1,13 +1,12 @@
 from rest_framework import generics
-from backend.permissions import IsOwnerOrReadOnly
+from backend.permissions import IsOwnerOrReadOnly, IsAuthorOrReadOnly
 from .models import Task
-from .serializers import TaskSerializer
+from .serializers import TaskSerializer, TaskAssignSerializer
 
 
 class TaskList(generics.ListCreateAPIView):
     """
     List all profiles.
-    No create view as profile creation is handled by django signals.
     """
     queryset = Task.objects.all().order_by('-created_at')
     serializer_class = TaskSerializer
@@ -23,3 +22,18 @@ class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TaskSerializer
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Task.objects.all()
+
+
+class TaskAssignAdmin(generics.UpdateAPIView):
+    permission_classes = [IsAuthorOrReadOnly]
+    serializer_class = TaskAssignSerializer
+    queryset = Task.objects.all()
+
+
+class TaskAssignSelf(generics.UpdateAPIView):
+    permission_classes = [IsAuthorOrReadOnly]
+    serializer_class = TaskAssignSerializer
+    queryset = Task.objects.all()
+
+    def perform_update(self, serializer):
+        serializer.save(owner=self.request.user)
