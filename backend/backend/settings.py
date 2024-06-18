@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'category',
     'task',
     'project',
+    'invite',
 ]
 
 MIDDLEWARE = [
