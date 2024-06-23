@@ -1,9 +1,10 @@
+import { Button } from 'primereact/button';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello World</h1>
+      <Button label="Submit" />
     </div>
   );
 }
