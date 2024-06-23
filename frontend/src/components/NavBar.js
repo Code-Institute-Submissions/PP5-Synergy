@@ -1,29 +1,36 @@
 import React from 'react'
 import { Menubar } from 'primereact/menubar';
 import { Button } from 'primereact/button';
+import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
+    const navigate = useNavigate();
 
     const items = [
         {
             label: 'Home',
             icon: 'pi pi-home',
-            url: '/'
+            command: () => {
+                navigate('/');
+            }
         },
         {
             label: 'Features',
             icon: 'pi pi-star',
-            url: '/'
+            url: '/signup'
         }
     ];
 
     const end = (
         <div className="flex align-items-center gap-2">
-            <Button label="Get Started" size="small" />
+            <NavLink to='/signup'>
+                <Button label="Get Started" size="small" />
+            </NavLink>
         </div>
     );
 
-    const start = <a href='/'><img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" height="40" className="mr-2"></img></a>;
+    const start = <NavLink to="/"><img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" height="40" className="mr-2"></img></NavLink>;
 
     return (
         <div className="card">
