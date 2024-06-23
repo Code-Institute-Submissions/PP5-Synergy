@@ -1,10 +1,10 @@
-import { Button } from 'primereact/button';
+import NavBar from './components/NavBar';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <Button label="Submit" />
+      <NavBar />
     </div>
   );
 }
