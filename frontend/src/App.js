@@ -1,19 +1,18 @@
 import styles from './App.module.css';
 import NavBar from './components/NavBar';
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom/';
+
 
 function App() {
   return (
     <div className={styles.App}>
       <NavBar />
-      <div>
-        <Switch>
-          <Route exact path="/" render={() => <h2>Home</h2>} />
-        </Switch>
-        <Switch>
-          <Route exact path="/signup" render={() => <h2>Signup</h2>} />
-        </Switch>
-      </div>
+      <Routes>
+        <Route exact path="/" element={<h2>Home</h2>} />
+        <Route exact path="/signin" element={<h2>Sign In</h2>} />
+        <Route exact path="/signup" element={<h2>Sign Up</h2>} />
+        <Route render={() => <p>Page not found!</p>} />
+      </Routes>
     </div>
   );
 }
