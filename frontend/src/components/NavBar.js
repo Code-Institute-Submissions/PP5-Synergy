@@ -6,6 +6,11 @@ const NavBar = () => {
 
     const items = [
         {
+            label: 'Home',
+            icon: 'pi pi-home',
+            url: '/'
+        },
+        {
             label: 'Features',
             icon: 'pi pi-star',
             url: '/'
