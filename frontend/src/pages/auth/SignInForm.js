@@ -3,9 +3,11 @@ import React, { useContext, useState } from 'react';
 import { Checkbox } from 'primereact/checkbox';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
+import { Password } from 'primereact/password';
 
 const LoginPage = () => {
     const [checked, setChecked] = useState(false);
+    const [value, setValue] = useState('');
 
     return (
         
@@ -24,6 +26,7 @@ const LoginPage = () => {
 
                 <label htmlFor="password" className="block text-900 font-medium mb-2">Password</label>
                 <InputText id="password" type="password" placeholder="Password" className="w-full mb-3" />
+                <Password value={value} onChange={(e) => setValue(e.target.value)} className="w-12 mb-0"/>
 
                 <div className="flex align-items-center justify-content-between mb-6">
                     <div className="flex align-items-center">
