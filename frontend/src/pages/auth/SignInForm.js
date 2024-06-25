@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import axios from "axios";
 import React, { useContext, useState } from 'react';
 import { Checkbox } from 'primereact/checkbox';
 import { Button } from 'primereact/button';
@@ -12,10 +13,17 @@ const LoginPage = () => {
         password: "",
     });
     const { username, password } = signInData;
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('form submitted');
+    const [errors, setErrors] = useState({});
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+    
+        try {
+          const { data } = await axios.post("/dj-rest-auth/login/", signInData);
+          console.log(data)
+        } catch (err) {
+          setErrors(err.response?.data);
+          console.log(errors)
+        }
     };
 
     const handleChange = (event) => {
