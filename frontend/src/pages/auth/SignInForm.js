@@ -48,31 +48,28 @@ const SignInForm = () => {
                     <Message className="w-full mb-1" severity="error" text={message} />
                 ))}
             </div>
+            <label htmlFor="username" className="block text-900 font-medium mb-2">Username</label>
+            <InputText value={username} onChange={handleChange} id="username" name="username" type="text" placeholder="username" className="w-full mb-3" />
+            {errors.username?.map((message, idx) => (
+                <Message className="w-full mb-1" severity="error" text={message} />
+            ))}
+            
 
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username" className="block text-900 font-medium mb-2">Username</label>
-                <InputText value={username} onChange={handleChange} id="username" name="username" type="text" placeholder="username" className="w-full mb-3" />
-                {errors.username?.map((message, idx) => (
-                    <Message className="w-full mb-1" severity="error" text={message} />
-                ))}
-                
+            <label htmlFor="password" className="block text-900 font-medium mb-2">Password</label>
+            <Password value={password} onChange={handleChange} className="w-12 mb-3" feedback={false} pt={{ input: { className: "w-12", name: "password" }}}/>
+            {errors.password?.map((message, idx) => (
+                <Message className="w-full mb-1" severity="error" text={message} />
+            ))}
 
-                <label htmlFor="password" className="block text-900 font-medium mb-2">Password</label>
-                <Password value={password} onChange={handleChange} className="w-12 mb-3" feedback={false} pt={{ input: { className: "w-12", name: "password" }}}/>
-                {errors.password?.map((message, idx) => (
-                    <Message className="w-full mb-1" severity="error" text={message} />
-                ))}
-
-                <div className="flex align-items-center justify-content-between mb-6">
-                    <div className="flex align-items-center">
-                        <Checkbox id="rememberme" onChange={e => setChecked(e.checked)} checked={checked} className="mr-2" />
-                        <label htmlFor="rememberme">Remember me</label>
-                    </div>
-                    <span className="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Forgot your password?</span>
+            <div className="flex align-items-center justify-content-between mb-6">
+                <div className="flex align-items-center">
+                    <Checkbox id="rememberme" onChange={e => setChecked(e.checked)} checked={checked} className="mr-2" />
+                    <label htmlFor="rememberme">Remember me</label>
                 </div>
+                <span className="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Forgot your password?</span>
+            </div>
 
-                <Button label="Sign In" icon="pi pi-user" className="w-full" />
-            </form>
+            <Button label="Sign In" icon="pi pi-user" className="w-full" onClick={handleSubmit}/>
         </div>
     </div>
     );
