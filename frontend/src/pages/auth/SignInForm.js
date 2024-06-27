@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import React, { useState } from 'react';
 import { Checkbox } from 'primereact/checkbox';
@@ -17,6 +17,7 @@ const SignInForm = () => {
     });
     const { username, password } = signInData;
     const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
     
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -24,6 +25,7 @@ const SignInForm = () => {
         try {
           const { data } = await axios.post("/dj-rest-auth/login/", signInData);
           SetCurrentUser(data.user)
+          navigate('/dashboard')
         } catch (err) {
             setErrors(err.response?.data);
         }
