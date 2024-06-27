@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Checkbox } from 'primereact/checkbox';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Message } from 'primereact/message';
+import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
 const SignInForm = () => {
+    const SetCurrentUser = useSetCurrentUser();
     const [checked, setChecked] = useState(false);
     const [signInData, setSignInData] = useState({
         username: "",
@@ -21,6 +23,7 @@ const SignInForm = () => {
     
         try {
           const { data } = await axios.post("/dj-rest-auth/login/", signInData);
+          SetCurrentUser(data.user)
         } catch (err) {
             setErrors(err.response?.data);
         }
