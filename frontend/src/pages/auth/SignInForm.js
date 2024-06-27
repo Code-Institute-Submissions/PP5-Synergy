@@ -7,7 +7,7 @@ import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Message } from 'primereact/message';
 
-const LoginPage = () => {
+const SignInForm = () => {
     const [checked, setChecked] = useState(false);
     const [signInData, setSignInData] = useState({
         username: "",
@@ -78,4 +78,4 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+export default SignInForm;
