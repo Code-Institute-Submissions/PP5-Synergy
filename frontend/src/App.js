@@ -3,6 +3,7 @@ import NavBar from './components/NavBar';
 import { Route, Routes } from 'react-router-dom/';
 import './api/axiosDefaults';
 import SignIpForm from './pages/auth/SignInForm'
+import SignUpForm from './pages/auth/SignUpForm'
 
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<h2>Home</h2>} />
         <Route exact path="/signin" element={<SignIpForm />} />
-        <Route exact path="/signup" element={<h2>Sign Up</h2>} />
+        <Route exact path="/signup" element={<SignUpForm />} />
         <Route render={() => <p>Page not found!</p>} />
       </Routes>
     </div>
