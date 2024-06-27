@@ -56,13 +56,13 @@ const SignUpForm = () => {
                 
 
                 <label htmlFor="password" className="block text-900 font-medium mb-2">Password</label>
-                <Password value={password1} onChange={handleChange} className="w-12 mb-3" feedback={false} pt={{ input: { className: "w-12", name: "password1" }}}/>
+                <Password value={password1} onChange={handleChange} className="w-12 mb-3" feedback={false} pt={{ iconField: { root: { className: "w-12" } },input: { className: "w-12", name: "password1" }}} toggleMask/>
                 {errors.password1?.map((message, idx) => (
                     <Message className="w-full mb-1" severity="error" text={message} />
                 ))}
 
                 <label htmlFor="password2" className="block text-900 font-medium mb-2">Confirm Password</label>
-                <Password value={password2} onChange={handleChange} className="w-12 mb-3" feedback={false} pt={{ input: { className: "w-12", name: "password2" }}}/>
+                <Password value={password2} onChange={handleChange} className="w-12 mb-3" feedback={false} pt={{ iconField: { root: { className: "w-12" } },input: { className: "w-12", name: "password2" }}} toggleMask/>
                 {errors.password2?.map((message, idx) => (
                     <Message className="w-full mb-1" severity="error" text={message} />
                 ))}
