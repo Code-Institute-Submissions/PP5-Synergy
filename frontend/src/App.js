@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom/';
 import './api/axiosDefaults';
 import SignIpForm from './pages/auth/SignInForm'
 import SignUpForm from './pages/auth/SignUpForm'
+import Dashboard from './pages/auth/Dashboard';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
             <Route exact path="/" element={<h2>Home</h2>} />
             <Route exact path="/signin" element={<SignIpForm />} />
             <Route exact path="/signup" element={<SignUpForm />} />
+            <Route exact path="/dashboard" element={<Dashboard />} />
             <Route render={() => <p>Page not found!</p>} />
           </Routes>
         </div>
