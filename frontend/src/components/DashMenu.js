@@ -1,22 +1,25 @@
 import React from 'react'
 import { Menu } from 'primereact/menu';
+import { Avatar } from 'primereact/avatar';
+import { Link } from 'react-router-dom';
 import { useCurrentUser } from '../contexts/CurrentUserContext';
 
 function DashMenu() {
     const currentUser = useCurrentUser();
+    // const navigate = useNavigate();
 
     const itemRenderer = (item) => (
-        <div className='p-menuitem-content'>
-            <a className="flex align-items-center p-menuitem-link">
+        <div className={'p-menuitem-content ' + item.border}>
+            <Link className="flex align-items-center p-menuitem-link" to={item.url}>
                 <span className={item.icon} />
                 <span className="mx-2">{item.label}</span>
                 {item.shortcut && <span className="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{item.shortcut}</span>}
-            </a>
+            </Link>
         </div>
     );
     let itemsIn = [
         {
-            template: () => {
+            template: (item, options) => {
                 return (
                     <span className="inline-flex align-items-center gap-1 px-2 py-2">
                         <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -50,65 +53,57 @@ function DashMenu() {
             separator: true
         },
         {
-            label: 'Documents',
-            items: [
-                {
-                    label: 'New',
-                    icon: 'pi pi-plus',
-                    shortcut: '⌘+N',
-                    template: itemRenderer
-                },
-                {
-                    label: 'Search',
-                    icon: 'pi pi-search',
-                    shortcut: '⌘+S',
-                    template: itemRenderer
-                }
-            ]
-        },
-        {
-            label: 'Profile',
-            items: [
-                {
-                    label: 'Settings',
-                    icon: 'pi pi-cog',
-                    shortcut: '⌘+O',
-                    template: itemRenderer
-                },
-                {
-                    label: 'Messages',
-                    icon: 'pi pi-inbox',
-                    badge: 2,
-                    template: itemRenderer
-                },
-                {
-                    label: 'Logout',
-                    icon: 'pi pi-sign-out',
-                    shortcut: '⌘+Q',
-                    template: itemRenderer
-                }
-            ]
-        },
-        {
-            separator: true
-        },
-        {
             template: (item, options) => {
                 return (
-                    <button onClick={(e) => options.onClick(e)} className='w-full p-link flex align-items-center p-2 pl-4 text-color hover:surface-200 border-noround'>
-                        {/* <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" className="mr-2" shape="circle" /> */}
+                    <div className='w-full p-link flex align-items-center p-2 text-color border-noround'>
+                        <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" className="mr-2" shape="circle" />
                         <div className="flex flex-column align">
-                            <span className="font-bold">{currentUser?.username}</span>
-                            <span className="text-sm">Agent</span>
+                            <span className="font-bold">FullName isreallybig</span>
+                            <span className="text-sm">{currentUser?.username}</span>
                         </div>
-                    </button>
+                    </div>
                 );
             }
+        },
+        {
+            label: 'Dashboard',
+            icon: 'pi pi-home',
+            url: '/dashboard',
+            template: itemRenderer
+            
+        },
+        {
+            label: 'Calendar',
+            icon: 'pi pi-calendar',
+            url: '/calendar',
+            template: itemRenderer
+        },
+        {
+            label: 'Task',
+            icon: 'pi pi-list-check',
+            url: '/task',
+            template: itemRenderer
+        },
+        {
+            label: 'Workstream',
+            icon: 'pi pi-folder',
+            url: '/workstream',
+            template: itemRenderer
+        },
+        {
+            label: 'Logout',
+            icon: 'pi pi-sign-out',
+            border: 'border-bottom-1 surface-border pb-2',
+            url: '/logout',
+            template: itemRenderer
+        },
+        {
+            label: 'Footer'
         }
     ];
 
   return (
-    <Menu model={itemsIn} className="hidden sm:block md:w-15rem" pt={{ menu: { className: "h-screen flex flex-column align-content-evenly justify-content-between"}}}/>
+    <Menu model={itemsIn} className="hidden sm:block md:w-15rem p-0" pt={{ menu: { className: "h-screen flex flex-column align-content-evenly justify-content-between"}}}/>
   )
 }
 
