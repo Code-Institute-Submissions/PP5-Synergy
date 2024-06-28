@@ -12,7 +12,7 @@ function DashMenu() {
         <div className={'p-menuitem-content ' + item.border}>
             <Link className="flex align-items-center p-menuitem-link" to={item.url}>
                 <span className={item.icon} />
-                <span className="mx-2">{item.name ? currentUser?.default_workstream : item.label}</span>
+                <span className="mx-2 capitalize">{item.name ? currentUser?.default_workstream : item.label}</span>
                 {item.shortcut && <span className="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{item.shortcut}</span>}
             </Link>
         </div>
