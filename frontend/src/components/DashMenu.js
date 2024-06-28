@@ -6,7 +6,6 @@ import { useCurrentUser } from '../contexts/CurrentUserContext';
 
 function DashMenu() {
     const currentUser = useCurrentUser();
-    // const navigate = useNavigate();
 
     const itemRenderer = (item) => (
         <div className={'p-menuitem-content ' + item.border}>
@@ -102,8 +101,13 @@ function DashMenu() {
         }
     ];
 
+    const userMenu = (
+        <Menu model={itemsIn} className="hidden sm:block md:w-15rem p-0" pt={{ menu: { className: "h-screen flex flex-column align-content-evenly justify-content-between"}}}/>
+    )
   return (
-    <Menu model={itemsIn} className="hidden sm:block md:w-15rem p-0" pt={{ menu: { className: "h-screen flex flex-column align-content-evenly justify-content-between"}}}/>
+    <>
+    {currentUser && userMenu}
+    </>
   )
 }
 
