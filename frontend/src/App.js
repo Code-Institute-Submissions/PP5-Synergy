@@ -17,7 +17,7 @@ function App() {
             <Route exact path="/signin" element={<SignIpForm />} />
             <Route exact path="/signup" element={<SignUpForm />} />
             <Route exact path="/dashboard" element={<Dashboard />} />
-            <Route render={() => <p>Page not found!</p>} />
+            <Route path="*" element={<h2>Page not found</h2>} />
           </Routes>
         </div>
   );
