@@ -7,7 +7,7 @@ function Dashboard() {
       <div className='hidden sm:block col-fixed p-0 md:w-15rem'>
         <DashMenu />
       </div>
-      <div class="col surface-ground p-0">
+      <div className="col surface-ground p-0">
         Content
       </div>
     </div>
