@@ -1,7 +1,7 @@
 import React from 'react'
 import DashMenu from '../../components/DashMenu'
 
-function Dashboard() {
+const Dashboard = () => {
   return (
     <div className='grid grid-nogutter'>
       <div className='hidden sm:block col-fixed p-0 md:w-15rem'>
