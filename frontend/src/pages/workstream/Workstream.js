@@ -15,7 +15,7 @@ const Workstream = () => {
         const handleMount = async () => {
           try {
             const [{ data: workstream }] = await Promise.all([
-              axiosReq.get(`api/workstream/${currentUser.default_workstream_id}`),
+              axiosReq.get(`api/workstream/${currentUser?.default_workstream_id}`),
             ]);
             setWorkstream({ results: [workstream] });
             console.log(workstream);
