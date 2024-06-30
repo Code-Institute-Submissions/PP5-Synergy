@@ -1,9 +1,11 @@
 from rest_framework import serializers
 from .models import Workstream, Participant
+from backend.serializers import CurrentUserSerializer
 
 
 class WorkstreamSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='user.username')
+    owner = CurrentUserSerializer(read_only=True)
+    users = CurrentUserSerializer(many=True, read_only=True)
     is_owner = serializers.SerializerMethodField()
     
 
