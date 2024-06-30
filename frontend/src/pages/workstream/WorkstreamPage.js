@@ -5,7 +5,7 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { axiosReq } from '../../api/axiosDefaults';
 
-const Workstream = () => {
+const WorkstreamPage = () => {
     const currentUser = useCurrentUser();
     const [errors, setErrors] = useState({});
 
@@ -80,4 +80,4 @@ const Workstream = () => {
     )
 }
 
-export default Workstream
+export default WorkstreamPage

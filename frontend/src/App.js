@@ -6,7 +6,7 @@ import SignIpForm from './pages/auth/SignInForm'
 import SignUpForm from './pages/auth/SignUpForm'
 import Dashboard from './pages/auth/Dashboard';
 import DashMenu from './components/DashMenu';
-import Workstream from './pages/workstream/Workstream';
+import WorkstreamPage from './pages/workstream/WorkstreamPage';
 
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
               <Route exact path="/signin" element={<SignIpForm />} />
               <Route exact path="/signup" element={<SignUpForm />} />
               <Route exact path="/dashboard" element={<Dashboard />} />
-              <Route exact path="/workstream" element={<Workstream />} />
+              <Route exact path="/workstream" element={<WorkstreamPage />} />
               <Route path="*" element={<h2>Page not found</h2>} />
             </Routes>
             </div>
