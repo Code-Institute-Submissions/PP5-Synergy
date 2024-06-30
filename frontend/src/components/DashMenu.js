@@ -131,11 +131,13 @@ const DashMenu = () => {
     ];
 
     const userMenu = (
-        <Menu model={itemsIn} className="hidden sm:block md:w-15rem p-0" pt={{ menu: { className: "h-screen flex flex-column align-content-evenly justify-content-between"}}}/>
+        <div className='hidden sm:block col-fixed p-0 md:w-15rem'>
+            <Menu model={itemsIn} className="hidden sm:block md:w-15rem p-0" pt={{ menu: { className: "h-screen flex flex-column align-content-evenly justify-content-between"}}}/>
+        </div>
     )
   return (
     <>
-    {currentUser && userMenu}
+        {currentUser && userMenu}
     </>
   )
 }
