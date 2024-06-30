@@ -2,15 +2,35 @@ import React from 'react'
 import { Menu } from 'primereact/menu';
 import { Avatar } from 'primereact/avatar';
 import { Link } from 'react-router-dom';
-import { useCurrentUser } from '../contexts/CurrentUserContext';
+import { useCurrentUser, useSetCurrentUser } from '../contexts/CurrentUserContext';
+import axios from "axios";
 
-function DashMenu() {
+const DashMenu = () => {
     const currentUser = useCurrentUser();
-    console.log(currentUser)
+    const SetCurrentUser = useSetCurrentUser();
+
+    const handelLogout = async () => {
+        try {
+            await axios.post("dj-rest-auth/logout/");
+            SetCurrentUser(null);
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     const itemRenderer = (item) => (
         <div className={'p-menuitem-content ' + item.border}>
             <Link className="flex align-items-center p-menuitem-link" to={item.url}>
+                <span className={item.icon} />
+                <span className="mx-2">{item.label}</span>
+                {item.shortcut && <span className="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{item.shortcut}</span>}
+            </Link>
+        </div>
+    );
+
+    const renderLogout = (item) => (
+        <div className={'p-menuitem-content ' + item.border}>
+            <Link className="flex align-items-center p-menuitem-link" onClick={handelLogout}>
                 <span className={item.icon} />
                 <span className="mx-2">{item.label}</span>
                 {item.shortcut && <span className="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{item.shortcut}</span>}
@@ -103,7 +123,7 @@ function DashMenu() {
             icon: 'pi pi-sign-out',
             border: 'border-bottom-1 surface-border pb-2',
             url: '/logout',
-            template: itemRenderer
+            template: renderLogout
         },
         {
             label: 'Footer'
