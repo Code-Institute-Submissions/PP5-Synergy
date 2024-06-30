@@ -22,7 +22,7 @@ function App() {
               <Route exact path="/signin" element={<SignIpForm />} />
               <Route exact path="/signup" element={<SignUpForm />} />
               <Route exact path="/dashboard" element={<Dashboard />} />
-              <Route exact path="/dashboard" element={<Workstream />} />
+              <Route exact path="/workstream" element={<Workstream />} />
               <Route path="*" element={<h2>Page not found</h2>} />
             </Routes>
             </div>
