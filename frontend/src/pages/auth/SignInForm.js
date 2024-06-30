@@ -25,6 +25,7 @@ const SignInForm = () => {
         try {
           const { data } = await axios.post("/dj-rest-auth/login/", signInData);
           SetCurrentUser(data.user)
+          console.log(data.user)
           navigate('/dashboard')
         } catch (err) {
             setErrors(err.response?.data);
