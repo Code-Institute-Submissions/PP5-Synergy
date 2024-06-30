@@ -46,11 +46,7 @@ const WorkstreamPage = () => {
     
     return (
         <>
-        <h2>Workstream</h2>
-        <div>
-            <h4>Active Workstream</h4>
-            <Workstream {...workstream.results[0]}/>
-        </div>
+        <Workstream {...workstream.results[0]}/>
         <div>
             <h4>Available Workstream <Button icon="pi pi-plus" rounded text raised severity="primary" aria-label="Add Workstream" onClick={() => setVisible(true)}/></h4> 
             <h5>list</h5>

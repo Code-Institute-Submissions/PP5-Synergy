@@ -1,5 +1,7 @@
 import React from 'react'
 import { Card } from 'primereact/card';
+import { Avatar } from 'primereact/avatar';
+import { AvatarGroup } from 'primereact/avatargroup';
 
 const Workstream = (props) => {
     const {
@@ -12,13 +14,25 @@ const Workstream = (props) => {
         is_owner,
     } = props;
 
-
+    const header = (
+        <div className='px-4 pt-4'>
+            <div className="p-card-title capitalize flex align-items-center" data-pc-section="title">
+                <span className='pi pi-folder mr-2 text-4xl'/>{name} - Active
+            </div>
+            {/* <Avatar image={owner?.profile_avatar} shape="circle" size="large"/> */}
+        </div>
+    )
     return (
-        <Card title={name} subTitle={owner.username}>
-                <p className="m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae 
-                    numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
-                </p>
+        <Card className='mx-2' header={header} subTitle={'Author: ' + owner?.username } pt={{ body: { className: "pt-0" }}}>
+            <span className='mx-2'>Paticipants</span>
+            <span className='pi pi-users' />
+            <div className="card flex justify-content-start">
+                <AvatarGroup>
+                {users?.map((user, idx) => (
+                    <Avatar image={user?.profile_avatar} shape="circle" size="xlarge" key={idx}/>
+                ))}
+                </AvatarGroup>
+            </div>
         </Card>
     )
 }
