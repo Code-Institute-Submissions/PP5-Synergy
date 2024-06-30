@@ -4,6 +4,7 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { axiosReq } from '../../api/axiosDefaults';
+import Workstream from './Workstream';
 
 const WorkstreamPage = () => {
     const currentUser = useCurrentUser();
@@ -48,6 +49,7 @@ const WorkstreamPage = () => {
         <h2>Workstream</h2>
         <div>
             <h4>Active Workstream</h4>
+            <Workstream {...workstream.results[0]}/>
         </div>
         <div>
             <h4>Available Workstream <Button icon="pi pi-plus" rounded text raised severity="primary" aria-label="Add Workstream" onClick={() => setVisible(true)}/></h4> 
