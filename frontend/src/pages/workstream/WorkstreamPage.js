@@ -60,7 +60,9 @@ const WorkstreamPage = () => {
         )}
         { workstreamList.results.length ? (
           workstreamList.results.map((ws, idx) => (
-            <WorkstreamList {...ws} key={idx}/>
+            ws.id === workstream.results[0].id
+            ? null
+            : (<WorkstreamList {...ws} key={idx}/>)
           ))
         ) : (
           <span>No comments... yet</span>
