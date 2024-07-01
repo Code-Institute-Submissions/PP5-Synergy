@@ -56,6 +56,13 @@ const WorkstreamPage = () => {
           [event.target.name]: event.target.value,
         });
     };
+
+    const btnGroup = (
+      <div className={workstream.results.length ? "flex justify-content-center align-items-center gap-2 -my-3" : "flex justify-content-center align-items-center gap-2 -mb-3 mt-1"}>
+          <Button icon="pi pi-plus" rounded severity="primary" aria-label="Create Workstream" onClick={() => setVisible(true)}/>
+          <Button icon="pi pi-send" rounded severity="primary" aria-label="Send Workstream Join request" />
+      </div>
+    );
     
     return (
         <>
@@ -64,17 +71,20 @@ const WorkstreamPage = () => {
             <Workstream {...object} key={idx}/>
           ))
         ) : (
-          <span>No comments... yet</span>
+          btnGroup
         )}
+        { workstream.results.length 
+        ? btnGroup
+        : null
+        }
         { workstreamList.results.length ? (
           workstreamList.results.map((ws, idx) => (
             ws.id === workstream.results[0]?.id
             ? null
             : (<WorkstreamList {...ws} key={idx}/>)
           ))
-        ) : (
-          <span>No comments... yet</span>
-        )}
+        ) : null
+        }
         <Dialog
                 visible={visible}
                 modal
