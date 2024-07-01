@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card } from 'primereact/card';
+import { Fieldset } from 'primereact/fieldset';
 import { Avatar } from 'primereact/avatar';
 import { AvatarGroup } from 'primereact/avatargroup';
 import { useNavigate } from 'react-router-dom';
@@ -20,27 +20,25 @@ const Workstream = (props) => {
         height: "25vh"
     };
 
-
-    const header = (
-        <div className='px-4 pt-4'>
-            <div className="p-card-title capitalize flex align-items-center" data-pc-section="title">
-                <span className='pi pi-folder mr-2 text-4xl'/>{name} - Active
-            </div>
-            {/* <Avatar image={owner?.profile_avatar} shape="circle" size="large"/> */}
+    const legendTemplate = (
+        <div className="flex align-items-center gap-2 px-2">
+            <span className='pi pi-folder mr-2 text-4xl'/>
+            <span className="font-bold">{name}</span>
         </div>
-    )
+    );
+
     return (
-        <Card style={mystyle} className='mx-2 mt-2 text-sm' onClick={() => {navigate(`/workstream/${id}`)}} header={header} subTitle={'Author: ' + owner?.username } pt={{ body: { className: "pt-0" }, content: { className: "pt-0" }, subTitle: { className: "mx-2" }}}>
-            <span className='mx-2'>Paticipants</span>
-            <span className='pi pi-users' />
-            <div className="card flex justify-content-start">
+        <Fieldset style={mystyle} className='mx-2 mt-2 text-sm' legend={legendTemplate} onClick={() => {navigate(`/workstream/${id}`)}}>
+                <span className='mx-2'>Paticipants</span>
+                <span className='pi pi-users' />
+                <div className="card flex justify-content-start">
                 <AvatarGroup>
                 {users?.map((user, idx) => (
                     <Avatar image={user?.profile_avatar} shape="circle" size="medium" key={idx}/>
                 ))}
                 </AvatarGroup>
             </div>
-        </Card>
+        </Fieldset>
     )
 }
 
