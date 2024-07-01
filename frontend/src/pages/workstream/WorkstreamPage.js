@@ -95,7 +95,7 @@ const WorkstreamPage = () => {
         ? btnGroup
         : null
         }
-        <Fieldset style={{height: "70vh"}} className='mx-2 mt-2 text-sm' legend={legendTemplate} toggleable pt={{ legend: { className: "bg-surface p-1 text-md" }}}>
+        <Fieldset style={{height: "70vh"}} className='mx-2 mt-2 text-sm' legend={legendTemplate} toggleable pt={{ legend: { className: "bg-surface p-1 text-md" }, toggler: { className: "p-0" }}}>
           { workstreamList.results.length ? (
             workstreamList.results.map((ws, idx) => (
               ws.id === workstream.results[0]?.id
