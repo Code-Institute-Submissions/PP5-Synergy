@@ -4,6 +4,7 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { axiosReq } from '../../api/axiosDefaults';
+import axios from "axios";
 import Workstream from './Workstream';
 import WorkstreamList from './WorkstreamList';
 
@@ -43,11 +44,8 @@ const WorkstreamPage = () => {
 
     const [visible, setVisible] = useState(false);
     
-    const [inputData, setInputData] = useState({
-        name: "",
-        other: ""
-    });
-    const { name, other } = inputData;
+    const [inputData, setInputData] = useState({name: ""});
+    const { name } = inputData;
 
 
     const handleChange = (event) => {
@@ -56,6 +54,18 @@ const WorkstreamPage = () => {
           [event.target.name]: event.target.value,
         });
     };
+
+    const handleCreate = async (e) => {
+      e.preventDefault();
+      try {
+        const { data } = await axiosReq.post("/api/workstream/", inputData);
+        console.log(data)
+      } catch (err) {
+          setErrors(err.response?.data);
+          console.log(errors)
+      }
+      setVisible(false)
+    }
 
     const btnGroup = (
       <div className={workstream.results.length ? "flex justify-content-center align-items-center gap-2 -my-3" : "flex justify-content-center align-items-center gap-2 -mb-3 mt-1"}>
@@ -101,7 +111,7 @@ const WorkstreamPage = () => {
                             <InputText value={name} onChange={handleChange} id="name" label="name" name='name' className="bg-white-alpha-20 border-none p-3 text-primary-50"></InputText>
                         </div>
                         <div className="flex align-items-center gap-2">
-                            <Button label="Submit" onClick={(e) => hide(e)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
+                            <Button label="Submit" onClick={handleCreate} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
                             <Button label="Cancel" onClick={(e) => hide(e)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
                         </div>
                     </div>
