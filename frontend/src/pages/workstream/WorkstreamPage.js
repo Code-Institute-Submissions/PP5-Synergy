@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
+import { Fieldset } from 'primereact/fieldset';
 import { InputText } from 'primereact/inputtext';
 import { axiosReq } from '../../api/axiosDefaults';
 import axios from "axios";
@@ -14,6 +15,13 @@ const WorkstreamPage = () => {
 
     const [workstream , setWorkstream] = useState({ results: [] })
     const [workstreamList , setWorkstreamList] = useState({ results: [] })
+
+    const legendTemplate = (
+      <div className="flex align-items-center gap-2 px-2">
+          <span className="font-bold">Switchable</span>
+          <span className='pi pi-sync text-xl'/>
+      </div>
+  );
 
     useEffect(() => {
         const handleMount = async () => {
@@ -87,14 +95,16 @@ const WorkstreamPage = () => {
         ? btnGroup
         : null
         }
-        { workstreamList.results.length ? (
-          workstreamList.results.map((ws, idx) => (
-            ws.id === workstream.results[0]?.id
-            ? null
-            : (<WorkstreamList {...ws} key={idx}/>)
-          ))
-        ) : null
-        }
+        <Fieldset style={{height: "70vh"}} className='mx-2 mt-2 text-sm' legend={legendTemplate} toggleable pt={{ legend: { className: "bg-surface p-1 text-md" }}}>
+          { workstreamList.results.length ? (
+            workstreamList.results.map((ws, idx) => (
+              ws.id === workstream.results[0]?.id
+              ? null
+              : (<WorkstreamList {...ws} key={idx}/>)
+            ))
+          ) : null
+          }
+        </Fieldset>
         <Dialog
                 visible={visible}
                 modal

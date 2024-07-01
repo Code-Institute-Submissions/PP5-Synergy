@@ -22,13 +22,13 @@ const Workstream = (props) => {
 
     const legendTemplate = (
         <div className="flex align-items-center gap-2 px-2">
-            <span className='pi pi-folder mr-2 text-3xl'/>
+            <span className='pi pi-folder mr-2 text-xl'/>
             <span className="font-bold">{name}</span>
         </div>
     );
 
     return (
-        <Fieldset style={mystyle} className='mx-2 mt-2 text-sm' legend={legendTemplate} onClick={() => {navigate(`/workstream/${id}`)}} pt={{ legend: { className: "bg-primary" }}}>
+        <Fieldset style={mystyle} className='mx-2 mt-2 text-sm' legend={legendTemplate} onClick={() => {navigate(`/workstream/${id}`)}} pt={{ legend: { className: "bg-primary p-1" }}}>
                 <span className='mx-2'>Paticipants</span>
                 <span className='pi pi-users' />
                 <div className="card flex justify-content-start">
