@@ -17,13 +17,21 @@ const WorkstreamPage = () => {
     useEffect(() => {
         const handleMount = async () => {
           try {
-            const [{ data: workstreamList },{ data: workstream }] = await Promise.all([
-              axiosReq.get(`api/workstream/`),
-              axiosReq.get(`api/workstream/${currentUser?.default_workstream_id}`),
-              
-            ]);
-            setWorkstream({ results: [workstream] });
-            setWorkstreamList(workstreamList);
+            if(currentUser?.default_workstream_id){
+              const [{ data: workstreamList },{ data: workstream }] = await Promise.all([
+                axiosReq.get(`api/workstream/`),
+                axiosReq.get(`api/workstream/${currentUser?.default_workstream_id}`),
+              ]);
+              setWorkstream({ results: [workstream] });
+              setWorkstreamList(workstreamList);
+            } else {
+              const [{ data: workstreamList }] = await Promise.all([
+                axiosReq.get(`api/workstream/`),
+              ]);
+              setWorkstreamList(workstreamList);
+            }
+            
+            
             console.log(workstream, workstreamList);
           } catch (err) {
             console.log(err);
@@ -52,15 +60,15 @@ const WorkstreamPage = () => {
     return (
         <>
         { workstream.results.length ? (
-          workstream.results.map((object) => (
-            <Workstream {...object} primary={true}/>
+          workstream.results.map((object, idx) => (
+            <Workstream {...object} key={idx}/>
           ))
         ) : (
           <span>No comments... yet</span>
         )}
         { workstreamList.results.length ? (
           workstreamList.results.map((ws, idx) => (
-            ws.id === workstream.results[0].id
+            ws.id === workstream.results[0]?.id
             ? null
             : (<WorkstreamList {...ws} key={idx}/>)
           ))
