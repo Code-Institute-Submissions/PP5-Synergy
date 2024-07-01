@@ -2,8 +2,11 @@ import React from 'react'
 import { Card } from 'primereact/card';
 import { Avatar } from 'primereact/avatar';
 import { AvatarGroup } from 'primereact/avatargroup';
+import { useNavigate } from 'react-router-dom';
+
 
 const Workstream = (props) => {
+    const navigate = useNavigate()
     const {
         id,
         owner,
@@ -14,6 +17,7 @@ const Workstream = (props) => {
         is_owner,
     } = props;
 
+
     const header = (
         <div className='px-4 pt-4'>
             <div className="p-card-title capitalize flex align-items-center" data-pc-section="title">
@@ -23,7 +27,7 @@ const Workstream = (props) => {
         </div>
     )
     return (
-        <Card className='mx-2' header={header} subTitle={'Author: ' + owner?.username } pt={{ body: { className: "pt-0" }}}>
+        <Card className='mx-2' onClick={() => {navigate(`/workstream/${id}`)}} header={header} subTitle={'Author: ' + owner?.username } pt={{ body: { className: "pt-0" }}}>
             <span className='mx-2'>Paticipants</span>
             <span className='pi pi-users' />
             <div className="card flex justify-content-start">

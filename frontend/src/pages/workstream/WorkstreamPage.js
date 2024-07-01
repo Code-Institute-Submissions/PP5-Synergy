@@ -5,21 +5,26 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { axiosReq } from '../../api/axiosDefaults';
 import Workstream from './Workstream';
+import WorkstreamList from './WorkstreamList';
 
 const WorkstreamPage = () => {
     const currentUser = useCurrentUser();
     const [errors, setErrors] = useState({});
 
     const [workstream , setWorkstream] = useState({ results: [] })
+    const [workstreamList , setWorkstreamList] = useState({ results: [] })
 
     useEffect(() => {
         const handleMount = async () => {
           try {
-            const [{ data: workstream }] = await Promise.all([
+            const [{ data: workstreamList },{ data: workstream }] = await Promise.all([
+              axiosReq.get(`api/workstream/`),
               axiosReq.get(`api/workstream/${currentUser?.default_workstream_id}`),
+              
             ]);
             setWorkstream({ results: [workstream] });
-            console.log(workstream);
+            setWorkstreamList(workstreamList);
+            console.log(workstream, workstreamList);
           } catch (err) {
             console.log(err);
           }
@@ -46,12 +51,20 @@ const WorkstreamPage = () => {
     
     return (
         <>
-        <Workstream {...workstream.results[0]}/>
-        <div>
-            <h4>Available Workstream <Button icon="pi pi-plus" rounded text raised severity="primary" aria-label="Add Workstream" onClick={() => setVisible(true)}/></h4> 
-            <h5>list</h5>
-
-        </div>
+        { workstream.results.length ? (
+          workstream.results.map((object) => (
+            <Workstream {...object} primary={true}/>
+          ))
+        ) : (
+          <span>No comments... yet</span>
+        )}
+        { workstreamList.results.length ? (
+          workstreamList.results.map((ws, idx) => (
+            <WorkstreamList {...ws} key={idx}/>
+          ))
+        ) : (
+          <span>No comments... yet</span>
+        )}
         <Dialog
                 visible={visible}
                 modal
