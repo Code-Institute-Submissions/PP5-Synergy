@@ -16,6 +16,9 @@ const Workstream = (props) => {
         users,
         is_owner,
     } = props;
+    const mystyle = {
+        height: "25vh"
+    };
 
 
     const header = (
@@ -27,13 +30,13 @@ const Workstream = (props) => {
         </div>
     )
     return (
-        <Card className='mx-2 mt-2' onClick={() => {navigate(`/workstream/${id}`)}} header={header} subTitle={'Author: ' + owner?.username } pt={{ body: { className: "pt-0" }}}>
+        <Card style={mystyle} className='mx-2 mt-2 text-sm' onClick={() => {navigate(`/workstream/${id}`)}} header={header} subTitle={'Author: ' + owner?.username } pt={{ body: { className: "pt-0" }, content: { className: "pt-0" }, subTitle: { className: "mx-2" }}}>
             <span className='mx-2'>Paticipants</span>
             <span className='pi pi-users' />
             <div className="card flex justify-content-start">
                 <AvatarGroup>
                 {users?.map((user, idx) => (
-                    <Avatar image={user?.profile_avatar} shape="circle" size="xlarge" key={idx}/>
+                    <Avatar image={user?.profile_avatar} shape="circle" size="medium" key={idx}/>
                 ))}
                 </AvatarGroup>
             </div>
