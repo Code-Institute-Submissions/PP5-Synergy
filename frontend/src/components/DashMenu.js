@@ -7,12 +7,12 @@ import axios from "axios";
 
 const DashMenu = () => {
     const currentUser = useCurrentUser();
-    const SetCurrentUser = useSetCurrentUser();
+    const setCurrentUser = useSetCurrentUser();
 
     const handelLogout = async () => {
         try {
             await axios.post("dj-rest-auth/logout/");
-            SetCurrentUser(null);
+            setCurrentUser(null);
         } catch (err) {
             console.log(err);
         }
