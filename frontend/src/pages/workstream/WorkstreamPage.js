@@ -3,6 +3,7 @@ import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { Fieldset } from 'primereact/fieldset';
+import { ScrollPanel } from 'primereact/scrollpanel';
 import { InputText } from 'primereact/inputtext';
 import { axiosReq } from '../../api/axiosDefaults';
 import Workstream from './Workstream';
@@ -94,15 +95,17 @@ const WorkstreamPage = () => {
         ? btnGroup
         : null
         }
-        <Fieldset style={{height: "70vh"}} className='mx-2 mt-2 text-sm' legend={legendTemplate} toggleable pt={{ legend: { className: "bg-surface p-1 text-md" }, toggler: { className: "p-0" }}}>
-          { workstreamList.results.length ? (
-            workstreamList.results.map((ws, idx) => (
-              ws.id === workstream.results[0]?.id
-              ? null
-              : (<WorkstreamList {...ws} key={idx}/>)
-            ))
-          ) : null
-          }
+        <Fieldset style={{height: "70vh"}} className='mx-2 mt-2 text-sm' legend={legendTemplate} pt={{ legend: { className: "bg-surface p-1 text-md" }, toggler: { className: "p-0" }}}>
+          <ScrollPanel style={{ width: '100%', height: '60vh' }}>
+            { workstreamList.results.length ? (
+              workstreamList.results.map((ws, idx) => (
+                ws.id === workstream.results[0]?.id
+                ? null
+                : (<WorkstreamList {...ws} key={idx}/>)
+              ))
+            ) : null
+            }
+          </ScrollPanel>
         </Fieldset>
         <Dialog
                 visible={visible}
