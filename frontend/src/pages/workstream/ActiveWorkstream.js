@@ -49,21 +49,23 @@ const ActiveWorkstream = () => {
         { workstream.results.length ? (
             workstream.results.map((object, idx) => (
                 <Fieldset key={idx} legend={object.name}>
-                <h4>Author:<span className='text-color-secondary px-2'>{object.owner.username}</span></h4>
                 <div>
-                    <h4>Users:</h4>
-                    <div className="card flex justify-content-start">
-                        <AvatarGroup>
-                            {object.users?.map((user, idx) => (
-                                <Avatar image={user?.profile_avatar} size="large" shape="circle" />
-                            ))}
-                            <Avatar label="+" shape="circle" size="large"/>
-                        </AvatarGroup>
-                    </div>
+                <TabView>
+                        <TabPanel header="Participants" pt={{ headerAction: { className: "py-1" }}}>
+                        <div className="card flex justify-content-start">
+                            <AvatarGroup>
+                                {object.users?.map((user, idx) => (
+                                    <Avatar image={user?.profile_avatar} size="large" shape="circle" />
+                                ))}
+                                <Avatar label="+" shape="circle" size="large"/>
+                            </AvatarGroup>
+                        </div>
+                        </TabPanel>
+                    </TabView>
                 </div>
                 <div>
                     <TabView>
-                        <TabPanel header="Categories">
+                        <TabPanel header="Categories" pt={{ headerAction: { className: "py-1" }}}>
                             <div className="card flex flex-wrap gap-2">
                                 { category.results.length ? (
                                     category.results.map((object, idx) => (
@@ -75,7 +77,7 @@ const ActiveWorkstream = () => {
                                 <Chip className="pl-0 pr-3" template={newBtn}/>
                             </div>
                         </TabPanel>
-                        <TabPanel header="Projects">
+                        <TabPanel header="Projects" pt={{ headerAction: { className: "py-1" }}}>
                             <div className="card flex flex-wrap gap-2">
                                 { project.results.length ? (
                                     project.results.map((object, idx) => (
@@ -91,7 +93,7 @@ const ActiveWorkstream = () => {
                 </div>
                 <div>
                     <TabView>
-                        <TabPanel header="Available Tasks">
+                        <TabPanel header="Available Tasks" pt={{ headerAction: { className: "py-1" }}}>
                             <p className="m-0">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -99,7 +101,7 @@ const ActiveWorkstream = () => {
                                 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                             </p>
                         </TabPanel>
-                        <TabPanel header="Assigned Tasks">
+                        <TabPanel header="Assigned Tasks" pt={{ headerAction: { className: "py-1" }}}>
                             <p className="m-0">
                                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, 
                                 eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
