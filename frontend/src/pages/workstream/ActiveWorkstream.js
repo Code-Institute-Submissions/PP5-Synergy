@@ -58,15 +58,17 @@ const ActiveWorkstream = () => {
     useEffect(() => {
         const handleMount = async () => {
           try {
-            const [{ data: workstream }, { data: category }, { data: project }] = await Promise.all([
+            const [{ data: workstream }, { data: category }, { data: project }, { data: task }] = await Promise.all([
               axiosReq.get(`/api/workstream/${id}`),
               axiosReq.get(`/api/category/`),
               axiosReq.get(`/api/project/`),
+              axiosReq.get(`/api/task/`),
             ]);
             setWorkstream({ results: [workstream] });
             setCategory(category);
             setProject(project);
-            console.log(workstream, category, project)
+            setTask(task)
+            console.log(workstream, category, project, task)
           } catch (err) {
             setErrors(err.response?.data);
             console.log(errors)
@@ -114,14 +116,14 @@ const ActiveWorkstream = () => {
         <>
         { workstream.results.length ? (
             workstream.results.map((object, idx) => (
-                <Fieldset key={idx} legend={object.name}>
+                <Fieldset className='h-screen' key={idx} legend={object.name} pt={{ legend: { className: "bg-surface p-1 text-md" }, content: { className: "p-0" }}}>
                 <div>
                 <TabView>
                         <TabPanel header="Participants" pt={{ headerAction: { className: "py-1" }}}>
                         <div className="card flex justify-content-start">
                             <AvatarGroup>
                                 {object.users?.map((user, idx) => (
-                                    <Avatar image={user?.profile_avatar} size="large" shape="circle" />
+                                    <Avatar image={user?.profile_avatar} size="large" shape="circle" key={idx}/>
                                 ))}
                                 <Avatar label="+" shape="circle" size="large"/>
                             </AvatarGroup>
