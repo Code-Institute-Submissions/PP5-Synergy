@@ -23,15 +23,29 @@ const ActiveWorkstream = () => {
 
     const [inputData, setInputData] = useState({
         name: "",
-        title: ""
     });
-    const { name, title } = inputData;
+    const { name } = inputData;
+
+    const [projectData, setProjectData] = useState({
+        title: "",
+    });
+    const { title } = projectData;
 
     const handleChange = (event) => {
-        setInputData({
-          ...inputData,
-          [event.target.name]: event.target.value,
-        });
+        {event.target.name === 'name' 
+        ? (
+            setInputData({
+                ...inputData,
+                [event.target.name]: event.target.value,
+                })
+        ) : (
+            setProjectData({
+                ...projectData,
+                [event.target.name]: event.target.value,
+                })
+        )
+        }
+        ;
     };
 
     const newBtn = (
@@ -44,7 +58,7 @@ const ActiveWorkstream = () => {
     useEffect(() => {
         const handleMount = async () => {
           try {
-            const [{ data: workstream }, { data: category }] = await Promise.all([
+            const [{ data: workstream }, { data: category }, { data: project }] = await Promise.all([
               axiosReq.get(`/api/workstream/${id}`),
               axiosReq.get(`/api/category/`),
               axiosReq.get(`/api/project/`),
@@ -52,7 +66,7 @@ const ActiveWorkstream = () => {
             setWorkstream({ results: [workstream] });
             setCategory(category);
             setProject(project);
-            console.log(workstream, category)
+            console.log(workstream, category, project)
           } catch (err) {
             setErrors(err.response?.data);
             console.log(errors)
@@ -65,7 +79,11 @@ const ActiveWorkstream = () => {
     const handleCreateCat = async (e) => {
         e.preventDefault();
         try {
-          const { data } = await axiosReq.post("/api/category/", inputData.name);
+          const { data } = await axiosReq.post("/api/category/", inputData);
+          setCategory((prevCategory) => ({
+            ...prevCategory,
+            results: [data, ...prevCategory.results],
+          }));
           console.log(data)
         } catch (err) {
             setErrors(err.response?.data);
@@ -73,6 +91,23 @@ const ActiveWorkstream = () => {
             console.log(errors)
         }
         setVisibleCat(false)
+    }
+
+    const handleCreateProj = async (e) => {
+        e.preventDefault();
+        try {
+          const { data } = await axiosReq.post("/api/project/", projectData);
+          setProject((prevProject) => ({
+            ...prevProject,
+            results: [data, ...prevProject.results],
+          }));
+          console.log(data)
+        } catch (err) {
+            setErrors(err.response?.data);
+            console.log('project error')
+            console.log(errors)
+        }
+        setVisible(false)
     }
     
     return (
@@ -112,7 +147,7 @@ const ActiveWorkstream = () => {
                             <div className="card flex flex-wrap gap-2">
                                 { project.results.length ? (
                                     project.results.map((object, idx) => (
-                                        <Chip label={object.name} key={idx}/>
+                                        <Chip label={object.title} key={idx}/>
                                     ))
                                     ) : (
                                     null
@@ -184,7 +219,7 @@ const ActiveWorkstream = () => {
                             <InputText value={title} onChange={handleChange} id="title" label="title" name='title' className="bg-white-alpha-20 border-none p-3 text-primary-50"></InputText>
                         </div>
                         <div className="flex align-items-center gap-2">
-                            <Button label="Submit" onClick={(e) => hide(e)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
+                            <Button label="Submit" onClick={handleCreateProj} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
                             <Button label="Cancel" onClick={(e) => hide(e)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
                         </div>
                     </div>
