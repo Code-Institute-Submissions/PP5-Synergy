@@ -6,6 +6,7 @@ import { Avatar } from 'primereact/avatar';
 import { AvatarGroup } from 'primereact/avatargroup';
 import { TabView, TabPanel } from 'primereact/tabview';
 import { Chip } from 'primereact/chip';
+import { Message } from 'primereact/message';
 
 const ActiveWorkstream = () => {
     const { id }  = useParams()
@@ -15,14 +16,25 @@ const ActiveWorkstream = () => {
     const [task, setTask] = useState({results: []})
     const [errors, setErrors] = useState({});
 
+    const newBtn = (
+        <>
+            <span className="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center pi pi-plus"></span>
+            <span className="ml-2 font-medium">New</span>
+        </>
+    );
+
     useEffect(() => {
         const handleMount = async () => {
           try {
-            const [{ data: workstream }] = await Promise.all([
+            const [{ data: workstream }, { data: category }] = await Promise.all([
               axiosReq.get(`/api/workstream/${id}`),
+              axiosReq.get(`/api/category/`),
+              axiosReq.get(`/api/project/`),
             ]);
             setWorkstream({ results: [workstream] });
-            console.log(workstream)
+            setCategory(category);
+            setProject(project);
+            console.log(workstream, category)
           } catch (err) {
             setErrors(err.response?.data);
             console.log(errors)
@@ -53,15 +65,26 @@ const ActiveWorkstream = () => {
                     <TabView>
                         <TabPanel header="Categories">
                             <div className="card flex flex-wrap gap-2">
-                                <Chip label="Shopping" />
-                                <Chip label="Cooking" />
-                                <Chip label="Cleaning" />
+                                { category.results.length ? (
+                                    category.results.map((object, idx) => (
+                                        <Chip label={object.name} key={idx}/>
+                                    ))
+                                    ) : (
+                                    <Message className='py-0 px-1' severity="warn" text="Category Required" />
+                                )}
+                                <Chip className="pl-0 pr-3" template={newBtn}/>
                             </div>
                         </TabPanel>
                         <TabPanel header="Projects">
                             <div className="card flex flex-wrap gap-2">
-                                <Chip label="Dads Birthday" />
-                                <Chip label="Holiday" />
+                                { project.results.length ? (
+                                    project.results.map((object, idx) => (
+                                        <Chip label={object.name} key={idx}/>
+                                    ))
+                                    ) : (
+                                    null
+                                )}
+                                <Chip className="pl-0 pr-3" template={newBtn}/>
                             </div>
                         </TabPanel>
                     </TabView>
