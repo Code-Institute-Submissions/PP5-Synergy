@@ -160,6 +160,15 @@ const ActiveWorkstream = () => {
                     <TabView pt={{ panelContainer: {className: "py-2"}}}>
                         <TabPanel header="Available Tasks" pt={{ headerAction: { className: "py-1" }}}>
                             <div className="card flex flex-column flex-wrap gap-2">
+                                { task.results.length ? (
+                                    task.results.map((object, idx) => (
+                                        object.is_completed === false
+                                        ? <Chip label={object.name} image={object.owner?.profile_avatar} key={idx}/>
+                                        : null
+                                    ))
+                                    ) : (
+                                    null
+                                )}
                                 <Chip label="Amy Elsner" image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" />
                                 <Chip label="Asiya Javayant" image="https://primefaces.org/cdn/primereact/images/avatar/asiyajavayant.png" />
                                 <Chip label="Onyama Limba" image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" />
@@ -171,12 +180,25 @@ const ActiveWorkstream = () => {
                             </div>
                         </TabPanel>
                         <TabPanel header="Assigned Tasks" pt={{ headerAction: { className: "py-1" }}}>
-                            <p className="m-0">
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, 
-                                eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                                enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui 
-                                ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
-                            </p>
+                        <div className="card flex flex-column flex-wrap gap-2">
+                                { task.results.length ? (
+                                    task.results.map((object, idx) => (
+                                        object.is_completed === true
+                                        ? <Chip label={object.name} image={object.owner?.profile_avatar} key={idx}/>
+                                        : null
+                                    ))
+                                    ) : (
+                                    null
+                                )}
+                                <Chip label="Amy Elsner" image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" />
+                                <Chip label="Asiya Javayant" image="https://primefaces.org/cdn/primereact/images/avatar/asiyajavayant.png" />
+                                <Chip label="Onyama Limba" image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" />
+                                <Chip label="Xuxue Feng" image="https://primefaces.org/cdn/primereact/images/avatar/xuxuefeng.png" />
+                                <Chip label="Amy Elsner" image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" />
+                                <Chip label="Asiya Javayant" image="https://primefaces.org/cdn/primereact/images/avatar/asiyajavayant.png" />
+                                <Chip label="Onyama Limba" image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" />
+                                <Chip label="Xuxue Feng" image="https://primefaces.org/cdn/primereact/images/avatar/xuxuefeng.png" />
+                            </div>
                         </TabPanel>
                     </TabView>
                 </ScrollPanel>
