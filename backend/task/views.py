@@ -8,8 +8,15 @@ class TaskList(generics.ListCreateAPIView):
     """
     List all profiles.
     """
-    queryset = Task.objects.all().order_by('-created_at')
     serializer_class = TaskSerializer
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        user = self.request.user
+        return Task.objects.filter(category__workstream=user.profile.default_workstream)
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
