@@ -3,8 +3,11 @@ import { useParams } from 'react-router-dom'
 import { axiosReq } from '../../api/axiosDefaults'
 import { Fieldset } from 'primereact/fieldset';
 import { Avatar } from 'primereact/avatar';
+import { Dialog } from 'primereact/dialog';
 import { AvatarGroup } from 'primereact/avatargroup';
 import { TabView, TabPanel } from 'primereact/tabview';
+import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
 import { Chip } from 'primereact/chip';
 import { Message } from 'primereact/message';
 
@@ -14,7 +17,22 @@ const ActiveWorkstream = () => {
     const [category, setCategory] = useState({results: []})
     const [project, setProject] = useState({results: []})
     const [task, setTask] = useState({results: []})
+    const [visibleCat, setVisibleCat] = useState(false);
+    const [visible, setVisible] = useState(false);
     const [errors, setErrors] = useState({});
+
+    const [inputData, setInputData] = useState({
+        name: "",
+        title: ""
+    });
+    const { name, title } = inputData;
+
+    const handleChange = (event) => {
+        setInputData({
+          ...inputData,
+          [event.target.name]: event.target.value,
+        });
+    };
 
     const newBtn = (
         <>
@@ -43,6 +61,19 @@ const ActiveWorkstream = () => {
     
         handleMount();
     }, [id]);
+
+    const handleCreateCat = async (e) => {
+        e.preventDefault();
+        try {
+          const { data } = await axiosReq.post("/api/category/", inputData.name);
+          console.log(data)
+        } catch (err) {
+            setErrors(err.response?.data);
+            console.log('cat error')
+            console.log(errors)
+        }
+        setVisibleCat(false)
+    }
     
     return (
         <>
@@ -74,7 +105,7 @@ const ActiveWorkstream = () => {
                                     ) : (
                                     <Message className='py-0 px-1' severity="warn" text="Category Required" />
                                 )}
-                                <Chip className="pl-0 pr-3" template={newBtn}/>
+                                <Chip className="pl-0 pr-3" template={newBtn} onClick={() => setVisibleCat(true)}/>
                             </div>
                         </TabPanel>
                         <TabPanel header="Projects" pt={{ headerAction: { className: "py-1" }}}>
@@ -86,7 +117,7 @@ const ActiveWorkstream = () => {
                                     ) : (
                                     null
                                 )}
-                                <Chip className="pl-0 pr-3" template={newBtn}/>
+                                <Chip className="pl-0 pr-3" template={newBtn} onClick={() => setVisible(true)}/>
                             </div>
                         </TabPanel>
                     </TabView>
@@ -115,7 +146,50 @@ const ActiveWorkstream = () => {
               ))
         ) : null
         }
-        
+        <Dialog
+                visible={visibleCat}
+                modal
+                onHide={() => {if (!visibleCat) return; setVisibleCat(false); 
+                    setInputData({
+                    name: ""
+                  }); }}
+                content={({ hide }) => (
+                    <div className="flex flex-column px-8 py-5 gap-4" style={{ borderRadius: '12px', backgroundImage: 'radial-gradient(circle at left top, var(--primary-400), var(--primary-700))' }}>
+                        <div className="inline-flex flex-column gap-2">
+                            <label htmlFor="name" className="text-primary-50 font-semibold">
+                                Category Name
+                            </label>
+                            <InputText value={name} onChange={handleChange} id="name" label="name" name='name' className="bg-white-alpha-20 border-none p-3 text-primary-50"></InputText>
+                        </div>
+                        <div className="flex align-items-center gap-2">
+                            <Button label="Submit" onClick={handleCreateCat} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
+                            <Button label="Cancel" onClick={(e) => hide(e)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
+                        </div>
+                    </div>
+                )}
+            ></Dialog>
+        <Dialog
+                visible={visible}
+                modal
+                onHide={() => {if (!visible) return; setVisible(false); 
+                    setInputData({
+                    name: ""
+                  }); }}
+                content={({ hide }) => (
+                    <div className="flex flex-column px-8 py-5 gap-4" style={{ borderRadius: '12px', backgroundImage: 'radial-gradient(circle at left top, var(--primary-400), var(--primary-700))' }}>
+                        <div className="inline-flex flex-column gap-2">
+                            <label htmlFor="title" className="text-primary-50 font-semibold">
+                                Project Title
+                            </label>
+                            <InputText value={title} onChange={handleChange} id="title" label="title" name='title' className="bg-white-alpha-20 border-none p-3 text-primary-50"></InputText>
+                        </div>
+                        <div className="flex align-items-center gap-2">
+                            <Button label="Submit" onClick={(e) => hide(e)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
+                            <Button label="Cancel" onClick={(e) => hide(e)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
+                        </div>
+                    </div>
+                )}
+            ></Dialog>
         </>
     )
 }
