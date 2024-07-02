@@ -5,7 +5,6 @@ import { Dialog } from 'primereact/dialog';
 import { Fieldset } from 'primereact/fieldset';
 import { InputText } from 'primereact/inputtext';
 import { axiosReq } from '../../api/axiosDefaults';
-import axios from "axios";
 import Workstream from './Workstream';
 import WorkstreamList from './WorkstreamList';
 
