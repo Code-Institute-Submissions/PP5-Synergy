@@ -10,6 +10,7 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Chip } from 'primereact/chip';
 import { Message } from 'primereact/message';
+import { ScrollPanel } from 'primereact/scrollpanel';
 
 const ActiveWorkstream = () => {
     const { id }  = useParams()
@@ -116,8 +117,8 @@ const ActiveWorkstream = () => {
         <>
         { workstream.results.length ? (
             workstream.results.map((object, idx) => (
-                <Fieldset className='h-screen' key={idx} legend={object.name} pt={{ legend: { className: "bg-surface p-1 text-md" }, content: { className: "p-0" }}}>
-                <div>
+            <Fieldset className='h-screen' key={idx} legend={object.name} pt={{ legend: { className: "bg-surface p-1 text-md" }, content: { className: "p-0" }}}>
+                <ScrollPanel className='p-2' style={{ width: '100%', height: '90vh' }}>
                 <TabView>
                         <TabPanel header="Participants" pt={{ headerAction: { className: "py-1" }}}>
                         <div className="card flex justify-content-start">
@@ -130,8 +131,6 @@ const ActiveWorkstream = () => {
                         </div>
                         </TabPanel>
                     </TabView>
-                </div>
-                <div>
                     <TabView>
                         <TabPanel header="Categories" pt={{ headerAction: { className: "py-1" }}}>
                             <div className="card flex flex-wrap gap-2">
@@ -158,16 +157,18 @@ const ActiveWorkstream = () => {
                             </div>
                         </TabPanel>
                     </TabView>
-                </div>
-                <div>
-                    <TabView>
+                    <TabView pt={{ panelContainer: {className: "py-2"}}}>
                         <TabPanel header="Available Tasks" pt={{ headerAction: { className: "py-1" }}}>
-                            <p className="m-0">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
+                            <div className="card flex flex-column flex-wrap gap-2">
+                                <Chip label="Amy Elsner" image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" />
+                                <Chip label="Asiya Javayant" image="https://primefaces.org/cdn/primereact/images/avatar/asiyajavayant.png" />
+                                <Chip label="Onyama Limba" image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" />
+                                <Chip label="Xuxue Feng" image="https://primefaces.org/cdn/primereact/images/avatar/xuxuefeng.png" />
+                                <Chip label="Amy Elsner" image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" />
+                                <Chip label="Asiya Javayant" image="https://primefaces.org/cdn/primereact/images/avatar/asiyajavayant.png" />
+                                <Chip label="Onyama Limba" image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" />
+                                <Chip label="Xuxue Feng" image="https://primefaces.org/cdn/primereact/images/avatar/xuxuefeng.png" />
+                            </div>
                         </TabPanel>
                         <TabPanel header="Assigned Tasks" pt={{ headerAction: { className: "py-1" }}}>
                             <p className="m-0">
@@ -178,7 +179,7 @@ const ActiveWorkstream = () => {
                             </p>
                         </TabPanel>
                     </TabView>
-                </div>
+                </ScrollPanel>
             </Fieldset>
               ))
         ) : null
