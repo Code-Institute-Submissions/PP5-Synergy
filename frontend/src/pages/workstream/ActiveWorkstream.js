@@ -159,11 +159,11 @@ const ActiveWorkstream = () => {
                     </TabView>
                     <TabView pt={{ panelContainer: {className: "py-2"}}}>
                         <TabPanel header="Available Tasks" pt={{ headerAction: { className: "py-1" }}}>
-                            <div className="card flex flex-column flex-wrap gap-2">
+                            <ul className="card flex flex-column flex-wrap gap-2">
                                 { task.results.length ? (
                                     task.results.map((object, idx) => (
-                                        object.is_completed === false
-                                        ? <Chip label={object.name} image={object.owner?.profile_avatar} key={idx}/>
+                                        object.owner === null
+                                        ? <li key={idx}><Chip label={object.name} image={object.owner?.profile_avatar}/></li>
                                         : null
                                     ))
                                     ) : (
@@ -177,14 +177,14 @@ const ActiveWorkstream = () => {
                                 <Chip label="Asiya Javayant" image="https://primefaces.org/cdn/primereact/images/avatar/asiyajavayant.png" />
                                 <Chip label="Onyama Limba" image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" />
                                 <Chip label="Xuxue Feng" image="https://primefaces.org/cdn/primereact/images/avatar/xuxuefeng.png" />
-                            </div>
+                            </ul>
                         </TabPanel>
                         <TabPanel header="Assigned Tasks" pt={{ headerAction: { className: "py-1" }}}>
-                        <div className="card flex flex-column flex-wrap gap-2">
+                            <ul className="card flex flex-column flex-wrap gap-2">
                                 { task.results.length ? (
                                     task.results.map((object, idx) => (
-                                        object.is_completed === true
-                                        ? <Chip label={object.name} image={object.owner?.profile_avatar} key={idx}/>
+                                        object.owner !== null
+                                        ? <li key={idx}><Chip label={object.name} image={object.owner?.profile_avatar}/></li>
                                         : null
                                     ))
                                     ) : (
@@ -198,7 +198,7 @@ const ActiveWorkstream = () => {
                                 <Chip label="Asiya Javayant" image="https://primefaces.org/cdn/primereact/images/avatar/asiyajavayant.png" />
                                 <Chip label="Onyama Limba" image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" />
                                 <Chip label="Xuxue Feng" image="https://primefaces.org/cdn/primereact/images/avatar/xuxuefeng.png" />
-                            </div>
+                            </ul>
                         </TabPanel>
                     </TabView>
                 </ScrollPanel>
