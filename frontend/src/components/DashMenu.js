@@ -30,7 +30,7 @@ const DashMenu = () => {
 
     const renderLogout = (item) => (
         <div className={'p-menuitem-content ' + item.border}>
-            <Link className="flex align-items-center p-menuitem-link" onClick={handelLogout}>
+            <Link className="flex align-items-center p-menuitem-link" onClick={handelLogout} to={'/'}>
                 <span className={item.icon} />
                 <span className="mx-2">{item.label}</span>
                 {item.shortcut && <span className="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{item.shortcut}</span>}
