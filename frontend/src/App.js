@@ -24,7 +24,7 @@ function App() {
               <Route exact path="/signup" element={<SignUpForm />} />
               <Route exact path="/dashboard" element={<Dashboard />} />
               <Route exact path="/workstream" element={<WorkstreamPage />} />
-              <Route exact path="/workstream/:id" element={<ActiveWorkstream />} />
+              <Route exact path="/workstream/active" element={<ActiveWorkstream />} />
               <Route path="*" element={<h2>Page not found</h2>} />
             </Routes>
             </div>
