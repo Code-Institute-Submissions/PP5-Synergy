@@ -28,7 +28,7 @@ const Workstream = (props) => {
     );
 
     return (
-        <Fieldset style={mystyle} className='mx-2 mt-2 text-sm' legend={legendTemplate} onClick={() => {navigate(`/workstream/${id}`)}} pt={{ legend: { className: "bg-primary p-1" }}}>
+        <Fieldset style={mystyle} className='mx-2 mt-2 text-sm' legend={legendTemplate} onClick={() => {navigate(`/workstream/active`)}} pt={{ legend: { className: "bg-primary p-1" }}}>
                 <span className='mx-2'>Paticipants</span>
                 <span className='pi pi-users' />
                 <div className="card flex justify-content-start">
