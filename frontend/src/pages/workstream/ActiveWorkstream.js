@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import { axiosReq } from '../../api/axiosDefaults'
 import { Fieldset } from 'primereact/fieldset';
 import { Avatar } from 'primereact/avatar';
@@ -13,7 +12,6 @@ import { Message } from 'primereact/message';
 import { ScrollPanel } from 'primereact/scrollpanel';
 
 const ActiveWorkstream = () => {
-    const { id }  = useParams()
     const [workstream , setWorkstream] = useState({results: []})
     const [category, setCategory] = useState({results: []})
     const [project, setProject] = useState({results: []})
@@ -60,12 +58,12 @@ const ActiveWorkstream = () => {
         const handleMount = async () => {
           try {
             const [{ data: workstream }, { data: category }, { data: project }, { data: task }] = await Promise.all([
-              axiosReq.get(`/api/workstream/${id}`),
+              axiosReq.get(`/api/workstream/active/`),
               axiosReq.get(`/api/category/`),
               axiosReq.get(`/api/project/`),
               axiosReq.get(`/api/task/`),
             ]);
-            setWorkstream({ results: [workstream] });
+            setWorkstream(workstream);
             setCategory(category);
             setProject(project);
             setTask(task)
@@ -77,7 +75,7 @@ const ActiveWorkstream = () => {
         };
     
         handleMount();
-    }, [id]);
+    }, []);
 
     const handleCreateCat = async (e) => {
         e.preventDefault();
@@ -117,13 +115,13 @@ const ActiveWorkstream = () => {
         <>
         { workstream.results.length ? (
             workstream.results.map((object, idx) => (
-            <Fieldset className='h-screen' key={idx} legend={object.name} pt={{ legend: { className: "bg-surface p-1 text-md" }, content: { className: "p-0" }}}>
+            <Fieldset className='h-screen' key={idx} legend={object.workstream.name} pt={{ legend: { className: "bg-surface p-1 text-md" }, content: { className: "p-0" }}}>
                 <ScrollPanel className='p-2' style={{ width: '100%', height: '90vh' }}>
                 <TabView>
                         <TabPanel header="Participants" pt={{ headerAction: { className: "py-1" }}}>
                         <div className="card flex justify-content-start">
                             <AvatarGroup>
-                                {object.users?.map((user, idx) => (
+                                {object.workstream.users?.map((user, idx) => (
                                     <Avatar image={user?.profile_avatar} size="large" shape="circle" key={idx}/>
                                 ))}
                                 <Avatar label="+" shape="circle" size="large"/>
@@ -159,7 +157,7 @@ const ActiveWorkstream = () => {
                     </TabView>
                     <TabView pt={{ panelContainer: {className: "py-2"}}}>
                         <TabPanel header="Available Tasks" pt={{ headerAction: { className: "py-1" }}}>
-                            <ul className="card flex flex-column flex-wrap gap-2">
+                            <ul className="card flex flex-column flex-wrap gap-2 list-none px-0">
                                 { task.results.length ? (
                                     task.results.map((object, idx) => (
                                         object.owner === null
@@ -180,7 +178,7 @@ const ActiveWorkstream = () => {
                             </ul>
                         </TabPanel>
                         <TabPanel header="Assigned Tasks" pt={{ headerAction: { className: "py-1" }}}>
-                            <ul className="card flex flex-column flex-wrap gap-2">
+                            <ul className="card flex flex-column flex-wrap gap-2 list-none px-0">
                                 { task.results.length ? (
                                     task.results.map((object, idx) => (
                                         object.owner !== null
