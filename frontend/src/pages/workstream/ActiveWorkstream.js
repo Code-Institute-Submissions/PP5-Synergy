@@ -124,7 +124,10 @@ const ActiveWorkstream = () => {
                                 {object.workstream.users?.map((user, idx) => (
                                     <Avatar image={user?.profile_avatar} size="large" shape="circle" key={idx}/>
                                 ))}
-                                <Avatar label="+" shape="circle" size="large"/>
+                                { object.workstream.is_owner
+                                ? (<Avatar label="+" shape="circle" size="large"/>)
+                                : null
+                                }
                             </AvatarGroup>
                         </div>
                         </TabPanel>
@@ -139,7 +142,10 @@ const ActiveWorkstream = () => {
                                     ) : (
                                     <Message className='py-0 px-1' severity="warn" text="Category Required" />
                                 )}
-                                <Chip className="pl-0 pr-3" template={newBtn} onClick={() => setVisibleCat(true)}/>
+                                { object.is_staff
+                                ? (<Chip className="pl-0 pr-3" template={newBtn} onClick={() => setVisibleCat(true)}/>)
+                                : null
+                                }
                             </div>
                         </TabPanel>
                         <TabPanel header="Projects" pt={{ headerAction: { className: "py-1" }}}>
@@ -151,7 +157,11 @@ const ActiveWorkstream = () => {
                                     ) : (
                                     null
                                 )}
-                                <Chip className="pl-0 pr-3" template={newBtn} onClick={() => setVisible(true)}/>
+                                { object.is_staff
+                                ? (<Chip className="pl-0 pr-3" template={newBtn} onClick={() => setVisible(true)}/>)
+                                : null
+                                }
+                                
                             </div>
                         </TabPanel>
                     </TabView>
