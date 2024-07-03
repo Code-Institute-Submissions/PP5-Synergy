@@ -10,6 +10,7 @@ import { InputText } from 'primereact/inputtext';
 import { Chip } from 'primereact/chip';
 import { Message } from 'primereact/message';
 import { ScrollPanel } from 'primereact/scrollpanel';
+import WorkstreamTask from '../../components/WorkstreamTask';
 
 const ActiveWorkstream = () => {
     const [workstream , setWorkstream] = useState({results: []})
@@ -171,7 +172,7 @@ const ActiveWorkstream = () => {
                                 { task.results.length ? (
                                     task.results.map((object, idx) => (
                                         object.owner === null
-                                        ? <li key={idx}><Chip label={object.name} image={object.owner?.profile_avatar}/></li>
+                                        ? <li key={idx}><WorkstreamTask {...object}/></li>
                                         : null
                                     ))
                                     ) : (
