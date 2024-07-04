@@ -48,6 +48,7 @@ const WorkstreamPage = () => {
         };
     
         handleMount();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
 
     const [visible, setVisible] = useState(false);

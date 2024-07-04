@@ -76,6 +76,7 @@ const ActiveWorkstream = () => {
         };
     
         handleMount();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleCreateCat = async (e) => {
