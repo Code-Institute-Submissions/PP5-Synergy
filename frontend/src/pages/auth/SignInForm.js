@@ -7,6 +7,7 @@ import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Message } from 'primereact/message';
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import { setTokenTimestamp } from "../../utils/utils";
 
 const SignInForm = () => {
     const SetCurrentUser = useSetCurrentUser();
@@ -25,6 +26,7 @@ const SignInForm = () => {
         try {
           const { data } = await axios.post("/dj-rest-auth/login/", signInData);
           SetCurrentUser(data.user)
+          setTokenTimestamp(data)
           console.log(data.user)
           navigate('/dashboard')
           console.log(data)
