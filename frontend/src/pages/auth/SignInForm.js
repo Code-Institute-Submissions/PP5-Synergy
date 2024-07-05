@@ -27,6 +27,8 @@ const SignInForm = () => {
           SetCurrentUser(data.user)
           console.log(data.user)
           navigate('/dashboard')
+          console.log(data)
+        //   navigate('/workstream/active')
         } catch (err) {
             setErrors(err.response?.data);
         }
