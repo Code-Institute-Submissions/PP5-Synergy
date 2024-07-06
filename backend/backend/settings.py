@@ -48,10 +48,9 @@ REST_AUTH = {
     'JWT_AUTH_REFRESH_COOKIE': 'my-refresh-token',
     'JWT_AUTH_HTTPONLY': False,
     'USER_DETAILS_SERIALIZER': 'backend.serializers.CurrentUserSerializer',
-    
+    'JWT_AUTH_SAMESITE': 'None',
+    'JWT_AUTH_RETURN_EXPIRATION': True,
 }
-
-JWT_AUTH_SAMESITE = 'None'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
