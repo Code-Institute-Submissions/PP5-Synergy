@@ -27,7 +27,6 @@ const SignInForm = () => {
           const { data } = await axios.post("/dj-rest-auth/login/", signInData);
           SetCurrentUser(data.user)
           navigate('/dashboard')
-          console.log(data)
           setTokenTimestamp(data)
         } catch (err) {
             setErrors(err.response?.data);
