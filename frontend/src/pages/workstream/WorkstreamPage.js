@@ -26,19 +26,12 @@ const WorkstreamPage = () => {
     useEffect(() => {
         const handleMount = async () => {
           try {
-            if(currentUser?.default_workstream_id){
               const [{ data: workstreamList },{ data: workstream }] = await Promise.all([
                 axiosReq.get(`api/workstream/`),
-                axiosReq.get(`api/workstream/${currentUser?.default_workstream_id}`),
+                axiosReq.get(`api/workstream/active/`),
               ]);
-              setWorkstream({ results: [workstream] });
+              setWorkstream({ results: [workstream.results[0].workstream] });
               setWorkstreamList(workstreamList);
-            } else {
-              const [{ data: workstreamList }] = await Promise.all([
-                axiosReq.get(`api/workstream/`),
-              ]);
-              setWorkstreamList(workstreamList);
-            }
             
             
             console.log(workstream, workstreamList);
