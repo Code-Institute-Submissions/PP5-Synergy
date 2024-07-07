@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from category.models import Category
+from project.models import Project
 
 
 class Task(models.Model):
@@ -17,7 +18,8 @@ class Task(models.Model):
     detail = models.TextField(blank=True)
     priority = models.IntegerField(choices=PRIORITY_LEVELS, default=1)
     is_completed = models.BooleanField(default=False)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True, related_name='user')
     deadline = models.DateTimeField()
 
