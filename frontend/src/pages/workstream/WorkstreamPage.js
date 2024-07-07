@@ -8,9 +8,11 @@ import { InputText } from 'primereact/inputtext';
 import { axiosReq } from '../../api/axiosDefaults';
 import Workstream from './Workstream';
 import WorkstreamList from './WorkstreamList';
+import { useNavigate } from 'react-router-dom';
 
 const WorkstreamPage = () => {
     const currentUser = useCurrentUser();
+    const navigate = useNavigate()
     const [errors, setErrors] = useState({});
 
     const [workstream , setWorkstream] = useState({ results: [] })
@@ -66,6 +68,7 @@ const WorkstreamPage = () => {
           console.log(errors)
       }
       setVisible(false)
+      navigate('/workstream/active')
     }
 
     const btnGroup = (
