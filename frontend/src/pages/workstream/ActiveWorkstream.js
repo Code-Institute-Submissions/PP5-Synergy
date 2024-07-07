@@ -9,8 +9,10 @@ import { Menu } from 'primereact/menu';
 import { Chip } from 'primereact/chip';
 import { Message } from 'primereact/message';
 import { ScrollPanel } from 'primereact/scrollpanel';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import WorkstreamTask from '../../components/WorkstreamTask';
 import DialogForm from '../../components/DialogForm';
+import { useNavigate } from 'react-router-dom';
 
 const ActiveWorkstream = () => {
     const [workstream , setWorkstream] = useState({results: []})
@@ -27,7 +29,10 @@ const ActiveWorkstream = () => {
     const [visibleEditProj, setVisibleEditProj] = useState(false);
     const [editProjID, setEditProjID] = useState(0)
 
+
+
     const [errors, setErrors] = useState({});
+    const navigate = useNavigate()
 
     const [inputData, setInputData] = useState({
         name: "",
@@ -53,10 +58,15 @@ const ActiveWorkstream = () => {
             label: 'Delete',
             icon: 'pi pi-times',
             command: () => {
-                console.log('delete navigate')
+                confirm1()
+                setWorkstreamName(workstream.results[0].workstream.name)
             }
         }
     ];
+
+    const handleDelete = async (e) => {
+        
+    }
 
     const newBtn = (
         <>
@@ -71,6 +81,16 @@ const ActiveWorkstream = () => {
             <span className="ml-2 font-medium">New</span>
         </>
     );
+
+    const confirm1 = () => {
+        confirmDialog({
+            group: 'headless',
+            message: 'Are you sure you want to proceed?',
+            header: 'Delete Workstream:',
+            icon: 'pi pi-exclamation-triangle',
+            defaultFocus: 'accept',
+        });
+    };
 
     useEffect(() => {
         const handleMount = async () => {
@@ -240,6 +260,46 @@ const ActiveWorkstream = () => {
         <DialogForm url='/api/project/' title='Create Project' inputData={projectData} setInputData={setProjectData} visible={visible} setVisible={setVisible} setAttribute={setProject} edit={false}/>
         <DialogForm url={`/api/category/${editCatID}/`} title='Edit Category' inputData={inputData} setInputData={setInputData} visible={visibleEditCat} setVisible={setVisibleEditCat} edit={true}/>
         <DialogForm url={`/api/project/${editProjID}/`} title='Edit Project' inputData={projectData} setInputData={setProjectData} visible={visibleEditProj} setVisible={setVisibleEditProj} edit={true}/>
+        <ConfirmDialog
+                group="headless"
+                content={({ headerRef, contentRef, footerRef, hide, message }) => (
+                    <div className="flex flex-column align-items-center p-5 surface-overlay border-round">
+                        <div className="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem -mt-8">
+                            <i className="pi pi-exclamation-triangle text-5xl"></i>
+                        </div>
+                        <span className="font-bold text-2xl block mb-2 mt-4" ref={headerRef}>
+                            {message.header +" "+ workstreamName }
+                        </span>
+                        <p className="mb-0" ref={contentRef}>
+                            {message.message}
+                        </p>
+                        <div className="flex align-items-center gap-2 mt-4" ref={footerRef}>
+                            <Button
+                                label="Submit"
+                                onClick={ async (event) => {
+                                    hide(event);
+                                    event.preventDefault();
+                                    try {
+                                        const { data } = await axiosReq.delete(`api/workstream/${workstreamID}/`);
+                                    } catch (err) {
+                                        setErrors(err.response?.data);
+                                    }
+                                    navigate('/workstream')
+                                }}
+                                className="w-8rem"
+                            ></Button>
+                            <Button
+                                label="Cancel"
+                                outlined
+                                onClick={(event) => {
+                                    hide(event);
+                                }}
+                                className="w-8rem"
+                            ></Button>
+                        </div>
+                    </div>
+                )}
+            />
         </>
     )
 }

@@ -30,18 +30,17 @@ const WorkstreamPage = () => {
                 axiosReq.get(`api/workstream/`),
                 axiosReq.get(`api/workstream/active/`),
               ]);
-              setWorkstream({ results: [workstream.results[0].workstream] });
+              if(workstream.results.length > 0) {
+                setWorkstream({ results: [workstream.results[0]?.workstream] });
+              }
               setWorkstreamList(workstreamList);
-            
-            
-            console.log(workstream, workstreamList);
           } catch (err) {
             console.log(err);
           }
+          console.log(workstream, workstreamList)
         };
     
         handleMount();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
 
     const [visible, setVisible] = useState(false);
@@ -71,8 +70,8 @@ const WorkstreamPage = () => {
 
     const btnGroup = (
       <div className={workstream.results.length ? "flex justify-content-center align-items-center gap-2 -my-3" : "flex justify-content-center align-items-center gap-2 -mb-3 mt-1"}>
-          <Button icon="pi pi-plus" rounded severity="primary" aria-label="Create Workstream" onClick={() => setVisible(true)}/>
-          <Button icon="pi pi-send" rounded severity="primary" aria-label="Send Workstream Join request" />
+          <Button icon="pi pi-plus" label={workstream.results.length ? null: 'Create'} rounded severity="primary" aria-label="Create Workstream" onClick={() => setVisible(true)}/>
+          <Button icon="pi pi-send" label={workstream.results.length ? null: 'Join'} rounded severity="primary" aria-label="Send Workstream Join request" />
       </div>
     );
     
@@ -80,15 +79,16 @@ const WorkstreamPage = () => {
         <>
         { workstream.results.length ? (
           workstream.results.map((object, idx) => (
+            object !== undefined
+            ?
             <Workstream {...object} key={idx}/>
+            :
+            null
           ))
         ) : (
-          btnGroup
+          null
         )}
-        { workstream.results.length 
-        ? btnGroup
-        : null
-        }
+        {btnGroup}
         <Fieldset style={{height: "70vh"}} className='mx-2 mt-2 text-sm' legend={legendTemplate} pt={{ legend: { className: "bg-surface p-1 text-md" }, toggler: { className: "p-0" }}}>
           <ScrollPanel style={{ width: '100%', height: '60vh' }}>
             { workstreamList.results.length ? (
@@ -97,7 +97,7 @@ const WorkstreamPage = () => {
                 ? null
                 : (<WorkstreamList {...ws} key={idx}/>)
               ))
-            ) : null
+            ) : <p>No available workstreams Create or Join another</p>
             }
           </ScrollPanel>
         </Fieldset>
