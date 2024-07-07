@@ -9,11 +9,18 @@ class WorkstreamList(generics.ListCreateAPIView):
     List all profiles.
     No create view as profile creation is handled by django signals.
     """
-    queryset = Workstream.objects.all().order_by('-created_at')
     serializer_class = WorkstreamSerializer
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        user = self.request.user
+        return Workstream.objects.filter(ws_participants__owner=user)
 
 
 class WorkstreamDetail(generics.RetrieveUpdateDestroyAPIView):
