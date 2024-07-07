@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { axiosReq } from '../../api/axiosDefaults'
 import { Fieldset } from 'primereact/fieldset';
 import { Avatar } from 'primereact/avatar';
@@ -7,6 +7,7 @@ import { AvatarGroup } from 'primereact/avatargroup';
 import { TabView, TabPanel } from 'primereact/tabview';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
+import { Menu } from 'primereact/menu';
 import { Chip } from 'primereact/chip';
 import { Message } from 'primereact/message';
 import { ScrollPanel } from 'primereact/scrollpanel';
@@ -30,6 +31,23 @@ const ActiveWorkstream = () => {
         title: "",
     });
     const { title } = projectData;
+    const menuRight = useRef(null);
+    const items = [
+        {
+            label: 'Edit',
+            icon: 'pi pi-refresh',
+            command: () => {
+                console.log('edit navigate')
+            }
+        },
+        {
+            label: 'Delete',
+            icon: 'pi pi-times',
+            command: () => {
+                console.log('delete navigate')
+            }
+        }
+    ];
 
     const handleChange = (event) => {
         {event.target.name === 'name' 
@@ -112,12 +130,31 @@ const ActiveWorkstream = () => {
         }
         setVisible(false)
     }
+
+    const legendTemplate = (
+        <>
+        { workstream.results.length ? (
+            workstream.results.map((object, idx) => (
+                <div className="flex align-items-center gap-2 px-2">
+                    <span className='pi pi-folder'/>
+                    <span className="font-bold">{object.workstream.name}</span>
+                    <Menu model={items} popup ref={menuRight} id="popup_menu"/>
+                    { object.workstream.is_owner
+                        ? (<Button icon="pi pi-ellipsis-v" text severity="secondary" aria-label="admin workstream menu" size='small' className="p-1" onClick={(event) => menuRight.current.toggle(event)} aria-controls="popup_menu" aria-haspopup />)
+                        : null
+                    }
+                </div>
+              ))
+        ) : null
+        }
+        </>
+    );
     
     return (
         <>
         { workstream.results.length ? (
             workstream.results.map((object, idx) => (
-            <Fieldset className='h-screen' key={idx} legend={object.workstream.name} pt={{ legend: { className: "bg-surface p-1 text-md" }, content: { className: "p-0" }}}>
+            <Fieldset className='h-screen' key={idx} legend={legendTemplate} pt={{ legend: { className: "bg-surface p-1 text-md" }, content: { className: "p-0" }}}>
                 <ScrollPanel className='p-2' style={{ width: '100%', height: '90vh' }}>
                 <TabView>
                         <TabPanel header="Participants" pt={{ headerAction: { className: "py-1" }}}>
