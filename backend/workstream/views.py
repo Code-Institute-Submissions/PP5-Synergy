@@ -4,7 +4,17 @@ from .models import Workstream, Participant
 from .serializers import WorkstreamSerializer, ParticipantSerializer
 
 
-class WorkstreamList(generics.ListCreateAPIView):
+class WorkstreamList(generics.ListAPIView):
+    """
+    List all profiles.
+    No create view as profile creation is handled by django signals.
+    """
+    queryset = Workstream.objects.all().order_by('-created_at')
+    serializer_class = WorkstreamSerializer
+
+
+
+class WorkstreamUserList(generics.ListCreateAPIView):
     """
     List all profiles.
     No create view as profile creation is handled by django signals.
