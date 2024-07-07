@@ -1,13 +1,14 @@
 import React from 'react'
 import { Menu } from 'primereact/menu';
 import { Avatar } from 'primereact/avatar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCurrentUser, useSetCurrentUser } from '../contexts/CurrentUserContext';
 import axios from "axios";
 
 const DashMenu = () => {
     const currentUser = useCurrentUser();
     const setCurrentUser = useSetCurrentUser();
+    const navigate = useNavigate()
 
     const handelLogout = async () => {
         try {
@@ -76,7 +77,7 @@ const DashMenu = () => {
             template: (item, options) => {
                 return (
                     <div className='w-full p-link flex align-items-center p-2 text-color border-noround'>
-                        <Avatar image={currentUser?.profile_avatar} className="mr-2" shape="circle" />
+                        <Avatar image={currentUser?.profile_avatar} className="mr-2" shape="circle" onClick={() => {navigate('/profile')}}/>
                         <div className="flex flex-column align">
                             <span className="font-bold">{currentUser?.username}</span>
                             <span className="text-sm capitalize">{currentUser?.default_workstream}</span>
