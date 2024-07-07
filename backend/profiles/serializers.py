@@ -26,6 +26,24 @@ class ProfileSerializer(serializers.ModelSerializer):
             'last_name', 'avatar', 'is_owner', 'default_workstream',
         ]
 
+class EditProfileSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='user.username')
+    is_owner = serializers.SerializerMethodField()
+    
+
+    def get_is_owner(self, obj):
+        request = self.context['request']
+        return request.user == obj.owner
+
+
+    class Meta:
+        model = Profile
+        fields = [
+            'id', 'owner', 'first_name',
+            'last_name', 'avatar', 'is_owner',
+        ]
+
+
 class WorkstreamSwitchSerializer(serializers.ModelSerializer):
     default_workstream = UserWorkstreamForeignKey()
 
