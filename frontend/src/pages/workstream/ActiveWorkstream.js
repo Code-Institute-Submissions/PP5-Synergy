@@ -2,24 +2,31 @@ import React, { useEffect, useState, useRef } from 'react'
 import { axiosReq } from '../../api/axiosDefaults'
 import { Fieldset } from 'primereact/fieldset';
 import { Avatar } from 'primereact/avatar';
-import { Dialog } from 'primereact/dialog';
 import { AvatarGroup } from 'primereact/avatargroup';
 import { TabView, TabPanel } from 'primereact/tabview';
 import { Button } from 'primereact/button';
-import { InputText } from 'primereact/inputtext';
 import { Menu } from 'primereact/menu';
 import { Chip } from 'primereact/chip';
 import { Message } from 'primereact/message';
 import { ScrollPanel } from 'primereact/scrollpanel';
 import WorkstreamTask from '../../components/WorkstreamTask';
+import DialogForm from '../../components/DialogForm';
 
 const ActiveWorkstream = () => {
     const [workstream , setWorkstream] = useState({results: []})
+    const [workstreamID, setWorkstreamID] = useState(0)
+    const [workstreamName, setWorkstreamName] = useState('')
     const [category, setCategory] = useState({results: []})
     const [project, setProject] = useState({results: []})
     const [task, setTask] = useState({results: []})
     const [visibleCat, setVisibleCat] = useState(false);
     const [visible, setVisible] = useState(false);
+    const [visibleEdit, setVisibleEdit] = useState(false);
+    const [visibleEditCat, setVisibleEditCat] = useState(false);
+    const [editCatID, setEditCatID] = useState(0)
+    const [visibleEditProj, setVisibleEditProj] = useState(false);
+    const [editProjID, setEditProjID] = useState(0)
+
     const [errors, setErrors] = useState({});
 
     const [inputData, setInputData] = useState({
@@ -31,13 +38,15 @@ const ActiveWorkstream = () => {
         title: "",
     });
     const { title } = projectData;
+
     const menuRight = useRef(null);
     const items = [
         {
             label: 'Edit',
             icon: 'pi pi-refresh',
             command: () => {
-                console.log('edit navigate')
+                setVisibleEdit(true)
+                setInputData({name: workstreamName})
             }
         },
         {
@@ -49,26 +58,16 @@ const ActiveWorkstream = () => {
         }
     ];
 
-    const handleChange = (event) => {
-        {event.target.name === 'name' 
-        ? (
-            setInputData({
-                ...inputData,
-                [event.target.name]: event.target.value,
-                })
-        ) : (
-            setProjectData({
-                ...projectData,
-                [event.target.name]: event.target.value,
-                })
-        )
-        }
-        ;
-    };
-
     const newBtn = (
         <>
             <span className="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center pi pi-plus"></span>
+            <span className="ml-2 font-medium">New</span>
+        </>
+    );
+
+    const editBtn = (
+        <>
+            <span className="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center pi pi-ellipsis-v"></span>
             <span className="ml-2 font-medium">New</span>
         </>
     );
@@ -83,6 +82,8 @@ const ActiveWorkstream = () => {
               axiosReq.get(`/api/task/`),
             ]);
             setWorkstream(workstream);
+            setWorkstreamID(workstream.results[0].workstream.id)
+            setWorkstreamName(workstream.results[0].workstream.name)
             setCategory(category);
             setProject(project);
             setTask(task)
@@ -97,47 +98,13 @@ const ActiveWorkstream = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleCreateCat = async (e) => {
-        e.preventDefault();
-        try {
-          const { data } = await axiosReq.post("/api/category/", inputData);
-          setCategory((prevCategory) => ({
-            ...prevCategory,
-            results: [data, ...prevCategory.results],
-          }));
-          console.log(data)
-        } catch (err) {
-            setErrors(err.response?.data);
-            console.log('cat error')
-            console.log(errors)
-        }
-        setVisibleCat(false)
-    }
-
-    const handleCreateProj = async (e) => {
-        e.preventDefault();
-        try {
-          const { data } = await axiosReq.post("/api/project/", projectData);
-          setProject((prevProject) => ({
-            ...prevProject,
-            results: [data, ...prevProject.results],
-          }));
-          console.log(data)
-        } catch (err) {
-            setErrors(err.response?.data);
-            console.log('project error')
-            console.log(errors)
-        }
-        setVisible(false)
-    }
-
     const legendTemplate = (
         <>
         { workstream.results.length ? (
             workstream.results.map((object, idx) => (
-                <div className="flex align-items-center gap-2 px-2">
+                <div key={idx} className="flex align-items-center gap-2 px-2">
                     <span className='pi pi-folder'/>
-                    <span className="font-bold">{object.workstream.name}</span>
+                    <span className="font-bold">{workstreamName}</span>
                     <Menu model={items} popup ref={menuRight} id="popup_menu"/>
                     { object.workstream.is_owner
                         ? (<Button icon="pi pi-ellipsis-v" text severity="secondary" aria-label="admin workstream menu" size='small' className="p-1" onClick={(event) => menuRight.current.toggle(event)} aria-controls="popup_menu" aria-haspopup />)
@@ -176,13 +143,21 @@ const ActiveWorkstream = () => {
                             <div className="card flex flex-wrap gap-2">
                                 { category.results.length ? (
                                     category.results.map((object, idx) => (
-                                        <Chip label={object.name} key={idx}/>
+                                        object.is_owner
+                                        ? (<Chip key={idx} className="pl-0 pr-3" template={
+                                        <>
+                                            <span className="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center pi pi-pen-to-square"></span>
+                                            <span className="ml-2 font-medium">{object.name}</span>
+                                        </>
+                                        } onClick={() => {setVisibleEditCat(true); setEditCatID(object.id); setInputData({name: object.name})}}/>)
+                                        : (<Chip label={object.name} key={idx}/>)
+                                        
                                     ))
                                     ) : (
                                     <Message className='py-0 px-1' severity="warn" text="Category Required" />
                                 )}
                                 { object.is_staff
-                                ? (<Chip className="pl-0 pr-3" template={newBtn} onClick={() => setVisibleCat(true)}/>)
+                                ? (<Chip className="pl-0 pr-3" template={newBtn} onClick={() => {setVisibleCat(true); setInputData({name: ''})}}/>)
                                 : null
                                 }
                             </div>
@@ -191,13 +166,20 @@ const ActiveWorkstream = () => {
                             <div className="card flex flex-wrap gap-2">
                                 { project.results.length ? (
                                     project.results.map((object, idx) => (
-                                        <Chip label={object.title} key={idx}/>
+                                        object.is_owner
+                                        ? (<Chip key={idx} className="pl-0 pr-3" template={
+                                        <>
+                                            <span className="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center pi pi-pen-to-square"></span>
+                                            <span className="ml-2 font-medium">{object.title}</span>
+                                        </>
+                                        } onClick={() => {setVisibleEditProj(true); setEditProjID(object.id); setProjectData({title: object.title})}}/>)
+                                        : (<Chip label={object.title} key={idx}/>)
                                     ))
                                     ) : (
                                     null
                                 )}
                                 { object.is_staff
-                                ? (<Chip className="pl-0 pr-3" template={newBtn} onClick={() => setVisible(true)}/>)
+                                ? (<Chip className="pl-0 pr-3" template={newBtn} onClick={() => {setVisible(true); setProjectData({title: ''})}}/>)
                                 : null
                                 }
                                 
@@ -253,50 +235,11 @@ const ActiveWorkstream = () => {
               ))
         ) : null
         }
-        <Dialog
-                visible={visibleCat}
-                modal
-                onHide={() => {if (!visibleCat) return; setVisibleCat(false); 
-                    setInputData({
-                    name: ""
-                  }); }}
-                content={({ hide }) => (
-                    <div className="flex flex-column px-8 py-5 gap-4" style={{ borderRadius: '12px', backgroundImage: 'radial-gradient(circle at left top, var(--primary-400), var(--primary-700))' }}>
-                        <div className="inline-flex flex-column gap-2">
-                            <label htmlFor="name" className="text-primary-50 font-semibold">
-                                Category Name
-                            </label>
-                            <InputText value={name} onChange={handleChange} id="name" label="name" name='name' className="bg-white-alpha-20 border-none p-3 text-primary-50"></InputText>
-                        </div>
-                        <div className="flex align-items-center gap-2">
-                            <Button label="Submit" onClick={handleCreateCat} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
-                            <Button label="Cancel" onClick={(e) => hide(e)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
-                        </div>
-                    </div>
-                )}
-            ></Dialog>
-        <Dialog
-                visible={visible}
-                modal
-                onHide={() => {if (!visible) return; setVisible(false); 
-                    setInputData({
-                    name: ""
-                  }); }}
-                content={({ hide }) => (
-                    <div className="flex flex-column px-8 py-5 gap-4" style={{ borderRadius: '12px', backgroundImage: 'radial-gradient(circle at left top, var(--primary-400), var(--primary-700))' }}>
-                        <div className="inline-flex flex-column gap-2">
-                            <label htmlFor="title" className="text-primary-50 font-semibold">
-                                Project Title
-                            </label>
-                            <InputText value={title} onChange={handleChange} id="title" label="title" name='title' className="bg-white-alpha-20 border-none p-3 text-primary-50"></InputText>
-                        </div>
-                        <div className="flex align-items-center gap-2">
-                            <Button label="Submit" onClick={handleCreateProj} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
-                            <Button label="Cancel" onClick={(e) => hide(e)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
-                        </div>
-                    </div>
-                )}
-            ></Dialog>
+        <DialogForm url={`/api/workstream/${workstreamID}/`} title='Edit Workstream' inputData={inputData} setInputData={setInputData} visible={visibleEdit} setVisible={setVisibleEdit} setAttribute={setWorkstreamName} edit={true}/>
+        <DialogForm url='/api/category/' title='Create Category' inputData={inputData} setInputData={setInputData} visible={visibleCat} setVisible={setVisibleCat} setAttribute={setCategory} edit={false}/>
+        <DialogForm url='/api/project/' title='Create Project' inputData={projectData} setInputData={setProjectData} visible={visible} setVisible={setVisible} setAttribute={setProject} edit={false}/>
+        <DialogForm url={`/api/category/${editCatID}/`} title='Edit Category' inputData={inputData} setInputData={setInputData} visible={visibleEditCat} setVisible={setVisibleEditCat} edit={true}/>
+        <DialogForm url={`/api/project/${editProjID}/`} title='Edit Project' inputData={projectData} setInputData={setProjectData} visible={visibleEditProj} setVisible={setVisibleEditProj} edit={true}/>
         </>
     )
 }
