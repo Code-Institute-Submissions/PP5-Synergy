@@ -64,20 +64,9 @@ const ActiveWorkstream = () => {
         }
     ];
 
-    const handleDelete = async (e) => {
-        
-    }
-
     const newBtn = (
         <>
             <span className="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center pi pi-plus"></span>
-            <span className="ml-2 font-medium">New</span>
-        </>
-    );
-
-    const editBtn = (
-        <>
-            <span className="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center pi pi-ellipsis-v"></span>
             <span className="ml-2 font-medium">New</span>
         </>
     );
