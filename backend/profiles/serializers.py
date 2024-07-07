@@ -25,3 +25,12 @@ class ProfileSerializer(serializers.ModelSerializer):
             'id', 'owner', 'created_at', 'updated_at', 'first_name',
             'last_name', 'avatar', 'is_owner', 'default_workstream',
         ]
+
+class WorkstreamSwitchSerializer(serializers.ModelSerializer):
+    default_workstream = UserWorkstreamForeignKey()
+
+    class Meta:
+        model = Profile
+        fields = [
+            'default_workstream',
+        ]
