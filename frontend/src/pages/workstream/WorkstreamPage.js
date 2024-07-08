@@ -25,25 +25,25 @@ const WorkstreamPage = () => {
       </div>
   );
 
-    useEffect(() => {
-        const handleMount = async () => {
-          try {
-              const [{ data: workstreamList },{ data: workstream }] = await Promise.all([
-                axiosReq.get(`api/workstream/`),
-                axiosReq.get(`api/workstream/active/`),
-              ]);
-              if(workstream.results.length > 0) {
-                setWorkstream({ results: [workstream.results[0]?.workstream] });
-              }
-              setWorkstreamList(workstreamList);
-          } catch (err) {
-            console.log(err);
+  useEffect(() => {
+    const handleMount = async () => {
+      try {
+          const [{ data: workstreamList },{ data: workstream }] = await Promise.all([
+            axiosReq.get(`api/workstream/`),
+            axiosReq.get(`api/workstream/active/`),
+          ]);
+          if(workstream.results.length > 0) {
+            setWorkstream({ results: [workstream.results[0]?.workstream] });
           }
-          console.log(workstream, workstreamList)
-        };
-    
-        handleMount();
-      }, []);
+          setWorkstreamList(workstreamList);
+      } catch (err) {
+        console.log(err);
+      }
+      console.log(workstream, workstreamList)
+    };
+
+    handleMount();
+  }, []);
 
     const [visible, setVisible] = useState(false);
     
