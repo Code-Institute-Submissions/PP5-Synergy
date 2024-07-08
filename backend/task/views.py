@@ -21,6 +21,20 @@ class TaskList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
+class UserTaskList(generics.ListAPIView):
+    """
+    List all profiles.
+    """
+    serializer_class = TaskSerializer
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        user = self.request.user
+        return Task.objects.filter(owner=user)
+
 
 class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
     """
