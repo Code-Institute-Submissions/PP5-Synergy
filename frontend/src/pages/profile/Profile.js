@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useCurrentUser } from '../../contexts/CurrentUserContext'
+import { useCurrentUser, useSetCurrentUser } from '../../contexts/CurrentUserContext'
 import { axiosReq } from "../../api/axiosDefaults";
 import { Fieldset } from 'primereact/fieldset';
 import { Avatar } from 'primereact/avatar';
@@ -12,6 +12,7 @@ import { FileUpload } from 'primereact/fileupload';
 
 const Profile = () => {
   const currentUser = useCurrentUser()
+  const setCurrentUser = useSetCurrentUser()
   const [hasLoaded, setHasLoaded] = useState(false);
   const [profileData, setProfileData] = useState({})
   const [errors, setErrors] = useState({})
@@ -21,7 +22,7 @@ const Profile = () => {
   const [inputData, setInputData] = useState({
     first_name: '',
     last_name: '',
-    avatar: {},
+    avatar: null,
   });
   const { first_name, last_name, avatar } = inputData;
   const [image, setImage] = useState(null)
@@ -35,8 +36,10 @@ const Profile = () => {
             // axiosReq.get(`/posts/?owner__profile=${id}`),
           ]);
         setProfileData({profileData});
+        const { first_name, last_name, avatar } = profileData;
+        setInputData({ first_name, last_name, avatar });
         setHasLoaded(true);
-        console.log(profileData)
+        console.log(currentUser)
       } catch (err) {
       }
     };
@@ -125,24 +128,22 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setInputData({
-      first_name: first_name,
-      last_name: last_name,
-      avatar: image,
-    })
+    const formData = new FormData();
+    formData.append("first_name", first_name);
+    formData.append("last_name", last_name);
+
     if (image !== null) {
-      setInputData({
-        first_name: first_name,
-        last_name: last_name,
-        avatar: image,
-      })
+      formData.append("avatar", image);
     }
-    console.log(inputData)
-    console.log(image)
     try {
-      const { data } = await axiosReq.put(`/api/profiles/${currentUser.pk}/`, inputData);
-      console.log('data')
-      // console.log(data)
+
+      const { data } = await axiosReq.put(`/api/profiles/${currentUser.pk}/`, formData);
+      setProfileData(data)
+      setCurrentUser((currentUser) => ({
+        ...currentUser,
+        profile_avatar: data.avatar,
+      }));
+      console.log(data)
       setImage(null)
     } catch (err) {
       setErrors(err.response?.data);
@@ -184,7 +185,13 @@ const Profile = () => {
                             name="avatar" 
                             accept="image/*" 
                             maxFileSize={1000000}
-                            onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}
+                            onSelect={(e) => {
+                              let files = e.files;
+                              setImage(files[0]);
+                              console.log(image)
+                              console.log(fileUploadRef)
+                            }} 
+                            onError={onTemplateClear} onClear={onTemplateClear}
                             headerTemplate={headerTemplate} itemTemplate={itemTemplate} emptyTemplate={emptyTemplate}
                             chooseOptions={chooseOptions}
                             pt={{ content: {className: 'py-1'}, buttonbar: {className: 'py-1'}}}
