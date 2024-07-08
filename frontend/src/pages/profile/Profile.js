@@ -17,13 +17,14 @@ const Profile = () => {
   const [errors, setErrors] = useState({})
   const [visible, setVisible] = useState(false);
   const [totalSize, setTotalSize] = useState(0);
-  const fileUploadRef = useRef(null);
+  const fileUploadRef = useRef();
   const [inputData, setInputData] = useState({
     first_name: '',
     last_name: '',
-    avatar: '',
+    avatar: {},
   });
   const { first_name, last_name, avatar } = inputData;
+  const [image, setImage] = useState(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,17 +35,13 @@ const Profile = () => {
             // axiosReq.get(`/posts/?owner__profile=${id}`),
           ]);
         setProfileData({profileData});
-        // avatar = profileData.avatar;
-        // first_name = profileData.first_name;
-        // setProfilePosts(profilePosts);
         setHasLoaded(true);
         console.log(profileData)
       } catch (err) {
       }
     };
     fetchData();
-    console.log(profileData)
-  }, []);
+  }, [currentUser]);
 
 
   const legendTemplate = (
@@ -65,20 +62,21 @@ const Profile = () => {
     });
 
     setTotalSize(_totalSize);
-    setInputData({
-      ...inputData,
-      avatar: files[0],
-    });
+    setImage(files[0]);
+    console.log(image)
+    console.log(fileUploadRef)
   };
 
 
   const onTemplateRemove = (file, callback) => {
       setTotalSize(totalSize - file.size);
+      setImage(null);
       callback();
   };
 
   const onTemplateClear = () => {
       setTotalSize(0);
+      setImage(null);
   };
 
   const headerTemplate = (options) => {
@@ -127,9 +125,25 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setInputData({
+      first_name: first_name,
+      last_name: last_name,
+      avatar: image,
+    })
+    if (image !== null) {
+      setInputData({
+        first_name: first_name,
+        last_name: last_name,
+        avatar: image,
+      })
+    }
+    console.log(inputData)
+    console.log(image)
     try {
       const { data } = await axiosReq.put(`/api/profiles/${currentUser.pk}/`, inputData);
-      console.log(data)
+      console.log('data')
+      // console.log(data)
+      setImage(null)
     } catch (err) {
       setErrors(err.response?.data);
       console.log(err)
@@ -138,8 +152,8 @@ const Profile = () => {
   }
 
   const chooseOptions = { icon: 'pi pi-fw pi-images', size: 'small', iconOnly: true, className: 'custom-choose-btn p-button-secondary p-button-rounded p-button-outlined' };
-  const uploadOptions = { icon: 'pi pi-fw pi-cloud-upload', iconOnly: true, className: 'custom-upload-btn p-button-success p-button-rounded p-button-outlined hidden' };
-  const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined hidden' };
+  // const uploadOptions = { icon: 'pi pi-fw pi-cloud-upload', iconOnly: true, className: 'custom-upload-btn p-button-success p-button-rounded p-button-outlined hidden' };
+  // const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined hidden' };
   return (
     <div className="card">
         <Fieldset legend={legendTemplate} pt={{ legend: { className: "bg-surface p-1 text-md" }, content: { className: "p-0" }}}>
@@ -173,7 +187,7 @@ const Profile = () => {
                             onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}
                             headerTemplate={headerTemplate} itemTemplate={itemTemplate} emptyTemplate={emptyTemplate}
                             chooseOptions={chooseOptions}
-                            pt={{ buttonbar: {className: 'py-1'}, content: {className: 'py-1'}, buttonbar: {className: 'py-1'}}}
+                            pt={{ content: {className: 'py-1'}, buttonbar: {className: 'py-1'}}}
                             />
                         </div>
                         
