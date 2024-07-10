@@ -1,26 +1,19 @@
 from rest_framework import serializers
 from .models import Task
-from category.models import Category
-from project.models import Project
+from category.serializers import CategorySerializer
+from project.serializers import ProjectSerializer
+from backend.serializers import CurrentUserSerializer
 
 
-class CategoryForeignKey(serializers.PrimaryKeyRelatedField):
-    def get_queryset(self):
-        user = self.context['request'].user
-        return Category.objects.filter(workstream=user.profile.default_workstream)
-    
 
-class ProjectForeignKey(serializers.PrimaryKeyRelatedField):
-    def get_queryset(self):
-        user = self.context['request'].user
-        return Project.objects.filter(workstream=user.profile.default_workstream)
 
 
 class TaskSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='user.username')
+    owner = CurrentUserSerializer(read_only=True)
     is_owner = serializers.SerializerMethodField()
-    category = CategoryForeignKey()
-    project = ProjectForeignKey()
+    category = CategorySerializer()
+    project = ProjectSerializer()
     
 
     def get_is_owner(self, obj):
