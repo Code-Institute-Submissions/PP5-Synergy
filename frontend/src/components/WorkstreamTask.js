@@ -51,7 +51,7 @@ const WorkstreamTask = (props) => {
     const handleCheckbox = async (e) => {
         e.preventDefault();
         setIsCompleted(!isCompleted)
-        console.log('clicked')
+        console.log(id)
     }
 
 
