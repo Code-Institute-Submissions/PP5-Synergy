@@ -1,60 +1,62 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { axiosReq } from '../../api/axiosDefaults'
-import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from "primereact/inputtextarea";
 import { FloatLabel } from "primereact/floatlabel";
 import { Dropdown } from 'primereact/dropdown';
-import { Stepper } from 'primereact/stepper';
-import { StepperPanel } from 'primereact/stepperpanel';
 import { Sidebar } from 'primereact/sidebar';
+import { Calendar } from 'primereact/calendar';
+import { ToggleButton } from 'primereact/togglebutton';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import { useOptions } from '../../contexts/OptionsContext';
 
-import { Avatar } from 'primereact/avatar';
-import { Ripple } from 'primereact/ripple';
-import { StyleClass } from 'primereact/styleclass';
 
 const TaskForm = ({ url, visible, setVisible, setAttribute, edit}) => {
     const currentUser = useCurrentUser()
     const [errors, setErrors] = useState({})
-    const stepperRef = useRef(null);
+    const optionsDropdown = useOptions()
+    const [checked, setChecked] = useState(false);
+    const [date, setDate] = useState(Date())
 
-    const btnRef1 = useRef(null);
-    const btnRef2 = useRef(null);
-    const btnRef3 = useRef(null);
-    const btnRef4 = useRef(null);
 
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedProject, setSelectedProject] = useState(null);
     const [selectedPriority, setSelectedPriority] = useState(null);
     const priorityOption = [
-        { name: 'No-priority', code: 1 },
-        { name: 'Low-priority', code: 2 },
-        { name: 'Medium-priority', code: 3 },
-        { name: 'High-priority', code: 4 },
+        { name: 'No-priority', id: 1 },
+        { name: 'Low-priority', id: 2 },
+        { name: 'Medium-priority', id: 3 },
+        { name: 'High-priority', id: 4 },
     ];
 
     const [inputData, setInputData] = useState({
         name: '',
         detail: '',
         priority: 1,
-        deadline: '',
+        deadline: null,
         category: null,
         project: null,
         owner: null,
-      });
-      const { 
-        name,
-        detail,
-        priority,
-        deadline,
-        category,
-        project,
-        owner,
-      } = inputData;
-
+        is_completed: false,
+    });
+    const { 
+    name,
+    detail,
+    priority,
+    deadline,
+    category,
+    project,
+    owner,
+    is_completed
+    } = inputData;
+    
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        console.log(inputData)
         try {
             if(edit) {
                 const { data } = await axiosReq.put(url, inputData);
@@ -63,17 +65,20 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, edit}) => {
                 
             }
             else {
-                const { data } = await axiosReq.post(url, inputData);
-                setAttribute((prevState) => ({
-                    ...prevState,
-                    results: [data, ...prevState.results],
-                }));
-                console.log('create')
+                console.log(inputData)
+
+                // const { data } = await axiosReq.post(url, inputData);
+                // setAttribute((prevState) => ({
+                //     ...prevState,
+                //     results: [data, ...prevState.results],
+                // }));
+                // console.log(data)
             }
             
             
         } catch (err) {
             setErrors(err.response?.data);
+            console.log(err)
         }
         setVisible(false)
     }
@@ -82,6 +87,17 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, edit}) => {
         setInputData({
             ...inputData,
             [event.target.name]: event.target.value,
+            })
+    };
+
+    const handleDateFormat = () => {
+        let newDate = new Date(date).toLocaleDateString();
+        let dateArray = newDate.split("/");
+        let dateFormat = dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0]
+        console.log(dateFormat)
+        setInputData({
+            ...inputData,
+            deadline: dateFormat,
             })
     };
 
@@ -104,111 +120,32 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, edit}) => {
                                 </div>
                                 <div className="overflow-y-auto">
                                     <FloatLabel className='mt-4 mx-1'>
-                                        <InputText value={name} onChange={handleChange} id='name' label='name' name='name'/>
+                                        <InputText className='w-10' value={name} onChange={handleChange} id='name' label='name' name='name'/>
                                         <label htmlFor="name">Task Name</label>
                                      </FloatLabel>
                                     <FloatLabel className='mt-4 mx-1'>
-                                        <InputTextarea autoResize id='detail' name='detail' value={detail} onChange={handleChange} rows={5} cols={30}/>
+                                        <InputTextarea autoResize id='detail' name='detail' value={detail} onChange={handleChange} rows={4} cols={30}/>
                                         <label htmlFor="detail" >Detail</label>
                                     </FloatLabel>
-                                    <Dropdown value={selectedPriority} onChange={(e) => setSelectedPriority(e.value)} options={priorityOption} optionLabel="name" 
-                                    showClear placeholder="Task Priority" className="w-full" />
-                                    <ul className="list-none p-3 m-0">
-                                        <li>
-                                            <StyleClass nodeRef={btnRef4} selector="@next" enterClassName="hidden" enterActiveClassName="slidedown" leaveToClassName="hidden" leaveActiveClassName="slideup">
-                                                <div ref={btnRef4} className="p-ripple p-3 flex align-items-center justify-content-between text-600 cursor-pointer">
-                                                    <span className="font-medium">APPLICATION</span>
-                                                    <i className="pi pi-chevron-down"></i>
-                                                    <Ripple />
-                                                </div>
-                                            </StyleClass>
-                                            <ul className="list-none p-0 m-0 overflow-hidden">
-                                                <li>
-                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                        <i className="pi pi-folder mr-2"></i>
-                                                        <span className="font-medium">Projects</span>
-                                                        <Ripple />
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                        <i className="pi pi-chart-bar mr-2"></i>
-                                                        <span className="font-medium">Performance</span>
-                                                        <Ripple />
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                        <i className="pi pi-cog mr-2"></i>
-                                                        <span className="font-medium">Settings</span>
-                                                        <Ripple />
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                    <Dropdown value={selectedPriority} onChange={(e) => {setSelectedPriority(e.value); setInputData({...inputData,priority: e.value?.id});}} options={priorityOption} optionLabel="name" 
+                                    showClear placeholder="Task Priority" className="w-10 m-1" />
+                                    <Dropdown value={selectedCategory} onChange={(e) => {setSelectedCategory(e.value); setInputData({...inputData,category: e.value?.id}); console.log(category)}} options={optionsDropdown[0]} optionLabel="name" 
+                                    showClear placeholder="Categories" className="w-10 m-1" />
+                                    <Dropdown value={selectedProject} onChange={(e) => {setSelectedProject(e.value); setInputData({...inputData,project: e.value?.id}); console.log(project)}} options={optionsDropdown[1]} optionLabel="title" 
+                                    showClear placeholder="Projects" className="w-10 m-1" />
+                                    <Calendar className='w-10 m-1' dateFormat="yy/mm/dd" value={date} name='deadline' onChange={(e) => {setDate(e.value); handleDateFormat()}} showButtonBar placeholder="Deadline" touchUI/>
+                                    <ToggleButton onLabel="Self Assigned" offLabel="Unassigned Task" onIcon="pi pi-check" offIcon="pi pi-times" 
+                                    checked={checked} onChange={(e) => {setChecked(e.value); {e.value ? setInputData({...inputData,owner: currentUser.pk}): console.log(null)}}} className="w-10 m-1" />
                                 </div>
                                 <div className="mt-auto">
                                     <hr className="mb-3 mx-3 border-top-1 border-none surface-border" />
-                                    <a v-ripple className="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                        <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
-                                        <span className="font-bold">Amy Elsner</span>
-                                    </a>
+                                    <Button label='Submit' onClick={handleSubmit} />
                                 </div>
                             </div>
                         </div>
                     </div>
                 )}
             ></Sidebar>
-        // <Dialog
-        //         visible={visible}x
-        //         modal
-        //         onHide={() => {if (!visible) return; setVisible(false); 
-        //             setInputData(inputData); }}
-        //         content={({ hide }) => (
-        //             <div className="flex flex-column px-8 py-3 gap-2" style={{ borderRadius: '12px', backgroundImage: 'radial-gradient(circle at left top, var(--primary-400), var(--primary-700))' }}>
-        //                 <div className="inline-flex flex-column gap-1">
-        //                     <h3 className="text-primary-50 font-semibold my-2">{edit ? 'Edit Task' : 'Create Task'}</h3>
-        //                     <Stepper ref={stepperRef} pt={{panelContainer: {style: {background: 'transparent'}}}}>
-        //                         <StepperPanel header="Step 1">
-        //                             <FloatLabel className='mt-4'>
-        //                                 <InputText value={name} onChange={handleChange} id='name' label='name' name='name' className="bg-white-alpha-20 border-none p-1 text-primary-50"/>
-        //                                 <label htmlFor="name" className="text-primary-50 font-semibold">Task Name</label>
-        //                             </FloatLabel>
-        //                             <FloatLabel className='mt-4'>
-        //                                 <InputTextarea autoResize id='detail' name='detail' value={detail} onChange={handleChange} rows={5} cols={30} className="bg-white-alpha-20 border-none p-1 text-primary-50"/>
-        //                                 <label htmlFor="detail" className="text-primary-50 font-semibold">Detail</label>
-        //                             </FloatLabel>
-        //                         </StepperPanel>
-        //                         <StepperPanel header="Step 2">
-        //                             <FloatLabel className='mt-4'>
-        //                                 <InputText value={name} onChange={handleChange} id='name' label='name' name='name' className="bg-white-alpha-20 border-none p-1 text-primary-50"/>
-        //                                 <label htmlFor="name" className="text-primary-50 font-semibold">Task Name</label>
-        //                             </FloatLabel>
-        //                             <FloatLabel className='mt-4'>
-        //                                 <InputTextarea id='detail' name='detail' value={detail} onChange={handleChange} rows={5} cols={30} className="bg-white-alpha-20 border-none p-1 text-primary-50"/>
-        //                                 <label htmlFor="detail" className="text-primary-50 font-semibold">Detail</label>
-        //                             </FloatLabel>
-        //                         </StepperPanel>
-        //                         <StepperPanel header="Header III">
-        //                             <FloatLabel className='mt-4'>
-        //                                 <InputText value={name} onChange={handleChange} id='name' label='name' name='name' className="bg-white-alpha-20 border-none p-1 text-primary-50"/>
-        //                                 <label htmlFor="name" className="text-primary-50 font-semibold">Task Name</label>
-        //                             </FloatLabel>
-        //                             <FloatLabel className='mt-4'>
-        //                                 <InputTextarea id='detail' name='detail' value={detail} onChange={handleChange} rows={5} cols={30} className="bg-white-alpha-20 border-none p-1 text-primary-50"/>
-        //                                 <label htmlFor="detail" className="text-primary-50 font-semibold">Detail</label>
-        //                             </FloatLabel>
-        //                         </StepperPanel>
-        //                     </Stepper>
-        //                 </div>
-        //                 <div className="flex align-items-center gap-2">
-        //                     <Button label="Submit" onClick={handleSubmit} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
-        //                     <Button label="Cancel" onClick={(e) => hide(e)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
-        //                 </div>
-        //             </div>
-        //         )}
-        //     ></Dialog>
     )
 }
 
