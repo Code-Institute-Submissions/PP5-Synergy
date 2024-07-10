@@ -10,7 +10,6 @@ import WorkstreamPage from './pages/workstream/WorkstreamPage';
 import ActiveWorkstream from './pages/workstream/ActiveWorkstream';
 import TaskList from './pages/tasks/TaskList';
 import Notification from './pages/notification/Notification';
-import Calendar from './pages/calendar/Calendar';
 import Profile from './pages/profile/Profile';
 
 
@@ -32,7 +31,6 @@ function App() {
               <Route exact path="/workstream/active" element={<ActiveWorkstream />} />
               <Route exact path="/task" element={<TaskList />} />
               <Route exact path="/notification" element={<Notification />} />
-              <Route exact path="/calendar" element={<Calendar />} />
               <Route path="*" element={<h2>Page not found</h2>} />
             </Routes>
             </div>
