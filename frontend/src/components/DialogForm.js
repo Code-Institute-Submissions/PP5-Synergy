@@ -3,6 +3,7 @@ import { axiosReq } from '../api/axiosDefaults'
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
+import { FloatLabel } from "primereact/floatlabel";
 import { useCurrentUser } from '../contexts/CurrentUserContext';
 
 const DialogForm = ({url, title, preset, inputData, setInputData, visible, setVisible, setAttribute, edit }) => {
@@ -54,10 +55,12 @@ const DialogForm = ({url, title, preset, inputData, setInputData, visible, setVi
                             <h3 className="text-primary-50 font-semibold">{title}</h3>
                         { Object.entries(inputData).map(([key, value]) => (
                             <>
-                            <label htmlFor={key} className="text-primary-50 font-semibold capitalize">
-                                {key}
-                            </label>
-                            <InputText value={value} onChange={handleChange} id={key} label={key} name={key} className="bg-white-alpha-20 border-none p-3 text-primary-50"></InputText>
+                            <FloatLabel key={key}>
+                                <InputText value={value} onChange={handleChange} label={key} name={key} className="bg-white-alpha-20 border-none p-3 text-primary-50"></InputText>
+                                <label htmlFor={key} className="text-primary-50 font-semibold capitalize">
+                                    {key}
+                                </label>
+                            </FloatLabel>
                             </>
                             )) }  
                             

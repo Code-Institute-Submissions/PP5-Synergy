@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Chip } from 'primereact/chip';
 import { Checkbox } from "primereact/checkbox";
 import { SpeedDial } from 'primereact/speeddial';
+import { Avatar } from 'primereact/avatar';
+import { Tag } from 'primereact/tag';
 
 const WorkstreamTask = (props) => {
     const {
@@ -11,6 +12,7 @@ const WorkstreamTask = (props) => {
         detail,
         id,
         is_completed,
+        project,
         is_owner,
         name,
         owner,
@@ -54,14 +56,23 @@ const WorkstreamTask = (props) => {
 
 
     return (
-        <div className="card flex justify-content-center">
-            <Chip label={name} image={owner?.profile_avatar}/>
-            <span className='pi pi-clock'></span>
-            <span>{deadline}</span>
+        <>
+        <div className="flex align-items-center flex-1">
             {owner && (<Checkbox onChange={handleCheckbox} checked={isCompleted}></Checkbox>)}
-            <SpeedDial className='relative' model={items} radius={80} type="semi-circle" direction="left" transitionDelay={80} showIcon="pi pi-ellipsis-v" hideIcon="pi pi-times" buttonClassName="p-button-text w-2rem h-1rem"/>
+            <span className='ml-2'>{name}</span>
         </div>
-        
+        <div className='flex flex-1 gap-3 flex-column sm:flex-row sm:justify-content-between'>
+            <div className='flex align-items-center'>
+                {category && <Tag style={{background: 'transparent', color: '#4b5563'}} className='mx-1' value={category.name}></Tag>}
+                {project && <Tag style={{background: 'transparent', color: '#4b5563'}} className='mx-1' value={project.title}></Tag>}
+                {deadline && <Tag style={{background: 'transparent', color: '#4b5563'}} className="mx-1" icon="pi pi-clock" value={deadline}></Tag>}
+            </div>
+            <div className='flex align-items-center sm:justify-content-end'>
+                <Avatar image={owner?.profile_avatar} size="small" shape="circle"/>
+                <SpeedDial className='relative' model={items} radius={80} type="semi-circle" direction="left" transitionDelay={80} showIcon="pi pi-ellipsis-v" hideIcon="pi pi-times" buttonClassName="p-button-text w-2rem h-1rem"/>
+            </div>
+        </div>
+        </>
     )
 }
 
