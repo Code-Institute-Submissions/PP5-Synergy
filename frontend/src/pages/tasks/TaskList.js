@@ -11,7 +11,10 @@ const TaskList = () => {
   const [errors, setErrors] = useState({});
   const [taskList , setTaskList] = useState({ results: [] })
   const [visible, setVisible] = useState(false)
+  const [visibleEdit, setVisibleEdit] = useState(false)
   const [rerun, setRerun] = useState(false)
+  const [editID, setEditID] = useState()
+  const [taskObj, setTaskObj] = useState({})
 
   
 
@@ -27,7 +30,6 @@ const TaskList = () => {
         console.log(taskList);
       } catch (err) {
         setErrors(err)
-        console.log(errors)
       }
     };
     fetchData();
@@ -42,7 +44,7 @@ const TaskList = () => {
       <ul className="card flex flex-column flex-wrap gap-2 list-none px-0">
         { taskList.results.length ? (
             taskList.results.map((object) => (
-                <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask {...object}/></li>
+                <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask props={object} setID={setEditID} setVisible={setVisibleEdit} setObject={setTaskObj}/></li>
             ))
             ) : (
             <span>No tasks</span>
@@ -52,6 +54,7 @@ const TaskList = () => {
       </ScrollPanel>
       <OptionsContext>
         <TaskForm url={`/api/task/create/`} visible={visible} setVisible={setVisible} setAttribute={setTaskList} refresh={rerun} setRefresh={setRerun} edit={false}/>
+        <TaskForm url={`/api/task/${editID}/`} taskObj={taskObj} visible={visibleEdit} setVisible={setVisibleEdit} setAttribute={setTaskList} refresh={rerun} setRefresh={setRerun} edit={true}/>
       </OptionsContext>
     </div>
   )
