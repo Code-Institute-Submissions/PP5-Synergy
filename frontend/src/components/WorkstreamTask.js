@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Checkbox } from "primereact/checkbox";
-import { SpeedDial } from 'primereact/speeddial';
+import { Menu } from 'primereact/menu';
 import { Avatar } from 'primereact/avatar';
 import { Tag } from 'primereact/tag';
+import { Button } from 'primereact/button';
 
 const WorkstreamTask = (props) => {
+    const taskMenu = useRef(null);
     const {
         category,
         created_at,
@@ -24,27 +26,16 @@ const WorkstreamTask = (props) => {
 
     const items = [
         {
-            label: 'Add',
+            label: 'Edit',
             icon: 'pi pi-pencil',
         },
         {
-            label: 'Update',
-            icon: 'pi pi-refresh',
+            label: 'Unassign',
+            icon: 'pi pi-user-minus',
         },
         {
             label: 'Delete',
             icon: 'pi pi-trash',
-        },
-        {
-            label: 'Upload',
-            icon: 'pi pi-upload',
-        },
-        {
-            label: 'React Website',
-            icon: 'pi pi-external-link',
-            command: () => {
-                window.location.href = 'https://react.dev/';
-            }
         }
     ];
     
@@ -58,7 +49,7 @@ const WorkstreamTask = (props) => {
     return (
         <>
         <div className="flex align-items-center flex-1">
-            {owner && (<Checkbox onChange={handleCheckbox} checked={isCompleted}></Checkbox>)}
+            {is_owner && (<Checkbox onChange={handleCheckbox} checked={isCompleted}></Checkbox>)}
             <span className='ml-2'>{name}</span>
         </div>
         <div className='flex flex-1 gap-3 flex-column sm:flex-row sm:justify-content-between'>
@@ -67,9 +58,10 @@ const WorkstreamTask = (props) => {
                 {project && <Tag style={{background: 'transparent', color: '#4b5563'}} className='mx-1' value={project.title}></Tag>}
                 {deadline && <Tag style={{background: 'transparent', color: '#4b5563'}} className="mx-1" icon="pi pi-clock" value={deadline}></Tag>}
             </div>
-            <div className='flex align-items-center sm:justify-content-end'>
+            <div className='flex align-items-center justify-content-between sm:justify-content-end'>
                 <Avatar image={owner?.profile_avatar} size="small" shape="circle"/>
-                <SpeedDial className='relative' model={items} radius={80} type="semi-circle" direction="left" transitionDelay={80} showIcon="pi pi-ellipsis-v" hideIcon="pi pi-times" buttonClassName="p-button-text w-2rem h-1rem"/>
+                <Menu model={items} popup ref={taskMenu} id="popup_menu_right" popupAlignment="right" />
+                <Button icon="pi pi-ellipsis-v" rounded text size="small" onClick={(event) => taskMenu.current.toggle(event)} aria-controls="popup_task_menu" aria-haspopup />
             </div>
         </div>
         </>
