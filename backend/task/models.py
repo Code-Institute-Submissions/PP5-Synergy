@@ -19,7 +19,7 @@ class Task(models.Model):
     priority = models.IntegerField(choices=PRIORITY_LEVELS, default=1)
     is_completed = models.BooleanField(default=False)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-    project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, blank=True)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True, related_name='user')
     deadline = models.DateField()
 
