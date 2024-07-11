@@ -65,22 +65,19 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, edit}) => {
                 
             }
             else {
-                console.log(inputData)
-
-                // const { data } = await axiosReq.post(url, inputData);
-                // setAttribute((prevState) => ({
-                //     ...prevState,
-                //     results: [data, ...prevState.results],
-                // }));
-                // console.log(data)
+                const { data } = await axiosReq.post(url, inputData);
+                setAttribute((prevState) => ({
+                    ...prevState,
+                    results: [data, ...prevState.results],
+                }));
+                console.log(data)
             }
-            
+            setVisible(false)
             
         } catch (err) {
             setErrors(err.response?.data);
             console.log(err)
         }
-        setVisible(false)
     }
 
     const handleChange = (event) => {
@@ -129,13 +126,13 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, edit}) => {
                                     </FloatLabel>
                                     <Dropdown value={selectedPriority} onChange={(e) => {setSelectedPriority(e.value); setInputData({...inputData,priority: e.value?.id});}} options={priorityOption} optionLabel="name" 
                                     showClear placeholder="Task Priority" className="w-10 m-1" />
-                                    <Dropdown value={selectedCategory} onChange={(e) => {setSelectedCategory(e.value); setInputData({...inputData,category: e.value?.id}); console.log(category)}} options={optionsDropdown[0]} optionLabel="name" 
+                                    <Dropdown value={selectedCategory} onChange={(e) => {setSelectedCategory(e.value); {e.value !== undefined ? setInputData({...inputData,category: e.value}) : setInputData({...inputData,category: null})};}} options={optionsDropdown[0]} optionLabel="name" 
                                     showClear placeholder="Categories" className="w-10 m-1" />
-                                    <Dropdown value={selectedProject} onChange={(e) => {setSelectedProject(e.value); setInputData({...inputData,project: e.value?.id}); console.log(project)}} options={optionsDropdown[1]} optionLabel="title" 
+                                    <Dropdown value={selectedProject} onChange={(e) => {setSelectedProject(e.value); {e.value !== undefined ? setInputData({...inputData,project: e.value}) : setInputData({...inputData,project: null})};}} options={optionsDropdown[1]} optionLabel="title" 
                                     showClear placeholder="Projects" className="w-10 m-1" />
                                     <Calendar className='w-10 m-1' dateFormat="yy/mm/dd" value={date} name='deadline' onChange={(e) => {setDate(e.value); handleDateFormat()}} showButtonBar placeholder="Deadline" touchUI/>
                                     <ToggleButton onLabel="Self Assigned" offLabel="Unassigned Task" onIcon="pi pi-check" offIcon="pi pi-times" 
-                                    checked={checked} onChange={(e) => {setChecked(e.value); {e.value ? setInputData({...inputData,owner: currentUser.pk}): console.log(null)}}} className="w-10 m-1" />
+                                    checked={checked} onChange={(e) => {setChecked(e.value); {e.value ? setInputData({...inputData,owner: currentUser}) : setInputData({...inputData,owner: null})}}} className="w-10 m-1" />
                                 </div>
                                 <div className="mt-auto">
                                     <hr className="mb-3 mx-3 border-top-1 border-none surface-border" />
