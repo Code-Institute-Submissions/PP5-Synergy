@@ -1,10 +1,16 @@
 from rest_framework import generics
 from backend.permissions import IsOwnerOrReadOnly, IsAuthorOrReadOnly, IsParticipantOrReadOnly
 from .models import Task
-from .serializers import TaskSerializer, TaskAssignSerializer
+from .serializers import *
 
 
-class TaskList(generics.ListCreateAPIView):
+class TaskCreate(generics.CreateAPIView):
+    serializer_class = TaskCreateSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
+class TaskListOpen(generics.ListAPIView):
     """
     List all profiles.
     """
@@ -16,10 +22,21 @@ class TaskList(generics.ListCreateAPIView):
         for the currently authenticated user.
         """
         user = self.request.user
-        return Task.objects.filter(category__workstream=user.profile.default_workstream)
+        return Task.objects.filter(category__workstream=user.profile.default_workstream, owner__isnull=True)
 
-    def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+class TaskListAssigned(generics.ListAPIView):
+    """
+    List all profiles.
+    """
+    serializer_class = TaskSerializer
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        user = self.request.user
+        return Task.objects.filter(category__workstream=user.profile.default_workstream, owner__isnull=False)
 
 class UserTaskList(generics.ListAPIView):
     """
@@ -40,7 +57,7 @@ class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Retrieve a post and edit or delete it if you own it.
     """
-    serializer_class = TaskSerializer
+    serializer_class = TaskCreateSerializer
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Task.objects.all()
 
