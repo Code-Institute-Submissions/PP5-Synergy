@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { axiosReq } from '../../api/axiosDefaults'
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
@@ -12,13 +12,12 @@ import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useOptions } from '../../contexts/OptionsContext';
 
 
-const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh, edit}) => {
+const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh, edit, taskObj}) => {
     const currentUser = useCurrentUser()
     const [errors, setErrors] = useState({})
     const optionsDropdown = useOptions()
     const [checked, setChecked] = useState(false);
     const [date, setDate] = useState(Date())
-
     const [inputData, setInputData] = useState({
         name: '',
         detail: '',
@@ -90,6 +89,27 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
             deadline: dateFormat,
             })
     };
+
+    useEffect(() => {
+        const handleMount = () => {
+            
+            if (taskObj) {
+                let newDate = new Date(taskObj.deadline)
+                setInputData({
+                    ...inputData,
+                    name: taskObj.name,
+                    detail: taskObj.detail,
+                    })
+                setSelectedPriority(priorityOption[taskObj.priority - 1])
+                setSelectedProject(taskObj.project)
+                setSelectedCategory(taskObj.category)
+                setDate(newDate)
+                {taskObj.is_owner && setChecked(true)}
+                console.log(taskObj,newDate)
+            }
+        };
+        handleMount();
+    }, [taskObj]);
 
     return (
         <Sidebar
