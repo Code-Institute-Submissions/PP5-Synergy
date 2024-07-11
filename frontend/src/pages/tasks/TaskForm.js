@@ -12,23 +12,12 @@ import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useOptions } from '../../contexts/OptionsContext';
 
 
-const TaskForm = ({ url, visible, setVisible, setAttribute, edit}) => {
+const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh, edit}) => {
     const currentUser = useCurrentUser()
     const [errors, setErrors] = useState({})
     const optionsDropdown = useOptions()
     const [checked, setChecked] = useState(false);
     const [date, setDate] = useState(Date())
-
-
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const [selectedProject, setSelectedProject] = useState(null);
-    const [selectedPriority, setSelectedPriority] = useState(null);
-    const priorityOption = [
-        { name: 'No-priority', id: 1 },
-        { name: 'Low-priority', id: 2 },
-        { name: 'Medium-priority', id: 3 },
-        { name: 'High-priority', id: 4 },
-    ];
 
     const [inputData, setInputData] = useState({
         name: '',
@@ -51,7 +40,15 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, edit}) => {
     is_completed
     } = inputData;
     
-    
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedProject, setSelectedProject] = useState(null);
+    const [selectedPriority, setSelectedPriority] = useState(null);
+    const priorityOption = [
+        { name: 'No-priority', id: 1 },
+        { name: 'Low-priority', id: 2 },
+        { name: 'Medium-priority', id: 3 },
+        { name: 'High-priority', id: 4 },
+    ];
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -66,11 +63,7 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, edit}) => {
             }
             else {
                 const { data } = await axiosReq.post(url, inputData);
-                setAttribute((prevState) => ({
-                    ...prevState,
-                    results: [data, ...prevState.results],
-                }));
-                console.log(data)
+                {data.is_owner && setRefresh(!refresh)}
             }
             setVisible(false)
             
@@ -126,13 +119,13 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, edit}) => {
                                     </FloatLabel>
                                     <Dropdown value={selectedPriority} onChange={(e) => {setSelectedPriority(e.value); setInputData({...inputData,priority: e.value?.id});}} options={priorityOption} optionLabel="name" 
                                     showClear placeholder="Task Priority" className="w-10 m-1" />
-                                    <Dropdown value={selectedCategory} onChange={(e) => {setSelectedCategory(e.value); {e.value !== undefined ? setInputData({...inputData,category: e.value}) : setInputData({...inputData,category: null})};}} options={optionsDropdown[0]} optionLabel="name" 
+                                    <Dropdown value={selectedCategory} onChange={(e) => {setSelectedCategory(e.value); {e.value !== undefined ? setInputData({...inputData,category: e.value.id}) : setInputData({...inputData,category: null})};}} options={optionsDropdown[0]} optionLabel="name" 
                                     showClear placeholder="Categories" className="w-10 m-1" />
-                                    <Dropdown value={selectedProject} onChange={(e) => {setSelectedProject(e.value); {e.value !== undefined ? setInputData({...inputData,project: e.value}) : setInputData({...inputData,project: null})};}} options={optionsDropdown[1]} optionLabel="title" 
+                                    <Dropdown value={selectedProject} onChange={(e) => {setSelectedProject(e.value); {e.value !== undefined ? setInputData({...inputData,project: e.value.id}) : setInputData({...inputData,project: null})};}} options={optionsDropdown[1]} optionLabel="title" 
                                     showClear placeholder="Projects" className="w-10 m-1" />
                                     <Calendar className='w-10 m-1' dateFormat="yy/mm/dd" value={date} name='deadline' onChange={(e) => {setDate(e.value); handleDateFormat()}} showButtonBar placeholder="Deadline" touchUI/>
                                     <ToggleButton onLabel="Self Assigned" offLabel="Unassigned Task" onIcon="pi pi-check" offIcon="pi pi-times" 
-                                    checked={checked} onChange={(e) => {setChecked(e.value); {e.value ? setInputData({...inputData,owner: currentUser}) : setInputData({...inputData,owner: null})}}} className="w-10 m-1" />
+                                    checked={checked} onChange={(e) => {setChecked(e.value); {e.value ? setInputData({...inputData,owner: currentUser.pk}) : setInputData({...inputData,owner: null})}}} className="w-10 m-1" />
                                 </div>
                                 <div className="mt-auto">
                                     <hr className="mb-3 mx-3 border-top-1 border-none surface-border" />
