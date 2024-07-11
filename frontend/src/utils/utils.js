@@ -16,6 +16,22 @@ export const fetchMoreData = async (resource, setResource) => {
   } catch (err) {}
 };
 
+export const editResourceState = (arg, resource, setResource) => {
+  console.log(arg, resource)
+  const updatedRes = resource.results.map((object) => {
+    if (arg.id === object.id) {
+      return arg;
+    } else {
+      return object
+    }
+  });
+  console.log(updatedRes)
+  setResource((prevState) => ({
+    ...prevState,
+    results: updatedRes,
+  }))
+}
+
 export const setTokenTimestamp = (data) => {
   const refreshTokenTimestamp = jwtDecode(data?.refresh).exp;
   localStorage.setItem("refreshTokenTimestamp", refreshTokenTimestamp);

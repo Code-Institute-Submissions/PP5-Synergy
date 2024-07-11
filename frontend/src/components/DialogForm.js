@@ -5,8 +5,9 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { FloatLabel } from "primereact/floatlabel";
 import { useCurrentUser } from '../contexts/CurrentUserContext';
+import { editResourceState } from '../utils/utils';
 
-const DialogForm = ({url, title, preset, inputData, setInputData, visible, setVisible, setAttribute, edit }) => {
+const DialogForm = ({url, title, inputData, setInputData, visible, setVisible, setAttribute, edit, resource, setResource}) => {
     const currentUser = useCurrentUser()
     const [errors, setErrors] = useState({})
 
@@ -16,8 +17,9 @@ const DialogForm = ({url, title, preset, inputData, setInputData, visible, setVi
         try {
             if(edit) {
                 const { data } = await axiosReq.put(url, inputData);
-                setAttribute(data.name);
-                console.log('edit')
+                console.log(data);
+                {setResource && editResourceState(data, resource, setResource)};
+                {setAttribute && setAttribute(data.name)};
                 
             }
             else {

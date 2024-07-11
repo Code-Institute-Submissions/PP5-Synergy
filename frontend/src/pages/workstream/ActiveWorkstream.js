@@ -247,8 +247,8 @@ const ActiveWorkstream = () => {
         <DialogForm url={`/api/workstream/${workstreamID}/`} title='Edit Workstream' inputData={inputData} setInputData={setInputData} visible={visibleEdit} setVisible={setVisibleEdit} setAttribute={setWorkstreamName} edit={true}/>
         <DialogForm url='/api/category/' title='Create Category' inputData={inputData} setInputData={setInputData} visible={visibleCat} setVisible={setVisibleCat} setAttribute={setCategory} edit={false}/>
         <DialogForm url='/api/project/' title='Create Project' inputData={projectData} setInputData={setProjectData} visible={visible} setVisible={setVisible} setAttribute={setProject} edit={false}/>
-        <DialogForm url={`/api/category/${editCatID}/`} title='Edit Category' inputData={inputData} setInputData={setInputData} visible={visibleEditCat} setVisible={setVisibleEditCat} edit={true}/>
-        <DialogForm url={`/api/project/${editProjID}/`} title='Edit Project' inputData={projectData} setInputData={setProjectData} visible={visibleEditProj} setVisible={setVisibleEditProj} edit={true}/>
+        <DialogForm url={`/api/category/${editCatID}/`} title='Edit Category' inputData={inputData} setInputData={setInputData} visible={visibleEditCat} setVisible={setVisibleEditCat} resource={category} setResource={setCategory} edit={true}/>
+        <DialogForm url={`/api/project/${editProjID}/`} title='Edit Project' inputData={projectData} setInputData={setProjectData} visible={visibleEditProj} setVisible={setVisibleEditProj} resource={project} setResource={setProject} edit={true}/>
         <ConfirmDialog
                 group="headless"
                 content={({ headerRef, contentRef, footerRef, hide, message }) => (
