@@ -11,6 +11,7 @@ const TaskList = () => {
   const [errors, setErrors] = useState({});
   const [taskList , setTaskList] = useState({ results: [] })
   const [visible, setVisible] = useState(false)
+  const [rerun, setRerun] = useState(false)
 
   
 
@@ -26,10 +27,11 @@ const TaskList = () => {
         console.log(taskList);
       } catch (err) {
         setErrors(err)
+        console.log(errors)
       }
     };
     fetchData();
-  }, []);
+  }, [rerun]);
 
   return (
     <div className="card">
@@ -49,7 +51,7 @@ const TaskList = () => {
 
       </ScrollPanel>
       <OptionsContext>
-        <TaskForm url={`/api/task/`} visible={visible} setVisible={setVisible} setAttribute={setTaskList} edit={false}/>
+        <TaskForm url={`/api/task/create/`} visible={visible} setVisible={setVisible} setAttribute={setTaskList} refresh={rerun} setRefresh={setRerun} edit={false}/>
       </OptionsContext>
     </div>
   )
