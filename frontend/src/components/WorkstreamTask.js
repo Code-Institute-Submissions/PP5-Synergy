@@ -61,7 +61,7 @@ const WorkstreamTask = (props) => {
             <div className='flex align-items-center justify-content-between sm:justify-content-end'>
                 <Avatar image={owner?.profile_avatar} size="small" shape="circle"/>
                 <Menu model={items} popup ref={taskMenu} id="popup_menu_right" popupAlignment="right" />
-                <Button icon="pi pi-ellipsis-v" rounded text size="small" onClick={(event) => taskMenu.current.toggle(event)} aria-controls="popup_task_menu" aria-haspopup />
+                {is_owner && <Button icon="pi pi-ellipsis-v" rounded text size="small" onClick={(event) => taskMenu.current.toggle(event)} aria-controls="popup_task_menu" aria-haspopup />}
             </div>
         </div>
         </>
