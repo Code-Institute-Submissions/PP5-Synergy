@@ -20,7 +20,8 @@ const ActiveWorkstream = () => {
     const [workstreamName, setWorkstreamName] = useState('')
     const [category, setCategory] = useState({results: []})
     const [project, setProject] = useState({results: []})
-    const [task, setTask] = useState({results: []})
+    const [taskO, setTaskO] = useState({results: []})
+    const [taskA, setTaskA] = useState({results: []})
     const [visibleCat, setVisibleCat] = useState(false);
     const [visible, setVisible] = useState(false);
     const [visibleEdit, setVisibleEdit] = useState(false);
@@ -84,27 +85,27 @@ const ActiveWorkstream = () => {
     useEffect(() => {
         const handleMount = async () => {
           try {
-            const [{ data: workstream }, { data: category }, { data: project }, { data: task }] = await Promise.all([
+            const [{ data: workstream }, { data: category }, { data: project }, { data: taskO }, { data: taskA }] = await Promise.all([
               axiosReq.get(`/api/workstream/active/`),
               axiosReq.get(`/api/category/`),
               axiosReq.get(`/api/project/`),
-              axiosReq.get(`/api/task/`),
+              axiosReq.get(`/api/task/open/`),
+              axiosReq.get(`/api/task/assigned/`),
             ]);
             setWorkstream(workstream);
             setWorkstreamID(workstream.results[0].workstream.id)
             setWorkstreamName(workstream.results[0].workstream.name)
             setCategory(category);
             setProject(project);
-            setTask(task)
-            console.log(workstream, category, project, task)
+            setTaskO(taskO);
+            setTaskA(taskA)
+            console.log(workstream, category, project, taskO, taskA)
           } catch (err) {
             setErrors(err.response?.data);
             console.log(errors)
           }
         };
-    
         handleMount();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const legendTemplate = (
@@ -198,44 +199,28 @@ const ActiveWorkstream = () => {
                     <TabView pt={{ panelContainer: {className: "py-2"}}}>
                         <TabPanel header="Available Tasks" pt={{ headerAction: { className: "py-1" }}}>
                             <ul className="card flex flex-column flex-wrap gap-2 list-none px-0">
-                                { task.results.length ? (
-                                    task.results.map((object, idx) => (
+                                { taskO.results.length ? (
+                                    taskO.results.map((object) => (
                                         object.owner === null
-                                        ? <li key={idx}><WorkstreamTask {...object}/></li>
+                                        ? <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask {...object}/></li>
                                         : null
                                     ))
                                     ) : (
                                     null
                                 )}
-                                <Chip label="Amy Elsner" image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" />
-                                <Chip label="Asiya Javayant" image="https://primefaces.org/cdn/primereact/images/avatar/asiyajavayant.png" />
-                                <Chip label="Onyama Limba" image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" />
-                                <Chip label="Xuxue Feng" image="https://primefaces.org/cdn/primereact/images/avatar/xuxuefeng.png" />
-                                <Chip label="Amy Elsner" image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" />
-                                <Chip label="Asiya Javayant" image="https://primefaces.org/cdn/primereact/images/avatar/asiyajavayant.png" />
-                                <Chip label="Onyama Limba" image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" />
-                                <Chip label="Xuxue Feng" image="https://primefaces.org/cdn/primereact/images/avatar/xuxuefeng.png" />
                             </ul>
                         </TabPanel>
                         <TabPanel header="Assigned Tasks" pt={{ headerAction: { className: "py-1" }}}>
                             <ul className="card flex flex-column flex-wrap gap-2 list-none px-0">
-                                { task.results.length ? (
-                                    task.results.map((object, idx) => (
+                                { taskA.results.length ? (
+                                    taskA.results.map((object) => (
                                         object.owner !== null
-                                        ? <li key={idx}><Chip label={object.name} image={object.owner?.profile_avatar}/></li>
+                                        ? <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask {...object}/></li>
                                         : null
                                     ))
                                     ) : (
                                     null
                                 )}
-                                <Chip label="Amy Elsner" image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" />
-                                <Chip label="Asiya Javayant" image="https://primefaces.org/cdn/primereact/images/avatar/asiyajavayant.png" />
-                                <Chip label="Onyama Limba" image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" />
-                                <Chip label="Xuxue Feng" image="https://primefaces.org/cdn/primereact/images/avatar/xuxuefeng.png" />
-                                <Chip label="Amy Elsner" image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" />
-                                <Chip label="Asiya Javayant" image="https://primefaces.org/cdn/primereact/images/avatar/asiyajavayant.png" />
-                                <Chip label="Onyama Limba" image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" />
-                                <Chip label="Xuxue Feng" image="https://primefaces.org/cdn/primereact/images/avatar/xuxuefeng.png" />
                             </ul>
                         </TabPanel>
                     </TabView>
