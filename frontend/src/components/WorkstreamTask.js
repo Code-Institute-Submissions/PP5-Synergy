@@ -5,7 +5,7 @@ import { Avatar } from 'primereact/avatar';
 import { Tag } from 'primereact/tag';
 import { Button } from 'primereact/button';
 
-const WorkstreamTask = (props) => {
+const WorkstreamTask = ({props, setID, setVisible, setObject}) => {
     const taskMenu = useRef(null);
     const {
         category,
@@ -21,13 +21,17 @@ const WorkstreamTask = (props) => {
         priority,
         updated_at,
     } = props
-
     const [isCompleted, setIsCompleted] = useState(is_completed)
 
     const items = [
         {
             label: 'Edit',
             icon: 'pi pi-pencil',
+            command: () => {
+                setID(id);
+                setVisible(true);
+                setObject(props)
+            }
         },
         {
             label: 'Unassign',
