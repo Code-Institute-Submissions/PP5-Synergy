@@ -54,7 +54,7 @@ const TaskList = () => {
       </ScrollPanel>
       <OptionsContext>
         <TaskForm url={`/api/task/create/`} visible={visible} setVisible={setVisible} setAttribute={setTaskList} refresh={rerun} setRefresh={setRerun} edit={false}/>
-        <TaskForm url={`/api/task/${editID}/`} taskObj={taskObj} visible={visibleEdit} setVisible={setVisibleEdit} setAttribute={setTaskList} refresh={rerun} setRefresh={setRerun} edit={true}/>
+        <TaskForm url={`/api/task/${editID}/`} taskObj={taskObj} visible={visibleEdit} setVisible={setVisibleEdit} refresh={rerun} setRefresh={setRerun} edit={true}/>
       </OptionsContext>
     </div>
   )
