@@ -56,9 +56,8 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
         try {
             if(edit) {
                 const { data } = await axiosReq.put(url, inputData);
-                setAttribute(data.name);
-                console.log('edit')
-                
+                console.log(data)
+                setRefresh(!refresh)
             }
             else {
                 const { data } = await axiosReq.post(url, inputData);
@@ -90,23 +89,41 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
             })
     };
 
+    const changeInput = () => {
+        let newDate = new Date(taskObj.deadline)
+        
+        {taskObj.project ? setInputData({
+            ...inputData,
+            name: taskObj.name,
+            detail: taskObj.detail,
+            priority: taskObj.priority,
+            category: taskObj.category?.id,
+            deadline: taskObj.deadline,
+            owner: taskObj.owner?.pk,
+            project: taskObj.project.id
+        })
+        :
+        setInputData({
+            ...inputData,
+            name: taskObj.name,
+            detail: taskObj.detail,
+            priority: taskObj.priority,
+            category: taskObj.category?.id,
+            deadline: taskObj.deadline,
+            owner: taskObj.owner?.pk
+            })
+        }
+        setSelectedPriority(priorityOption[taskObj.priority - 1])
+        setSelectedProject(taskObj.project)
+        setSelectedCategory(taskObj.category)
+        setDate(newDate)
+        {taskObj.is_owner && setChecked(true)}
+        console.log(taskObj)
+    }
+
     useEffect(() => {
         const handleMount = () => {
-            
-            if (taskObj) {
-                let newDate = new Date(taskObj.deadline)
-                setInputData({
-                    ...inputData,
-                    name: taskObj.name,
-                    detail: taskObj.detail,
-                    })
-                setSelectedPriority(priorityOption[taskObj.priority - 1])
-                setSelectedProject(taskObj.project)
-                setSelectedCategory(taskObj.category)
-                setDate(newDate)
-                {taskObj.is_owner && setChecked(true)}
-                console.log(taskObj,newDate)
-            }
+            {taskObj && changeInput()}
         };
         handleMount();
     }, [taskObj]);
