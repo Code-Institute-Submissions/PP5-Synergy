@@ -56,7 +56,6 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
         try {
             if(edit) {
                 const { data } = await axiosReq.put(url, inputData);
-                console.log(data)
                 setRefresh(!refresh)
             }
             else {
