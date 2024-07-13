@@ -13,6 +13,9 @@ import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import WorkstreamTask from '../../components/WorkstreamTask';
 import DialogForm from '../../components/DialogForm';
 import { useNavigate } from 'react-router-dom';
+import { OptionsContext } from '../../contexts/OptionsContext';
+import TaskForm from '../tasks/TaskForm';
+
 
 const ActiveWorkstream = () => {
     const [workstream , setWorkstream] = useState({results: []})
@@ -29,6 +32,10 @@ const ActiveWorkstream = () => {
     const [editCatID, setEditCatID] = useState(0)
     const [visibleEditProj, setVisibleEditProj] = useState(false);
     const [editProjID, setEditProjID] = useState(0)
+    const [visibleTask, setVisibleTask] = useState(false)
+    const [editTaskID, setEditTaskID] = useState()
+    const [taskObj, setTaskObj] = useState({})
+    const [rerun, setRerun] = useState(false)
 
 
 
@@ -99,7 +106,6 @@ const ActiveWorkstream = () => {
             setProject(project);
             setTaskO(taskO);
             setTaskA(taskA)
-            console.log(workstream, category, project, taskO, taskA)
           } catch (err) {
             setErrors(err.response?.data);
             console.log(errors)
@@ -107,6 +113,23 @@ const ActiveWorkstream = () => {
         };
         handleMount();
     }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const [{ data: taskO }, { data: taskA }] = await Promise.all([
+              axiosReq.get(`/api/task/open/`),
+              axiosReq.get(`/api/task/assigned/`),
+            ]);
+            setTaskO(taskO);
+            setTaskA(taskA)
+          } catch (err) {
+            setErrors(err.response?.data);
+            console.log(errors)
+          }
+        };
+        fetchData();
+    }, [rerun]);
 
     const legendTemplate = (
         <>
@@ -202,7 +225,7 @@ const ActiveWorkstream = () => {
                                 { taskO.results.length ? (
                                     taskO.results.map((object) => (
                                         object.owner === null
-                                        ? <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask {...object}/></li>
+                                        ? <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask props={object} setID={setEditTaskID} setVisible={setVisibleTask} setObject={setTaskObj}/></li>
                                         : null
                                     ))
                                     ) : (
@@ -215,7 +238,7 @@ const ActiveWorkstream = () => {
                                 { taskA.results.length ? (
                                     taskA.results.map((object) => (
                                         object.owner !== null
-                                        ? <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask {...object}/></li>
+                                        ? <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask props={object} setID={setEditTaskID} setVisible={setVisibleTask} setObject={setTaskObj}/></li>
                                         : null
                                     ))
                                     ) : (
@@ -274,6 +297,9 @@ const ActiveWorkstream = () => {
                     </div>
                 )}
             />
+            <OptionsContext>
+                <TaskForm url={`/api/task/${editTaskID}/`} taskObj={taskObj} visible={visibleTask} setVisible={setVisibleTask} refresh={rerun} setRefresh={setRerun} edit={true}/>
+            </OptionsContext>
         </>
     )
 }
