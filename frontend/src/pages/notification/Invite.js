@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { Avatar } from "primereact/avatar";
 import { Tag } from "primereact/tag";
 import moment from "moment";
@@ -17,6 +17,20 @@ const Invite = ({ props, admin, url, setID, setUrl, confirmDialog }) => {
     inbound,
     created_at,
   } = props;
+
+  const inputData = {
+    accepted: true
+  }
+
+  const handleAccept = async () => {
+    try{
+      const { data } = await axiosReq.put(url, inputData);
+      console.log(data)
+    } catch (err) {
+      console.log(err)
+
+    }
+  }
 
   return (
     <>
@@ -71,6 +85,7 @@ const Invite = ({ props, admin, url, setID, setUrl, confirmDialog }) => {
                 icon="pi pi-check"
                 severity="success"
                 value="Accept"
+                onClick={handleAccept}
               ></Tag>
             )}
           </div>
