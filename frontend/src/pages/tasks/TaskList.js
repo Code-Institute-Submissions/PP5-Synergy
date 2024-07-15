@@ -42,14 +42,14 @@ const TaskList = () => {
       </Divider>
       <ScrollPanel style={{ width: '100%', height: '90vh' }}>
       <ul className="card flex flex-column flex-wrap gap-2 list-none px-0">
-        { taskList.results.length ? (
-            taskList.results.map((object) => (
-                <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask props={object} setID={setEditID} setVisible={setVisibleEdit} setObject={setTaskObj}/></li>
-            ))
-            ) : (
-            <span>No tasks</span>
-        )}
-    </ul>
+          { taskList.results.length ? (
+              taskList.results.map((object) => (
+                  <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask props={object} setID={setEditID} setVisible={setVisibleEdit} setObject={setTaskObj}/></li>
+              ))
+              ) : (
+              <span>No tasks</span>
+          )}
+      </ul>
 
       </ScrollPanel>
       <OptionsContext>
