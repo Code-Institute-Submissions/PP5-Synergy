@@ -25,5 +25,6 @@ def accept_request(sender, instance, created, **kwargs):
     if instance.accepted:
         ws = Workstream.objects.get(id=instance.workstream.id)
         ws.users.add(instance.user)
+        instance.delete()
 
 post_save.connect(accept_request, sender=Invite)
