@@ -4,6 +4,7 @@ import { Menu } from 'primereact/menu';
 import { Avatar } from 'primereact/avatar';
 import { Tag } from 'primereact/tag';
 import { Button } from 'primereact/button';
+import moment from 'moment';
 
 const WorkstreamTask = ({props, setID, setVisible, setObject}) => {
     const taskMenu = useRef(null);
@@ -60,7 +61,7 @@ const WorkstreamTask = ({props, setID, setVisible, setObject}) => {
             <div className='flex align-items-center'>
                 {category && <Tag style={{background: 'transparent', color: '#4b5563'}} className='mx-1' value={category.name}></Tag>}
                 {project && <Tag style={{background: 'transparent', color: '#4b5563'}} className='mx-1' value={project.title}></Tag>}
-                {deadline && <Tag style={{background: 'transparent', color: '#4b5563'}} className="mx-1" icon="pi pi-clock" value={deadline}></Tag>}
+                {deadline && <Tag style={{background: 'transparent', color: '#4b5563'}} className="mx-1" icon="pi pi-clock" value={moment(deadline).format("Do, MMM")}></Tag>}
             </div>
             <div className='flex align-items-center justify-content-between sm:justify-content-end'>
                 <Avatar image={owner?.profile_avatar} size="small" shape="circle"/>
