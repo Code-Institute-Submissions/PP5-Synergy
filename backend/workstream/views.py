@@ -32,6 +32,17 @@ class WorkstreamUserList(generics.ListCreateAPIView):
         user = self.request.user
         return Workstream.objects.filter(ws_participants__owner=user)
 
+class WorkstreamInviteList(generics.ListAPIView):
+    serializer_class = WorkstreamSerializer
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        user = self.request.user
+        return Workstream.objects.exclude(ws_participants__owner=user).exclude(ws_invite__user=user)
+
 
 class WorkstreamDetail(generics.RetrieveUpdateDestroyAPIView):
     """

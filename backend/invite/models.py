@@ -5,7 +5,7 @@ from workstream.models import Workstream
 
 
 class Invite(models.Model):
-    workstream = models.ForeignKey(Workstream, on_delete=models.CASCADE)
+    workstream = models.ForeignKey(Workstream, on_delete=models.CASCADE, related_name='ws_invite')
     created_at = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
