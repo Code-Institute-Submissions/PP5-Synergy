@@ -41,3 +41,9 @@ class IsStaffOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
         return request.user.user_participant.get(workstream=request.user.profile.default_workstream).is_staff
+
+class InvitePermissions(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return obj.workstream.owner == request.user or obj.user == request.user
