@@ -4,7 +4,7 @@ import { Tag } from "primereact/tag";
 import moment from "moment";
 import { axiosReq } from "../../api/axiosDefaults";
 
-const Invite = ({ props, admin, url, setID, setUrl, confirmDialog }) => {
+const Invite = ({ props, admin, url, setID, setUrl, confirmDialog, rerun, setRerun }) => {
   
   const {
     id,
@@ -25,7 +25,7 @@ const Invite = ({ props, admin, url, setID, setUrl, confirmDialog }) => {
   const handleAccept = async () => {
     try{
       const { data } = await axiosReq.put(url, inputData);
-      console.log(data)
+      setRerun(!rerun)
     } catch (err) {
       console.log(err)
 

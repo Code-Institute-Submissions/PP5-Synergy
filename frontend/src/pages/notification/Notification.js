@@ -75,7 +75,7 @@ const Notification = () => {
           }
           {invite.results.length ? (
             invite.results.map((object) => (
-              object.is_owner && <Invite key={object.id} setUrl={setUrl} confirmDialog={confirm1} props={object} admin={true} setID={setID} url={`api/invite/${object.id}`}/>
+              object.is_owner && <Invite key={object.id} rerun={rerun} setRerun={setRerun} setUrl={setUrl} confirmDialog={confirm1} props={object} admin={true} setID={setID} url={`api/invite/${object.id}/`}/>
               
             ))
           ) : (
@@ -99,7 +99,7 @@ const Notification = () => {
           }
           {join.results.length ? (
             join.results.map((object) => (
-              object.is_owner && <Invite key={object.id} setUrl={setUrl} confirmDialog={confirm1} props={object} setID={setID} url={`api/join/${object.id}`} admin={false}/>
+              object.is_owner && <Invite key={object.id} rerun={rerun} setRerun={setRerun} setUrl={setUrl} confirmDialog={confirm1} props={object} setID={setID} url={`api/join/${object.id}/`} admin={false}/>
               
             ))
           ) : (
