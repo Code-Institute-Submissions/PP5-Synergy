@@ -1,5 +1,5 @@
 from rest_framework import generics
-from backend.permissions import IsWorkstreamOwnerOrReadOnly, IsInviteOwnerOrReadOnly
+from backend.permissions import IsWorkstreamOwnerOrReadOnly, IsInviteOwnerOrReadOnly, InvitePermissions
 from .models import Invite
 from .serializers import InviteSerializer, JoinSerializer, AcceptSerializer
 
@@ -64,5 +64,5 @@ class JoinDetail(generics.RetrieveUpdateDestroyAPIView):
     Retrieve a post and edit or delete it if you own it.
     """
     serializer_class = AcceptSerializer
-    permission_classes = [IsInviteOwnerOrReadOnly]
+    permission_classes = [InvitePermissions]
     queryset = Invite.objects.all().order_by('-created_at')
