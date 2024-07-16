@@ -11,6 +11,8 @@ import ActiveWorkstream from './pages/workstream/ActiveWorkstream';
 import TaskList from './pages/tasks/TaskList';
 import Notification from './pages/notification/Notification';
 import Profile from './pages/profile/Profile';
+import InvitePage from './pages/notification/InvitePage';
+import JoinPage from './pages/notification/JoinPage';
 
 
 function App() {
@@ -31,6 +33,8 @@ function App() {
               <Route exact path="/workstream/active" element={<ActiveWorkstream />} />
               <Route exact path="/task" element={<TaskList />} />
               <Route exact path="/notification" element={<Notification />} />
+              <Route exact path="/invite" element={<InvitePage />} />
+              <Route exact path="/join" element={<JoinPage />} />
               <Route path="*" element={<h2>Page not found</h2>} />
             </Routes>
             </div>
