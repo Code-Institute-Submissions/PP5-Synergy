@@ -5,7 +5,7 @@ import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 import { axiosReq } from "../../api/axiosDefaults";
-import EmptyInvite from "./EmptyInvite";
+import InviteCard from "./InviteCard";
 import Invite from "./Invite";
 import Spinner from "../../assets/Spinner";
 
@@ -69,7 +69,7 @@ const Notification = () => {
       <ScrollPanel style={{ width: "100%", height: "40vh" }}>
         <div className="flex justify-content-start flex-wrap">
           {invite.results.length ? (
-            <EmptyInvite title='User' count='Invite' message='New' icon='pi pi-user-plus'/>
+            <InviteCard title='User' count='Invite' message='New' icon='pi pi-user-plus'/>
           )
           : null
           }
@@ -79,7 +79,7 @@ const Notification = () => {
               
             ))
           ) : (
-            <EmptyInvite title='Add' count='New' message='Invite' icon='pi pi-user-plus'/>
+            <InviteCard title='Add' count='New' message='Invite' icon='pi pi-user-plus'/>
           )}
           
         </div>
@@ -93,7 +93,7 @@ const Notification = () => {
       <ScrollPanel style={{ width: "100%", height: "40vh" }}>
       <div className="flex justify-content-start flex-wrap">
           {join.results.length ? (
-            <EmptyInvite title='Workstream' count='Join' message='New' icon='pi pi-send'/>
+            <InviteCard title='Workstream' count='Join' message='New' icon='pi pi-send'/>
           )
           : null
           }
@@ -103,7 +103,7 @@ const Notification = () => {
               
             ))
           ) : (
-            <EmptyInvite title='Send' count='New' message='Join' icon='pi pi-send'/>
+            <InviteCard title='Send' count='New' message='Join' icon='pi pi-send'/>
           )}
         </div>
       </ScrollPanel>
