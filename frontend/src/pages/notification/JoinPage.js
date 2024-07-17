@@ -37,7 +37,7 @@ const JoinPage = () => {
         <div className="flex justify-content-start flex-wrap">
           {workstreamList.results.length ? (
             workstreamList.results.map((object) => (
-              <InviteCard key={object.id} id={object.id} title={object.owner.username} count={object.name} message={'Users :' + object.users.length} icon={object.owner.profile_avatar} display={true}/>
+              <InviteCard key={object.id} url='/api/join/' id={object.id} title={object.owner.username} count={object.name} message={'Users :' + object.users.length} icon={object.owner.profile_avatar} display={true}/>
             ))
           )
           : <InviteCard title='0' count='Workstreams' message='Available' icon='pi pi-folder' display={true}/>

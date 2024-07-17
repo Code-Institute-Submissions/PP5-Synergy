@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Tag } from 'primereact/tag';
 import { useNavigate } from 'react-router-dom';
 import { Avatar } from 'primereact/avatar';
 import { axiosReq } from '../../api/axiosDefaults';
 
-const InviteCard = ({title, message, count, icon, display, id}) => {
+const InviteCard = ({title, message, count, icon, display, id, url}) => {
     const navigate = useNavigate()
 
     const handleClick = () => {
@@ -17,9 +17,13 @@ const InviteCard = ({title, message, count, icon, display, id}) => {
 
     const handleJoin = async () => {
         const formData = new FormData();
-        formData.append("workstream", id);
+        if (message !== '') {
+            formData.append("workstream", id)
+        } else {
+            formData.append("user", id)
+        }
         try {
-            const { data } = await axiosReq.post("/api/join/", formData);
+            const { data } = await axiosReq.post(url, formData);
             console.log(data)
             navigate('/notification')
         } catch (err) {
@@ -45,7 +49,7 @@ const InviteCard = ({title, message, count, icon, display, id}) => {
             <div className="flex justify-content-between">
                 <span className="text-primary-500 font-medium">{message}</span>
                 {display 
-                ? title !== '0' && <Tag className='cursor-pointer' icon="pi pi-plus" severity="primary" value="Join" onClick={handleJoin}></Tag> 
+                ? title !== '0' && <Tag className='cursor-pointer' icon="pi pi-plus" severity="primary" value={message !== '' ? 'Join' : 'Invite'} onClick={handleJoin}></Tag> 
                 : <Tag className='cursor-pointer' icon="pi pi-plus" severity="primary" value="Create" onClick={handleClick}></Tag>
                 }
             </div>
