@@ -94,12 +94,6 @@ const DashMenu = () => {
             
         },
         {
-            label: 'Calendar',
-            icon: 'pi pi-calendar',
-            url: '/calendar',
-            template: itemRenderer
-        },
-        {
             label: 'Task',
             icon: 'pi pi-list-check',
             url: '/task',
