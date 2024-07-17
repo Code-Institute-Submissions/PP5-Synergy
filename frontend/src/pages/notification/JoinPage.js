@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { axiosReq } from '../../api/axiosDefaults';
+import Spinner from '../../assets/Spinner';
 
 const JoinPage = () => {
     const [loaded, setLoaded] = useState(false)
@@ -15,6 +16,7 @@ const JoinPage = () => {
                 axiosReq.get(`/api/workstream/join/`),
               ]);
               setWorkstreamList(workstreamList)
+              setLoaded(true)
               console.log(workstreamList)
             } catch (err) {
             }
@@ -22,10 +24,20 @@ const JoinPage = () => {
           handleMount();
     }, []);
 
+    const pageContent = (
+      <>
+      </>
+    )
+
     return (
-        <div>
-            join
-        </div>
+      <div className="card h-screen">
+        {loaded 
+        ? pageContent
+        : (
+          <Spinner />
+        )
+        }
+    </div>
     )
 }
 

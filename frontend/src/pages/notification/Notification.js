@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Divider } from "primereact/divider";
 import { ScrollPanel } from "primereact/scrollpanel";
-import { ProgressSpinner } from 'primereact/progressspinner';
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 import { axiosReq } from "../../api/axiosDefaults";
 import EmptyInvite from "./EmptyInvite";
 import Invite from "./Invite";
+import Spinner from "../../assets/Spinner";
 
 const Notification = () => {
   const [invite, setInvite] = useState({ results: [] });
@@ -172,7 +172,7 @@ const Notification = () => {
       {loaded 
       ? pageContent
       : (
-        <ProgressSpinner style={{width: '50px', height: '50px'}} strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s" />
+        <Spinner />
       )
       }
     </div>
