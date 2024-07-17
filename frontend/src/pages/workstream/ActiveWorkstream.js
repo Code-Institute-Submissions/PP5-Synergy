@@ -109,6 +109,7 @@ const ActiveWorkstream = () => {
         setProject(project);
         setTaskO(taskO);
         setTaskA(taskA);
+        console.log(workstream)
       } catch (err) {
         setErrors(err.response?.data);
         console.log(errors);
@@ -134,6 +135,14 @@ const ActiveWorkstream = () => {
     fetchData();
   }, [rerun]);
 
+  const handelLeave = async () => {
+    try {
+      const {data} = await axiosReq.delete(`api/workstream/leave/${workstream.results[0].id}/`)
+      navigate('/workstream')
+    } catch (err) {
+    }
+  }
+
   const legendTemplate = (
     <>
       {workstream.results.length
@@ -154,7 +163,17 @@ const ActiveWorkstream = () => {
                   aria-controls="popup_menu"
                   aria-haspopup
                 />
-              ) : null}
+              ) : 
+                <Button
+                    icon="pi pi-times"
+                    text
+                    severity="secondary"
+                    aria-label="Leave workstream button"
+                    size="small"
+                    className="p-1"
+                    onClick={handelLeave}
+                  />
+                  }
             </div>
           ))
         : null}
