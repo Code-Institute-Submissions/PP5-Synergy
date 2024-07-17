@@ -15,8 +15,10 @@ import DialogForm from "../../components/DialogForm";
 import { useNavigate } from "react-router-dom";
 import { OptionsContext } from "../../contexts/OptionsContext";
 import TaskForm from "../tasks/TaskForm";
+import Spinner from "../../assets/Spinner";
 
 const ActiveWorkstream = () => {
+  const [loaded, setLoaded] = useState(false)
   const [workstream, setWorkstream] = useState({ results: [] });
   const [workstreamID, setWorkstreamID] = useState(0);
   const [workstreamName, setWorkstreamName] = useState("");
@@ -109,7 +111,7 @@ const ActiveWorkstream = () => {
         setProject(project);
         setTaskO(taskO);
         setTaskA(taskA);
-        console.log(workstream)
+        setLoaded(true)
       } catch (err) {
         setErrors(err.response?.data);
         console.log(errors);
@@ -180,53 +182,100 @@ const ActiveWorkstream = () => {
     </>
   );
 
-  return (
-    <>
-      {workstream.results.length
-        ? workstream.results.map((object, idx) => (
-            <Fieldset
-              className="h-screen"
-              key={idx}
-              legend={legendTemplate}
-              pt={{
-                legend: { className: "bg-surface p-1 text-md" },
-                content: { className: "p-0" },
-              }}
+  const pageContent = (
+    workstream.results.length
+      ? workstream.results.map((object, idx) => (
+          <Fieldset
+            className="h-screen"
+            key={idx}
+            legend={legendTemplate}
+            pt={{
+              legend: { className: "bg-surface p-1 text-md" },
+              content: { className: "p-0" },
+            }}
+          >
+            <ScrollPanel
+              className="p-2"
+              style={{ width: "100%", height: "90vh" }}
             >
-              <ScrollPanel
-                className="p-2"
-                style={{ width: "100%", height: "90vh" }}
-              >
-                <TabView>
-                  <TabPanel
-                    header="Participants"
-                    pt={{ headerAction: { className: "py-1" } }}
-                  >
-                    <div className="card flex justify-content-start">
-                      <AvatarGroup>
-                        {object.workstream.users?.map((user, idx) => (
-                          <Avatar
-                            image={user?.profile_avatar}
-                            size="large"
-                            shape="circle"
+              <TabView>
+                <TabPanel
+                  header="Participants"
+                  pt={{ headerAction: { className: "py-1" } }}
+                >
+                  <div className="card flex justify-content-start">
+                    <AvatarGroup>
+                      {object.workstream.users?.map((user, idx) => (
+                        <Avatar
+                          image={user?.profile_avatar}
+                          size="large"
+                          shape="circle"
+                          key={idx}
+                        />
+                      ))}
+                      {object.workstream.is_owner ? (
+                        <Avatar label="+" shape="circle" size="large" onClick={() => {navigate('/invite')}}/>
+                      ) : null}
+                    </AvatarGroup>
+                  </div>
+                </TabPanel>
+              </TabView>
+              <TabView>
+                <TabPanel
+                  header="Categories"
+                  pt={{ headerAction: { className: "py-1" } }}
+                >
+                  <div className="card flex flex-wrap gap-2">
+                    {category.results.length ? (
+                      category.results.map((object, idx) =>
+                        object.is_owner ? (
+                          <Chip
                             key={idx}
+                            className="pl-0 pr-3"
+                            template={
+                              <>
+                                <span className="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center pi pi-pen-to-square"></span>
+                                <span className="ml-2 font-medium">
+                                  {object.name}
+                                </span>
+                              </>
+                            }
+                            onClick={() => {
+                              setVisibleEditCat(true);
+                              setEditCatID(object.id);
+                              setInputData({ name: object.name });
+                            }}
                           />
-                        ))}
-                        {object.workstream.is_owner ? (
-                          <Avatar label="+" shape="circle" size="large" onClick={() => {navigate('/invite')}}/>
-                        ) : null}
-                      </AvatarGroup>
-                    </div>
-                  </TabPanel>
-                </TabView>
-                <TabView>
-                  <TabPanel
-                    header="Categories"
-                    pt={{ headerAction: { className: "py-1" } }}
-                  >
-                    <div className="card flex flex-wrap gap-2">
-                      {category.results.length ? (
-                        category.results.map((object, idx) =>
+                        ) : (
+                          <Chip label={object.name} key={idx} />
+                        )
+                      )
+                    ) : (
+                      <Message
+                        className="py-0 px-1"
+                        severity="warn"
+                        text="Category Required"
+                      />
+                    )}
+                    {object.is_staff ? (
+                      <Chip
+                        className="pl-0 pr-3"
+                        template={newBtn}
+                        onClick={() => {
+                          setVisibleCat(true);
+                          setInputData({ name: "" });
+                        }}
+                      />
+                    ) : null}
+                  </div>
+                </TabPanel>
+                <TabPanel
+                  header="Projects"
+                  pt={{ headerAction: { className: "py-1" } }}
+                >
+                  <div className="card flex flex-wrap gap-2">
+                    {project.results.length
+                      ? project.results.map((object, idx) =>
                           object.is_owner ? (
                             <Chip
                               key={idx}
@@ -235,136 +284,95 @@ const ActiveWorkstream = () => {
                                 <>
                                   <span className="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center pi pi-pen-to-square"></span>
                                   <span className="ml-2 font-medium">
-                                    {object.name}
+                                    {object.title}
                                   </span>
                                 </>
                               }
                               onClick={() => {
-                                setVisibleEditCat(true);
-                                setEditCatID(object.id);
-                                setInputData({ name: object.name });
+                                setVisibleEditProj(true);
+                                setEditProjID(object.id);
+                                setProjectData({ title: object.title });
                               }}
                             />
                           ) : (
-                            <Chip label={object.name} key={idx} />
+                            <Chip label={object.title} key={idx} />
                           )
                         )
-                      ) : (
-                        <Message
-                          className="py-0 px-1"
-                          severity="warn"
-                          text="Category Required"
-                        />
-                      )}
-                      {object.is_staff ? (
-                        <Chip
-                          className="pl-0 pr-3"
-                          template={newBtn}
-                          onClick={() => {
-                            setVisibleCat(true);
-                            setInputData({ name: "" });
-                          }}
-                        />
-                      ) : null}
-                    </div>
-                  </TabPanel>
-                  <TabPanel
-                    header="Projects"
-                    pt={{ headerAction: { className: "py-1" } }}
-                  >
-                    <div className="card flex flex-wrap gap-2">
-                      {project.results.length
-                        ? project.results.map((object, idx) =>
-                            object.is_owner ? (
-                              <Chip
-                                key={idx}
-                                className="pl-0 pr-3"
-                                template={
-                                  <>
-                                    <span className="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center pi pi-pen-to-square"></span>
-                                    <span className="ml-2 font-medium">
-                                      {object.title}
-                                    </span>
-                                  </>
-                                }
-                                onClick={() => {
-                                  setVisibleEditProj(true);
-                                  setEditProjID(object.id);
-                                  setProjectData({ title: object.title });
-                                }}
+                      : null}
+                    {object.is_staff ? (
+                      <Chip
+                        className="pl-0 pr-3"
+                        template={newBtn}
+                        onClick={() => {
+                          setVisible(true);
+                          setProjectData({ title: "" });
+                        }}
+                      />
+                    ) : null}
+                  </div>
+                </TabPanel>
+              </TabView>
+              <TabView pt={{ panelContainer: { className: "py-2" } }}>
+                <TabPanel
+                  header="Available Tasks"
+                  pt={{ headerAction: { className: "py-1" } }}
+                >
+                  <ul className="card flex flex-column flex-wrap gap-2 list-none px-0">
+                    {taskO.results.length
+                      ? taskO.results.map((object) =>
+                          object.owner === null ? (
+                            <li
+                              className="flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border"
+                              key={object.id}
+                            >
+                              <WorkstreamTask
+                                props={object}
+                                setID={setEditTaskID}
+                                setVisible={setVisibleTask}
+                                setObject={setTaskObj}
                               />
-                            ) : (
-                              <Chip label={object.title} key={idx} />
-                            )
-                          )
-                        : null}
-                      {object.is_staff ? (
-                        <Chip
-                          className="pl-0 pr-3"
-                          template={newBtn}
-                          onClick={() => {
-                            setVisible(true);
-                            setProjectData({ title: "" });
-                          }}
-                        />
-                      ) : null}
-                    </div>
-                  </TabPanel>
-                </TabView>
-                <TabView pt={{ panelContainer: { className: "py-2" } }}>
-                  <TabPanel
-                    header="Available Tasks"
-                    pt={{ headerAction: { className: "py-1" } }}
-                  >
-                    <ul className="card flex flex-column flex-wrap gap-2 list-none px-0">
-                      {taskO.results.length
-                        ? taskO.results.map((object) =>
-                            object.owner === null ? (
-                              <li
-                                className="flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border"
-                                key={object.id}
-                              >
-                                <WorkstreamTask
-                                  props={object}
-                                  setID={setEditTaskID}
-                                  setVisible={setVisibleTask}
-                                  setObject={setTaskObj}
-                                />
-                              </li>
-                            ) : null
-                          )
-                        : null}
-                    </ul>
-                  </TabPanel>
-                  <TabPanel
-                    header="Assigned Tasks"
-                    pt={{ headerAction: { className: "py-1" } }}
-                  >
-                    <ul className="card flex flex-column flex-wrap gap-2 list-none px-0">
-                      {taskA.results.length
-                        ? taskA.results.map((object) =>
-                            object.owner !== null ? (
-                              <li
-                                className="flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border"
-                                key={object.id}
-                              >
-                                <WorkstreamTask
-                                  props={object}
-                                  setID={setEditTaskID}
-                                  setVisible={setVisibleTask}
-                                  setObject={setTaskObj}
-                                />
-                              </li>
-                            ) : null
-                          )
-                        : null}
-                    </ul>
-                  </TabPanel>
-                </TabView>
-              </ScrollPanel>
-            </Fieldset>
-          ))
-        : null}
+                            </li>
+                          ) : null
+                        )
+                      : null}
+                  </ul>
+                </TabPanel>
+                <TabPanel
+                  header="Assigned Tasks"
+                  pt={{ headerAction: { className: "py-1" } }}
+                >
+                  <ul className="card flex flex-column flex-wrap gap-2 list-none px-0">
+                    {taskA.results.length
+                      ? taskA.results.map((object) =>
+                          object.owner !== null ? (
+                            <li
+                              className="flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border"
+                              key={object.id}
+                            >
+                              <WorkstreamTask
+                                props={object}
+                                setID={setEditTaskID}
+                                setVisible={setVisibleTask}
+                                setObject={setTaskObj}
+                              />
+                            </li>
+                          ) : null
+                        )
+                      : null}
+                  </ul>
+                </TabPanel>
+              </TabView>
+            </ScrollPanel>
+          </Fieldset>
+        ))
+      : null
+  )
+
+  return (
+    <>{loaded 
+      ? pageContent
+      : <Spinner />
+      }
       <DialogForm
         url={`/api/workstream/${workstreamID}/`}
         title="Edit Workstream"
