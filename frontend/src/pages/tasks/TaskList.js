@@ -6,6 +6,7 @@ import { ScrollPanel } from 'primereact/scrollpanel';
 import TaskForm from '../tasks/TaskForm'
 import { OptionsContext } from '../../contexts/OptionsContext';
 import WorkstreamTask from '../../components/WorkstreamTask';
+import Spinner from '../../assets/Spinner';
 
 const TaskList = () => {
   const [errors, setErrors] = useState({});
@@ -15,6 +16,7 @@ const TaskList = () => {
   const [rerun, setRerun] = useState(false)
   const [editID, setEditID] = useState()
   const [taskObj, setTaskObj] = useState({})
+  const [loaded, setLoaded] = useState(false)
 
   
 
@@ -27,7 +29,7 @@ const TaskList = () => {
             // axiosReq.get(`/posts/?owner__profile=${id}`),
           ]);
         setTaskList(taskList);
-        console.log(taskList);
+        setLoaded(true)
       } catch (err) {
         setErrors(err)
       }
@@ -35,23 +37,33 @@ const TaskList = () => {
     fetchData();
   }, [rerun]);
 
+  const pageContent = (
+    <>
+      <Divider className='my-1' align="right">
+          <Button label="Create Task" icon="pi pi-plus" className="p-button-outlined" size='small' onClick={() => setVisible(true)}></Button>
+        </Divider>
+        <ScrollPanel style={{ width: '100%', height: '90vh' }}>
+        <ul className="card flex flex-column flex-wrap gap-2 list-none px-0">
+            { taskList.results.length ? (
+                taskList.results.map((object) => (
+                    <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask props={object} setID={setEditID} setVisible={setVisibleEdit} setObject={setTaskObj}/></li>
+                ))
+                ) : (
+                <span>No tasks</span>
+            )}
+        </ul>
+
+        </ScrollPanel>
+      </>
+  )
+
   return (
     <div className="card">
-      <Divider className='my-1' align="right">
-        <Button label="Create Task" icon="pi pi-plus" className="p-button-outlined" size='small' onClick={() => setVisible(true)}></Button>
-      </Divider>
-      <ScrollPanel style={{ width: '100%', height: '90vh' }}>
-      <ul className="card flex flex-column flex-wrap gap-2 list-none px-0">
-          { taskList.results.length ? (
-              taskList.results.map((object) => (
-                  <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask props={object} setID={setEditID} setVisible={setVisibleEdit} setObject={setTaskObj}/></li>
-              ))
-              ) : (
-              <span>No tasks</span>
-          )}
-      </ul>
-
-      </ScrollPanel>
+      {loaded
+      ? pageContent
+      : <Spinner />
+      }
+      
       <OptionsContext>
         <TaskForm url={`/api/task/create/`} visible={visible} setVisible={setVisible} setAttribute={setTaskList} refresh={rerun} setRefresh={setRerun} edit={false}/>
         <TaskForm url={`/api/task/${editID}/`} taskObj={taskObj} visible={visibleEdit} setVisible={setVisibleEdit} refresh={rerun} setRefresh={setRerun} edit={true}/>
