@@ -194,7 +194,7 @@ const ActiveWorkstream = () => {
                           />
                         ))}
                         {object.workstream.is_owner ? (
-                          <Avatar label="+" shape="circle" size="large" />
+                          <Avatar label="+" shape="circle" size="large" onClick={() => {navigate('/invite')}}/>
                         ) : null}
                       </AvatarGroup>
                     </div>
