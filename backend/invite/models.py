@@ -8,7 +8,7 @@ class Invite(models.Model):
     workstream = models.ForeignKey(Workstream, on_delete=models.CASCADE, related_name='ws_invite')
     created_at = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_invite')
     accepted = models.BooleanField(default=False)
     inbound = models.BooleanField(default=True)
 
