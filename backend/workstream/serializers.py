@@ -21,7 +21,7 @@ class WorkstreamSerializer(serializers.ModelSerializer):
         ]
 
 class ParticipantSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='user.username')
+    owner = serializers.ReadOnlyField(source='owner.username')
     workstream = WorkstreamSerializer(read_only=True)
     is_owner = serializers.SerializerMethodField()
     
