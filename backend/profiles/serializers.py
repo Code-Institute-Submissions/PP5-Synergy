@@ -9,7 +9,7 @@ class UserWorkstreamForeignKey(serializers.PrimaryKeyRelatedField):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='user.username')
+    owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     default_workstream = UserWorkstreamForeignKey()
     
