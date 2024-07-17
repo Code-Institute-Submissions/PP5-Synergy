@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { axiosReq } from '../../api/axiosDefaults';
 import Spinner from '../../assets/Spinner';
 import { Divider } from "primereact/divider";
@@ -9,7 +8,6 @@ import InviteCard from './InviteCard';
 const JoinPage = () => {
     const [loaded, setLoaded] = useState(false)
     const [workstreamList, setWorkstreamList] = useState({ results: [] });
-    const navigate = useNavigate()
     
 
     useEffect(() => {
