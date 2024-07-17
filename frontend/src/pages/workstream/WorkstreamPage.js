@@ -9,10 +9,12 @@ import { axiosReq } from '../../api/axiosDefaults';
 import Workstream from './Workstream';
 import WorkstreamList from './WorkstreamList';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../../assets/Spinner';
 
 const WorkstreamPage = () => {
     const currentUser = useCurrentUser();
     const navigate = useNavigate()
+    const [loaded, setLoaded] = useState(false)
     const [errors, setErrors] = useState({});
 
     const [workstream , setWorkstream] = useState({ results: [] })
@@ -36,6 +38,7 @@ const WorkstreamPage = () => {
             setWorkstream({ results: [workstream.results[0]?.workstream] });
           }
           setWorkstreamList(workstreamList);
+          setLoaded(true)
       } catch (err) {
         console.log(err);
       }
@@ -77,33 +80,42 @@ const WorkstreamPage = () => {
           <Button icon="pi pi-send" label={workstream.results.length ? null: 'Join'} rounded severity="primary" aria-label="Send Workstream Join request" />
       </div>
     );
+
+    const pageContent = (
+      <>
+      {workstream.results.length ? (
+        workstream.results.map((object, idx) => (
+          object !== undefined
+          ?
+          <Workstream {...object} key={idx}/>
+          :
+          null
+        ))
+      ) : (
+        null
+      )}
+      {btnGroup}
+      <Fieldset style={{height: "70vh"}} className='mx-2 mt-2 text-sm' legend={legendTemplate} pt={{ legend: { className: "bg-surface p-1 text-md" }, toggler: { className: "p-0" }}}>
+        <ScrollPanel style={{ width: '100%', height: '60vh' }}>
+          { workstreamList.results.length ? (
+            workstreamList.results.map((ws, idx) => (
+              ws.id === workstream.results[0]?.id
+              ? null
+              : (<WorkstreamList {...ws} key={idx}/>)
+            ))
+          ) : <p>No available workstreams Create or Join another</p>
+          }
+        </ScrollPanel>
+      </Fieldset>
+      </>
+    )
     
     return (
         <>
-        { workstream.results.length ? (
-          workstream.results.map((object, idx) => (
-            object !== undefined
-            ?
-            <Workstream {...object} key={idx}/>
-            :
-            null
-          ))
-        ) : (
-          null
-        )}
-        {btnGroup}
-        <Fieldset style={{height: "70vh"}} className='mx-2 mt-2 text-sm' legend={legendTemplate} pt={{ legend: { className: "bg-surface p-1 text-md" }, toggler: { className: "p-0" }}}>
-          <ScrollPanel style={{ width: '100%', height: '60vh' }}>
-            { workstreamList.results.length ? (
-              workstreamList.results.map((ws, idx) => (
-                ws.id === workstream.results[0]?.id
-                ? null
-                : (<WorkstreamList {...ws} key={idx}/>)
-              ))
-            ) : <p>No available workstreams Create or Join another</p>
-            }
-          </ScrollPanel>
-        </Fieldset>
+        {loaded
+        ? pageContent
+        : <Spinner />
+        }
         <Dialog
                 visible={visible}
                 modal
