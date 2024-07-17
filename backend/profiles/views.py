@@ -13,6 +13,22 @@ class ProfileList(generics.ListAPIView):
     serializer_class = ProfileSerializer
 
 
+class ProfileInviteList(generics.ListAPIView):
+    """
+    List all profiles.
+    No create view as profile creation is handled by django signals.
+    """
+    serializer_class = ProfileSerializer
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        user = self.request.user
+        return Profile.objects.exclude(owner__user_participant__workstream=user.profile.default_workstream).exclude(owner__user_invite__workstream=user.profile.default_workstream)
+
+
 class ProfileDetail(generics.RetrieveUpdateAPIView):
     """
     Retrieve or update a profile if you're the owner.
