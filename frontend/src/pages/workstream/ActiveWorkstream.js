@@ -351,6 +351,10 @@ const ActiveWorkstream = () => {
                             >
                               <WorkstreamTask
                                 props={object}
+                                resource={taskA}
+                                rerun={rerun}
+                                setRerun={setRerun}
+                                setResource={setTaskA}
                                 setID={setEditTaskID}
                                 setVisible={setVisibleTask}
                                 setObject={setTaskObj}
