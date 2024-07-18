@@ -61,3 +61,12 @@ class TaskAssignSerializer(serializers.ModelSerializer):
         fields = [
             'owner',
         ]
+
+
+class TaskCompleteSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Task
+        fields = [
+            'is_completed',
+        ]

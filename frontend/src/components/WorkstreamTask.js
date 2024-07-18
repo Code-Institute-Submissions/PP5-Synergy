@@ -51,10 +51,17 @@ const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResou
         }
     ];
     
-    const handleCheckbox = async (e) => {
-        e.preventDefault();
-        setIsCompleted(!isCompleted)
-        console.log(id)
+    const handleCheckbox = async () => {
+        console.log(id, isCompleted)
+        const formData = new FormData();
+        formData.append("is_completed", !isCompleted);
+        try {
+            const {data} = await axiosReq.put(`/api/task/${id}/complete/`, formData)
+            console.log(data)
+        } catch (err) {
+            console.log(err)
+
+        }
     }
 
     const handleDelete = async () => {
@@ -100,8 +107,8 @@ const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResou
     return (
         <>
         <div className="flex align-items-center flex-1">
-            {is_owner && (<Checkbox onChange={handleCheckbox} checked={isCompleted}></Checkbox>)}
-            <span className='ml-2'>{name}</span>
+            {is_owner && (<Checkbox onChange={() => {setIsCompleted(!isCompleted); handleCheckbox()}} checked={isCompleted}></Checkbox>)}
+            <span className={isCompleted ? 'ml-2 line-through' : 'ml-2'}>{name}</span>
         </div>
         <div className='flex flex-1 gap-3 flex-column sm:flex-row sm:justify-content-between'>
             <div className='flex align-items-center'>

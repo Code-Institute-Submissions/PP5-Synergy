@@ -7,6 +7,7 @@ urlpatterns = [
     path('task/create/', views.TaskCreate.as_view()),
     path('tasklist/', views.UserTaskList.as_view()),
     path('task/<int:pk>/', views.TaskDetail.as_view()),
+    path('task/<int:pk>/complete/', views.CompleteTask.as_view()),
     path('task/<int:pk>/admin/', views.TaskAssignAdmin.as_view()),
     path('task/<int:pk>/assign/', views.TaskAssignSelf.as_view()),
     path('task/<int:pk>/leave/', views.TaskUnassignSelf.as_view()),
