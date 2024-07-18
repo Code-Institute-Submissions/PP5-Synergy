@@ -43,16 +43,38 @@ const TaskList = () => {
           <Button label="Create Task" icon="pi pi-plus" className="p-button-outlined" size='small' onClick={() => setVisible(true)}></Button>
         </Divider>
         <ScrollPanel style={{ width: '100%', height: '90vh' }}>
-        <ul className="card flex flex-column flex-wrap gap-2 list-none px-0">
+        <Divider className='my-1' align="left">
+            <div className="inline-flex align-items-center">
+                <i className="pi pi-calendar-clock mr-2"></i>
+                <b>Todo</b>
+            </div>
+        </Divider>
+        <ul className="card flex flex-column flex-wrap gap-2 my-0 list-none px-0">
             { taskList.results.length ? (
                 taskList.results.map((object) => (
+                  object.is_completed !== true &&
                     <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask props={object} resource={taskList} setResource={setTaskList} setID={setEditID} setVisible={setVisibleEdit} setObject={setTaskObj}/></li>
                 ))
                 ) : (
                 <span>No tasks</span>
             )}
         </ul>
-
+        <Divider className='my-1' align="left">
+            <div className="inline-flex align-items-center">
+                <i className="pi pi-check-square mr-2"></i>
+                <b>Completed</b>
+            </div>
+        </Divider>
+        <ul className="card flex flex-column flex-wrap gap-2 my-0 list-none px-0">
+            { taskList.results.length ? (
+                taskList.results.map((object) => (
+                  object.is_completed &&
+                    <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask props={object} resource={taskList} setResource={setTaskList} setID={setEditID} setVisible={setVisibleEdit} setObject={setTaskObj}/></li>
+                ))
+                ) : (
+                <span>No tasks</span>
+            )}
+        </ul>
         </ScrollPanel>
       </>
   )
