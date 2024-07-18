@@ -6,7 +6,6 @@ import { Tag } from 'primereact/tag';
 import { Button } from 'primereact/button';
 import moment from 'moment';
 import { axiosReq } from '../api/axiosDefaults';
-import { editResourceState } from '../utils/utils';
 
 const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResource, rerun, setRerun}) => {
     const taskMenu = useRef(null);
@@ -87,6 +86,16 @@ const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResou
         }
     }
 
+    const handleAccept = async () => {
+        try {
+            const {data} = await axiosReq.put(`/api/task/${id}/assign/`)
+            setRerun(!rerun)
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
 
     return (
         <>
@@ -101,7 +110,11 @@ const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResou
                 {deadline && <Tag style={{background: 'transparent', color: '#4b5563'}} className="mx-1" icon="pi pi-clock" value={moment(deadline).format("Do, MMM")}></Tag>}
             </div>
             <div className='flex align-items-center justify-content-between sm:justify-content-end'>
-                <Avatar image={owner?.profile_avatar} size="small" shape="circle"/>
+                {owner
+                ? <Avatar image={owner?.profile_avatar} size="small" shape="circle"/>
+                : <Avatar icon='pi pi-download' size="small" shape="circle" onClick={handleAccept}/>
+                }
+                
                 <Menu model={items} popup ref={taskMenu} id="popup_menu_right" popupAlignment="right" />
                 {is_owner && <Button icon="pi pi-ellipsis-v" rounded text size="small" onClick={(event) => taskMenu.current.toggle(event)} aria-controls="popup_task_menu" aria-haspopup />}
             </div>
