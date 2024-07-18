@@ -75,3 +75,11 @@ class TaskAssignSelf(generics.UpdateAPIView):
 
     def perform_update(self, serializer):
         serializer.save(owner=self.request.user)
+
+class TaskUnassignSelf(generics.UpdateAPIView):
+    permission_classes = [IsParticipantOrReadOnly]
+    serializer_class = TaskAssignSerializer
+    queryset = Task.objects.all()
+
+    def perform_update(self, serializer):
+        serializer.save(owner=None)
