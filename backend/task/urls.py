@@ -9,4 +9,5 @@ urlpatterns = [
     path('task/<int:pk>/', views.TaskDetail.as_view()),
     path('task/<int:pk>/admin/', views.TaskAssignAdmin.as_view()),
     path('task/<int:pk>/assign/', views.TaskAssignSelf.as_view()),
+    path('task/<int:pk>/leave/', views.TaskUnassignSelf.as_view()),
 ]
