@@ -41,41 +41,10 @@ const Profile = () => {
         const { first_name, last_name, avatar } = profileData;
         setInputData({ first_name, last_name, avatar });
         setLoaded(true);
-        console.log(currentUser);
       } catch (err) {}
     };
     fetchData();
   }, [currentUser]);
-
-  const legendTemplate = (
-    <div className="flex align-items-center gap-2 px-2">
-      <Avatar image={currentUser?.profile_avatar} shape="circle" />
-      <span className="font-bold">{currentUser?.username}</span>
-      <Button
-        icon="pi pi-user-edit"
-        className="p-1"
-        text
-        severity="secondary"
-        onClick={() => setVisible(true)}
-        size="medium"
-      />
-      {/* <Button icon="pi pi-ellipsis-v" text severity="secondary" aria-label="admin workstream menu" size='small' className="p-1" onClick={(event) => menuRight.current.toggle(event)} aria-controls="popup_menu" aria-haspopup /> */}
-    </div>
-  );
-
-  const onTemplateSelect = (e) => {
-    let _totalSize = totalSize;
-    let files = e.files;
-
-    Object.keys(files).forEach((key) => {
-      _totalSize += files[key].size || 0;
-    });
-
-    setTotalSize(_totalSize);
-    setImage(files[0]);
-    console.log(image);
-    console.log(fileUploadRef);
-  };
 
   const onTemplateRemove = (file, callback) => {
     setTotalSize(totalSize - file.size);
@@ -174,11 +143,9 @@ const Profile = () => {
         ...currentUser,
         profile_avatar: data.avatar,
       }));
-      console.log(data);
       setImage(null);
     } catch (err) {
       setErrors(err.response?.data);
-      console.log(err);
     }
     setVisible(false);
   };
@@ -190,8 +157,7 @@ const Profile = () => {
     className:
       "custom-choose-btn p-button-secondary p-button-rounded p-button-outlined",
   };
-  // const uploadOptions = { icon: 'pi pi-fw pi-cloud-upload', iconOnly: true, className: 'custom-upload-btn p-button-success p-button-rounded p-button-outlined hidden' };
-  // const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined hidden' };
+
   return (
     <>
       <div className={"col-12 md:col-6 lg:col-3"}>
@@ -277,8 +243,6 @@ const Profile = () => {
                 onSelect={(e) => {
                   let files = e.files;
                   setImage(files[0]);
-                  console.log(image);
-                  console.log(fileUploadRef);
                 }}
                 onError={onTemplateClear}
                 onClear={onTemplateClear}
