@@ -12,6 +12,7 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { FileUpload } from "primereact/fileupload";
 import { Tag } from "primereact/tag";
+import ProfileSkeleton from "../../assets/ProfileSkeleton";
 
 const Profile = () => {
   const currentUser = useCurrentUser();
@@ -158,7 +159,7 @@ const Profile = () => {
       "custom-choose-btn p-button-secondary p-button-rounded p-button-outlined",
   };
 
-  return (
+  const pageContent = (
     <>
       <div className={"col-12 md:col-6 lg:col-3"}>
         <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
@@ -274,6 +275,15 @@ const Profile = () => {
           </div>
         )}
       ></Dialog>
+    </>
+  )
+
+  return (
+    <>
+      {loaded
+      ? pageContent
+      : <ProfileSkeleton />
+      }
     </>
   );
 };
