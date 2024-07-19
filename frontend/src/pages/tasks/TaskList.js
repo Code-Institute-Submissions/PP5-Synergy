@@ -7,6 +7,8 @@ import TaskForm from '../tasks/TaskForm'
 import { OptionsContext } from '../../contexts/OptionsContext';
 import WorkstreamTask from '../../components/WorkstreamTask';
 import Spinner from '../../assets/Spinner';
+import InfiniteScroll from "react-infinite-scroll-component";
+import { fetchMoreData } from '../../utils/utils';
 
 const TaskList = () => {
   const [errors, setErrors] = useState({});
@@ -17,7 +19,6 @@ const TaskList = () => {
   const [editID, setEditID] = useState()
   const [taskObj, setTaskObj] = useState({})
   const [loaded, setLoaded] = useState(false)
-
   
 
   useEffect(() => {
@@ -51,11 +52,17 @@ const TaskList = () => {
         </Divider>
         <ul className="card flex flex-column flex-wrap gap-2 my-0 list-none px-0">
             { taskList.results.length ? (
-                taskList.results.map((object) => (
+              <InfiniteScroll
+                children={taskList.results.map((object) => (
                   object.is_completed !== true &&
                     <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask props={object} resource={taskList} setResource={setTaskList} setID={setEditID} setVisible={setVisibleEdit} setObject={setTaskObj} editList={true}/></li>
-                ))
-                ) : (
+                ))}
+                dataLength={taskList.results.length}
+                loader={<Spinner />}
+                hasMore={!!taskList.next}
+                next={() => fetchMoreData(taskList, setTaskList)}
+              />
+              ) : (
                 <span>No tasks</span>
             )}
         </ul>
@@ -67,10 +74,16 @@ const TaskList = () => {
         </Divider>
         <ul className="card flex flex-column flex-wrap gap-2 my-0 list-none px-0">
             { taskList.results.length ? (
-                taskList.results.map((object) => (
+                <InfiniteScroll
+                children={taskList.results.map((object) => (
                   object.is_completed &&
                     <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask props={object} resource={taskList} setResource={setTaskList} setID={setEditID} setVisible={setVisibleEdit} setObject={setTaskObj} editList={true}/></li>
-                ))
+                ))}
+                dataLength={taskList.results.length}
+                loader={<Spinner />}
+                hasMore={!!taskList.next}
+                next={() => fetchMoreData(taskList, setTaskList)}
+              />
                 ) : (
                 <span>No tasks</span>
             )}
