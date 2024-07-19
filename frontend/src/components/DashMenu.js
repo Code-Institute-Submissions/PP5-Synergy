@@ -76,7 +76,7 @@ const DashMenu = () => {
         {
             template: (item, options) => {
                 return (
-                    <div className='w-full p-link flex align-items-center p-2 text-color border-noround'>
+                    <div className='cursor-auto w-full p-link flex align-items-center p-2 text-color border-noround'>
                         <Avatar image={currentUser?.profile_avatar} className="mr-2" shape="circle"/>
                         <div className="flex flex-column align">
                             <span className="font-bold">{currentUser?.username}</span>
