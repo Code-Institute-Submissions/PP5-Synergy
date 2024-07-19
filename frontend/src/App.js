@@ -10,7 +10,6 @@ import WorkstreamPage from './pages/workstream/WorkstreamPage';
 import ActiveWorkstream from './pages/workstream/ActiveWorkstream';
 import TaskList from './pages/tasks/TaskList';
 import Notification from './pages/notification/Notification';
-import Profile from './pages/profile/Profile';
 import InvitePage from './pages/notification/InvitePage';
 import JoinPage from './pages/notification/JoinPage';
 
@@ -27,7 +26,6 @@ function App() {
               <Route exact path="/" element={<h2>Home</h2>} />
               <Route exact path="/signin" element={<SignIpForm />} />
               <Route exact path="/signup" element={<SignUpForm />} />
-              <Route exact path="/profile" element={<Profile />} />
               <Route exact path="/dashboard" element={<Dashboard />} />
               <Route exact path="/workstream" element={<WorkstreamPage />} />
               <Route exact path="/workstream/active" element={<ActiveWorkstream />} />
