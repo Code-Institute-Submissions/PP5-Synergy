@@ -12,7 +12,7 @@ const Dashboard = () => {
           <b>Dashboard</b>
         </div>
       </Divider>
-      <ScrollPanel style={{ width: "100%", height: "40vh" }}>
+      <ScrollPanel className='p-0 m-0' style={{ width: "100%", height: "89vh" }}>
         <div className="flex justify-content-start flex-wrap">
           <Profile />
         </div>
