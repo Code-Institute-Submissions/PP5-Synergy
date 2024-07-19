@@ -2,6 +2,7 @@ import React from 'react'
 import { Divider } from "primereact/divider";
 import { ScrollPanel } from "primereact/scrollpanel";
 import Profile from './Profile';
+import WorkstreamReport from './WorkstreamReport';
 
 const Dashboard = () => {
   return (
@@ -15,6 +16,7 @@ const Dashboard = () => {
       <ScrollPanel className='p-0 m-0' style={{ width: "100%", height: "89vh" }}>
         <div className="flex justify-content-start flex-wrap">
           <Profile />
+          <WorkstreamReport />
         </div>
       </ScrollPanel>
     </>

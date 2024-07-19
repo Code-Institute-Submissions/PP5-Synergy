@@ -360,6 +360,7 @@ const ActiveWorkstream = () => {
                                 setID={setEditTaskID}
                                 setVisible={setVisibleTask}
                                 setObject={setTaskObj}
+                                editList={false}
                               />
                             </li>
                           ) : null

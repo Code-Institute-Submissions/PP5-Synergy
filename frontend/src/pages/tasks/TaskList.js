@@ -53,7 +53,7 @@ const TaskList = () => {
             { taskList.results.length ? (
                 taskList.results.map((object) => (
                   object.is_completed !== true &&
-                    <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask props={object} resource={taskList} setResource={setTaskList} setID={setEditID} setVisible={setVisibleEdit} setObject={setTaskObj}/></li>
+                    <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask props={object} resource={taskList} setResource={setTaskList} setID={setEditID} setVisible={setVisibleEdit} setObject={setTaskObj} editList={true}/></li>
                 ))
                 ) : (
                 <span>No tasks</span>
@@ -69,7 +69,7 @@ const TaskList = () => {
             { taskList.results.length ? (
                 taskList.results.map((object) => (
                   object.is_completed &&
-                    <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask props={object} resource={taskList} setResource={setTaskList} setID={setEditID} setVisible={setVisibleEdit} setObject={setTaskObj}/></li>
+                    <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={object.id}><WorkstreamTask props={object} resource={taskList} setResource={setTaskList} setID={setEditID} setVisible={setVisibleEdit} setObject={setTaskObj} editList={true}/></li>
                 ))
                 ) : (
                 <span>No tasks</span>

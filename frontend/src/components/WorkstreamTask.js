@@ -8,7 +8,7 @@ import moment from 'moment';
 import { axiosReq } from '../api/axiosDefaults';
 import { editResourceState } from '../utils/utils';
 
-const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResource, rerun, setRerun}) => {
+const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResource, rerun, setRerun, editList}) => {
     const taskMenu = useRef(null);
     const [task, setTask] = useState(props)
     const {
@@ -71,7 +71,8 @@ const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResou
     
     useEffect(() => {
         const updateSate = () => {
-            editResourceState(task, resource, setResource)
+            {editList && editResourceState(task, resource, setResource)}
+            
         };
         updateSate();
     }, [task]); 

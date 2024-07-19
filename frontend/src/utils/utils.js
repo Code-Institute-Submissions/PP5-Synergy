@@ -17,7 +17,6 @@ export const fetchMoreData = async (resource, setResource) => {
 };
 
 export const editResourceState = (arg, resource, setResource) => {
-  console.log(arg, resource)
   const updatedRes = resource.results.map((object) => {
     if (arg.id === object.id) {
       return arg;
@@ -25,7 +24,6 @@ export const editResourceState = (arg, resource, setResource) => {
       return object
     }
   });
-  console.log(updatedRes)
   setResource((prevState) => ({
     ...prevState,
     results: updatedRes,
