@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Checkbox } from "primereact/checkbox";
 import { Menu } from 'primereact/menu';
 import { Avatar } from 'primereact/avatar';
@@ -6,9 +6,11 @@ import { Tag } from 'primereact/tag';
 import { Button } from 'primereact/button';
 import moment from 'moment';
 import { axiosReq } from '../api/axiosDefaults';
+import { editResourceState } from '../utils/utils';
 
 const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResource, rerun, setRerun}) => {
     const taskMenu = useRef(null);
+    const [task, setTask] = useState(props)
     const {
         category,
         created_at,
@@ -22,9 +24,8 @@ const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResou
         owner,
         priority,
         updated_at,
-    } = props
+    } = task
     const [isCompleted, setIsCompleted] = useState(is_completed)
-
     const items = [
         {
             label: 'Edit',
@@ -57,12 +58,23 @@ const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResou
         formData.append("is_completed", !isCompleted);
         try {
             const {data} = await axiosReq.put(`/api/task/${id}/complete/`, formData)
-            console.log(data)
+            setTask({
+                ...task,
+                is_completed: data.is_completed
+            });
         } catch (err) {
             console.log(err)
 
         }
     }
+
+    
+    useEffect(() => {
+        const updateSate = () => {
+            editResourceState(task, resource, setResource)
+        };
+        updateSate();
+    }, [task]); 
 
     const handleDelete = async () => {
         try {
