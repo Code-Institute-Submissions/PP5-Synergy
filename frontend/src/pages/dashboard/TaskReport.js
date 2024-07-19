@@ -9,18 +9,18 @@ import { useNavigate } from 'react-router-dom';
 const TaskReport = () => {
     const currentUser = useCurrentUser()
     const [loaded, setLoaded] = useState(false)
-    const [tasks, setTasks] = useState({})
+    const [profileData, setProfileData] = useState({});
     const navigate = useNavigate()
 
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const [{ data: tasks }] = await Promise.all([
-                axiosReq.get(`/api/tasklist/`),
+            const [{ data: profileData }] = await Promise.all([
+                axiosReq.get(`/api/profiles/${currentUser.pk}/`),
             ]);
-            setTasks(tasks);
+            setProfileData(profileData);
             setLoaded(true);
-            console.log(tasks)
+            console.log(profileData)
           } catch (err) {}
         };
         fetchData();
@@ -33,7 +33,7 @@ const TaskReport = () => {
                 <div className="flex justify-content-between mb-1">
                     <div>
                     <span className="block text-500 font-medium mb-1">Tasks :</span>
-                    <div className="text-900 font-medium text-xl"></div>
+                    <div className="text-900 font-medium text-xl">Pending : {profileData.pending}</div>
                     </div>
                     <div
                     className="flex align-items-center justify-content-center bg-primary-100 border-round"
@@ -43,7 +43,7 @@ const TaskReport = () => {
                     </div>
                 </div>
                 <div className="flex justify-content-between">
-                    <span className="text-primary-500 font-medium"></span>
+                    <span className="text-primary-500 font-medium">Completed : {profileData.completed}</span>
                     <Tag
                         className="cursor-pointer"
                         severity="primary"

@@ -12,6 +12,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     default_workstream = UserWorkstreamForeignKey()
+
     
 
     def get_is_owner(self, obj):
@@ -29,6 +30,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 class EditProfileSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='user.username')
     is_owner = serializers.SerializerMethodField()
+    completed = serializers.ReadOnlyField()
+    pending = serializers.ReadOnlyField()
     
 
     def get_is_owner(self, obj):
@@ -39,7 +42,7 @@ class EditProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = [
-            'id', 'owner', 'first_name',
+            'id', 'owner', 'first_name','completed', 'pending',
             'last_name', 'avatar', 'is_owner',
         ]
 

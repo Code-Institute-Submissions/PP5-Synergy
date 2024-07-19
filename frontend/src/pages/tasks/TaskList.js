@@ -27,7 +27,6 @@ const TaskList = () => {
         const [{ data: taskList }] =
           await Promise.all([
             axiosReq.get(`/api/tasklist/`),
-            // axiosReq.get(`/posts/?owner__profile=${id}`),
           ]);
         setTaskList(taskList);
         setLoaded(true)

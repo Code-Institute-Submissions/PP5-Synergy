@@ -36,7 +36,6 @@ const Profile = () => {
       try {
         const [{ data: profileData }] = await Promise.all([
           axiosReq.get(`/api/profiles/${currentUser.pk}/`),
-          // axiosReq.get(`/posts/?owner__profile=${id}`),
         ]);
         setProfileData({ profileData });
         const { first_name, last_name, avatar } = profileData;

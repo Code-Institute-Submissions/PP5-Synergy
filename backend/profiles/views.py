@@ -1,3 +1,5 @@
+from django.db.models import Count
+from django.db.models import Q
 from rest_framework import generics
 from backend.permissions import IsOwnerOrReadOnly
 from .models import Profile
@@ -34,7 +36,10 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
     Retrieve or update a profile if you're the owner.
     """
     permission_classes = [IsOwnerOrReadOnly]
-    queryset = Profile.objects.all().order_by('-created_at')
+    queryset = Profile.objects.all().annotate(
+        completed=Count('owner__user', filter=Q(owner__user__is_completed=True)),
+        pending=Count("owner__user", filter=Q(owner__user__is_completed=False))
+    ).order_by('-created_at')
     serializer_class = EditProfileSerializer
 
 
