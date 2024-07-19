@@ -3,6 +3,7 @@ import { Divider } from "primereact/divider";
 import { ScrollPanel } from "primereact/scrollpanel";
 import Profile from './Profile';
 import WorkstreamReport from './WorkstreamReport';
+import TaskReport from './TaskReport';
 
 const Dashboard = () => {
   return (
@@ -17,6 +18,7 @@ const Dashboard = () => {
         <div className="flex justify-content-start flex-wrap">
           <Profile />
           <WorkstreamReport />
+          <TaskReport />
         </div>
       </ScrollPanel>
     </>
