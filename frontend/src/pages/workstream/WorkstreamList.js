@@ -44,12 +44,10 @@ const Workstream = (props) => {
         e.preventDefault();
         try {
             const { data } = await axiosReq.put(`api/profiles/switch/${currentUser.pk}/`, inputData);
-            console.log(data)
             navigate('/workstream/active')
         } catch (err) {
             setErrors(err.response?.data.default_workstream[0]);
             showError()
-            console.log(errors)
         }
     }
     

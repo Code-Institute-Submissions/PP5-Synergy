@@ -18,7 +18,6 @@ const InvitePage = () => {
             ]);
             setUserList(userList)
             setLoaded(true)
-            console.log(userList)
           } catch (err) {
           }
         };

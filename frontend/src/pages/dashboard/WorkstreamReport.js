@@ -21,7 +21,6 @@ const WorkstreamReport = () => {
             if(workstream.results.length > 0) {
                 setWorkstream(workstream.results[0]?.workstream);
             }
-            console.log(workstream, workstream.results[0]?.workstream)
             setLoaded(true);
           } catch (err) {}
         };

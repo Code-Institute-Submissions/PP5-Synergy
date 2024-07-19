@@ -53,7 +53,6 @@ const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResou
     ];
     
     const handleCheckbox = async () => {
-        console.log(id, isCompleted)
         const formData = new FormData();
         formData.append("is_completed", !isCompleted);
         try {
@@ -63,8 +62,6 @@ const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResou
                 is_completed: data.is_completed
             });
         } catch (err) {
-            console.log(err)
-
         }
     }
 
@@ -102,7 +99,6 @@ const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResou
             }));
             setRerun(!rerun)
         } catch (err) {
-            console.log(err)
         }
     }
 
@@ -111,7 +107,6 @@ const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResou
             const {data} = await axiosReq.put(`/api/task/${id}/assign/`)
             setRerun(!rerun)
         } catch (err) {
-            console.log(err)
         }
 
     }

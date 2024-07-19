@@ -17,7 +17,6 @@ const DialogForm = ({url, title, inputData, setInputData, visible, setVisible, s
         try {
             if(edit) {
                 const { data } = await axiosReq.put(url, inputData);
-                console.log(data);
                 {setResource && editResourceState(data, resource, setResource)};
                 {setAttribute && setAttribute(data.name)};
                 
@@ -28,7 +27,6 @@ const DialogForm = ({url, title, inputData, setInputData, visible, setVisible, s
                     ...prevState,
                     results: [data, ...prevState.results],
                 }));
-                console.log('create')
             }
             
             

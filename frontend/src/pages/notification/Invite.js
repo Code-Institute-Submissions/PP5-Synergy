@@ -27,7 +27,6 @@ const Invite = ({ props, admin, url, setID, setUrl, confirmDialog, rerun, setRer
       const { data } = await axiosReq.put(url, inputData);
       setRerun(!rerun)
     } catch (err) {
-      console.log(err)
 
     }
   }

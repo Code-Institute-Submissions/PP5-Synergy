@@ -51,8 +51,6 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        console.log(inputData)
         try {
             if(edit) {
                 const { data } = await axiosReq.put(url, inputData);
@@ -66,7 +64,6 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
             
         } catch (err) {
             setErrors(err.response?.data);
-            console.log(err)
         }
     }
 
@@ -81,7 +78,6 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
         let newDate = new Date(date).toLocaleDateString();
         let dateArray = newDate.split("/");
         let dateFormat = dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0]
-        console.log(dateFormat)
         setInputData({
             ...inputData,
             deadline: dateFormat,
@@ -117,7 +113,6 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
         setSelectedCategory(taskObj.category)
         setDate(newDate)
         {taskObj.is_owner && setChecked(true)}
-        console.log(taskObj)
     }
 
     useEffect(() => {

@@ -29,10 +29,8 @@ const Notification = () => {
         setInvite(invite);
         setJoin(join);
         setLoaded(true)
-        console.log(invite, join);
       } catch (err) {
         setErrors(err.response?.data);
-        console.log(errors);
       }
     };
     fetchData();

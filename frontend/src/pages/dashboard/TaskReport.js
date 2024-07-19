@@ -20,7 +20,6 @@ const TaskReport = () => {
             ]);
             setProfileData(profileData);
             setLoaded(true);
-            console.log(profileData)
           } catch (err) {}
         };
         fetchData();

@@ -40,9 +40,7 @@ const WorkstreamPage = () => {
           setWorkstreamList(workstreamList);
           setLoaded(true)
       } catch (err) {
-        console.log(err);
       }
-      console.log(workstream, workstreamList)
     };
 
     handleMount();
@@ -65,10 +63,8 @@ const WorkstreamPage = () => {
       e.preventDefault();
       try {
         const { data } = await axiosReq.post("/api/workstream/", inputData);
-        console.log(data)
       } catch (err) {
           setErrors(err.response?.data);
-          console.log(errors)
       }
       setVisible(false)
       navigate('/workstream/active')

@@ -24,10 +24,8 @@ const InviteCard = ({title, message, count, icon, display, id, url}) => {
         }
         try {
             const { data } = await axiosReq.post(url, formData);
-            console.log(data)
             navigate('/notification')
         } catch (err) {
-            console.log(err)
         }
     }
 

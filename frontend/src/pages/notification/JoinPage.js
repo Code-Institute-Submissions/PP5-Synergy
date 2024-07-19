@@ -18,7 +18,6 @@ const JoinPage = () => {
               ]);
               setWorkstreamList(workstreamList)
               setLoaded(true)
-              console.log(workstreamList)
             } catch (err) {
             }
           };

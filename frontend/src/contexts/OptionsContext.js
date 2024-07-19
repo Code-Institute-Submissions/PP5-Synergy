@@ -19,7 +19,6 @@ export const OptionsContext = ({ children }) => {
             setCategoryOptions(category.results)
             setProjectOptions(project.results)
         } catch (err) {
-        console.log(err);
         }
     };
 

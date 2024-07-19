@@ -114,7 +114,6 @@ const ActiveWorkstream = () => {
         setLoaded(true)
       } catch (err) {
         setErrors(err.response?.data);
-        console.log(errors);
       }
     };
     handleMount();
@@ -131,7 +130,6 @@ const ActiveWorkstream = () => {
         setTaskA(taskA);
       } catch (err) {
         setErrors(err.response?.data);
-        console.log(errors);
       }
     };
     fetchData();
