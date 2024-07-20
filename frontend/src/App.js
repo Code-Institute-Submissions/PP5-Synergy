@@ -12,6 +12,7 @@ import TaskList from './pages/tasks/TaskList';
 import Notification from './pages/notification/Notification';
 import InvitePage from './pages/notification/InvitePage';
 import JoinPage from './pages/notification/JoinPage';
+import Home from './pages/home/Home';
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
               <DashMenu />
             <div className="col surface-ground p-0">
             <Routes>
-              <Route exact path="/" element={<h2>Home</h2>} />
+              <Route exact path="/" element={<Home />} />
               <Route exact path="/signin" element={<SignIpForm />} />
               <Route exact path="/signup" element={<SignUpForm />} />
               <Route exact path="/dashboard" element={<Dashboard />} />
