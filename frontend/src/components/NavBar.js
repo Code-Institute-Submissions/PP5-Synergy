@@ -16,13 +16,6 @@ const NavBar = () => {
             command: () => {
                 navigate('/');
             }
-        },
-        {
-            label: 'Features',
-            icon: 'pi pi-star',
-            command: () => {
-                navigate('/signup');
-            }
         }
     ];
 
