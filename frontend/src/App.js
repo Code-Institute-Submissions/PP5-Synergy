@@ -22,21 +22,21 @@ function App() {
           <NavBar />
           <div className='grid grid-nogutter'>
               <DashMenu />
-            <div className="col surface-ground p-0">
-            <Routes>
-              <Route exact path="/" element={<Home />} />
-              <Route exact path="/signin" element={<SignIpForm />} />
-              <Route exact path="/signup" element={<SignUpForm />} />
-              <Route exact path="/dashboard" element={<Dashboard />} />
-              <Route exact path="/workstream" element={<WorkstreamPage />} />
-              <Route exact path="/workstream/active" element={<ActiveWorkstream />} />
-              <Route exact path="/task" element={<TaskList />} />
-              <Route exact path="/notification" element={<Notification />} />
-              <Route exact path="/invite" element={<InvitePage />} />
-              <Route exact path="/join" element={<JoinPage />} />
-              <Route path="*" element={<h2>Page not found</h2>} />
-            </Routes>
-            </div>
+              <div className="col surface-ground p-0">
+              <Routes>
+                <Route exact path="/" element={<Home />} />
+                <Route exact path="/signin" element={<SignIpForm />} />
+                <Route exact path="/signup" element={<SignUpForm />} />
+                <Route exact path="/dashboard" element={<Dashboard />} />
+                <Route exact path="/workstream" element={<WorkstreamPage />} />
+                <Route exact path="/workstream/active" element={<ActiveWorkstream />} />
+                <Route exact path="/task" element={<TaskList />} />
+                <Route exact path="/notification" element={<Notification />} />
+                <Route exact path="/invite" element={<InvitePage />} />
+                <Route exact path="/join" element={<JoinPage />} />
+                <Route path="*" element={<h2>Page not found</h2>} />
+              </Routes>
+              </div>
           </div>
           
         </div>

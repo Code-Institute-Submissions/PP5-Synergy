@@ -63,7 +63,7 @@ const DashMenu = () => {
                             <path d="M12.1762 10.1789L8.4462 9.794L10.8145 7.09967H13.5378L12.1762 10.1789Z" fill="var(--primary-color)" />
                         </svg>
                         <span className="font-medium text-xl font-semibold">
-                            PRIME<span className="text-primary">APP</span>
+                            SYN<span className="text-primary">ERGY</span>
                         </span>
                     </span>
                 );
