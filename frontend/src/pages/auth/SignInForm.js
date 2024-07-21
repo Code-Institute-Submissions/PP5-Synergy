@@ -8,6 +8,7 @@ import { Password } from 'primereact/password';
 import { Message } from 'primereact/message';
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { setTokenTimestamp } from "../../utils/utils";
+import logo from '../../assets/logo.png'
 
 const SignInForm = () => {
     const SetCurrentUser = useSetCurrentUser();
@@ -32,7 +33,7 @@ const SignInForm = () => {
             setErrors(err.response?.data);
         }
     };
-
+    
     const handleChange = (event) => {
         setSignInData({
           ...signInData,
@@ -45,7 +46,7 @@ const SignInForm = () => {
     <div className="flex align-items-center justify-content-center mt-2">
         <div className="surface-card p-4 shadow-2 border-round w-full sm:w-6 lg:w-4">
             <div className="text-center mb-5">
-                <img src="/demo/images/blocks/logos/hyper.svg" alt="hyper" height={50} className="mb-3" />
+                <img src={logo} alt="hyper" height={50} className="mb-3" />
                 <div className="text-900 text-3xl font-medium mb-3">Welcome Back</div>
                 <span className="text-600 font-medium line-height-3">Don't have an account?</span>
                 <Link className="font-medium no-underline ml-2 text-blue-500 cursor-pointer" to="/signup">

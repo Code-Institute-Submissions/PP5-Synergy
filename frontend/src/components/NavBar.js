@@ -4,6 +4,7 @@ import { Button } from 'primereact/button';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useCurrentUser } from '../contexts/CurrentUserContext';
+import logo from "../assets/logo.png";
 
 const NavBar = () => {
     const currentUser = useCurrentUser();
@@ -26,8 +27,8 @@ const NavBar = () => {
             </NavLink>
         </div>
     );
-
-    const start = <NavLink to="/"><img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" height="40" className="mr-2"></img></NavLink>;
+    
+    const start = <NavLink to="/"><img alt="logo" src={logo} height="40" className="mr-2"></img></NavLink>;
     const loggedOutMenu = <Menubar model={items} start={start} end={end} />
     const loggedInMenu = <></>
     return (

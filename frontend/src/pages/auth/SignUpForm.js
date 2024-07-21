@@ -5,6 +5,7 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Message } from 'primereact/message';
+import logo from '../../assets/logo.png'
 
 const SignUpForm = () => {
     const [signUpData, setSignUpData] = useState({
@@ -38,7 +39,7 @@ const SignUpForm = () => {
     <div className="flex align-items-center justify-content-center mt-2">
         <div className="surface-card p-4 shadow-2 border-round w-full sm:w-6 lg:w-4">
             <div className="text-center mb-5">
-                <img src="/demo/images/blocks/logos/hyper.svg" alt="hyper" height={50} className="mb-3" />
+                <img src={logo} alt="hyper" height={50} className="mb-3" />
                 <div className="text-900 text-3xl font-medium mb-3">Create Account</div>
                 <span className="text-600 font-medium line-height-3">Already have an account?</span>
                 <Link className="font-medium no-underline ml-2 text-blue-500 cursor-pointer" to="/signin">
