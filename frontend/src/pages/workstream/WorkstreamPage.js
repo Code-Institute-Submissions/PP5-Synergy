@@ -105,7 +105,7 @@ const WorkstreamPage = () => {
             ))}
             dataLength={workstreamList.results.length}
             loader={<Spinner />}
-            hasMore={!!invite.next}
+            hasMore={!!workstreamList.next}
             next={() => fetchMoreData(workstreamList, setWorkstreamList)}
             />
           ) : <p>No available workstreams Create or Join another</p>
