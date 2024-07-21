@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from 'primereact/button'
 import { Divider } from 'primereact/divider'
+import hero from '../../assets/heroImage.png'
 
 const Home = () => {
     const navigate = useNavigate()
@@ -19,7 +20,7 @@ const Home = () => {
                 </section>
             </div>
             <div className="col-12 md:col-6 overflow-hidden">
-                <img src="/demo/images/blocks/hero/hero-1.png" alt="hero-1" className="md:ml-auto block md:h-full" style={{ clipPath: 'polygon(8% 0, 100% 0%, 100% 100%, 0 100%)' }} />
+                <img src={hero} alt="hero-1" className="md:ml-auto block md:h-full" style={{ clipPath: 'polygon(8% 0, 100% 0%, 100% 100%, 0 100%)' }} />
             </div>
         </div>
         <div className="surface-0 text-center">

@@ -17,6 +17,7 @@ const DashMenu = () => {
             await axios.post("dj-rest-auth/logout/");
             setCurrentUser(null);
             removeTokenTimestamp()
+            navigate('/signin')
         } catch (err) {
         }
     };
@@ -97,14 +98,13 @@ const DashMenu = () => {
             template: itemRenderer
         },
         {
-            label: 'Logout',
-            icon: 'pi pi-sign-out',
-            border: 'border-bottom-1 surface-border pb-2',
-            url: '/logout',
-            template: renderLogout
+            separator: true
         },
         {
-            label: 'Footer'
+            label: 'Logout',
+            icon: 'pi pi-sign-out',
+            url: '/logout',
+            template: renderLogout
         }
     ];
 
