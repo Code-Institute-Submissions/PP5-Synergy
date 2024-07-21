@@ -1,114 +1,246 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Synergy
 
-Welcome USER_NAME,
+Live Version: [Synergy](https://pp5-synergy.onrender.com)
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
 
-You can safely delete this README.md file or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **May 28, 2024**
+Repository: [GitHub Repo](https://github.com/Hussain-Naik/PP5-Synergy)
 
-## Gitpod Reminders
+The app is developed by [Hussain Naik](https://github.com/Hussain-Naik).
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+![Synergy](documentation/badminton.png)
 
-`python3 -m http.server`
+## Agile Development
+The Agile framework is an iterative approach to software development. Instead of delivering a final working product at the end of the development lifecycle, teams work in small timeframes.
 
-A blue button should appear to click: _Make Public_,
+### Stage 1: Ideation
 
-Another blue button should appear to click: _Open Browser_.
 
-To run a backend Python file, type `python3 app.py` if your Python file is named `app.py`, of course.
+[Synergy](https://github.com/Hussain-Naik/PP5-Synergy) is a task management application to allow user to manage task alone or with other users. Users can create or join multiple workstreams.
 
-A blue button should appear to click: _Make Public_,
+#### Strategy
 
-Another blue button should appear to click: _Open Browser_.
+Developed for all levels of badminton player from beginners to professional, the app is designed to be easy to use and intuitive. The main goal of the app is to help groups organize and keep track of the match outcomes for all participating users.
 
-By Default, Gitpod gives you superuser security privileges. Therefore, you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+#### User Stories
 
-To log into the Heroku toolbelt CLI:
+##### **First Time Visitor Goals**
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+| Issue ID    | User Story |
+|-------------|-------------|
+|[#1]()| user story|
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you, so do not share it. If you accidentally make it public, you can create a new one with _Regenerate API Key_.
 
-------
+##### **Frequent Visitor Goals**
 
-## Release History
+| Issue ID    | User Story |
+|-------------|-------------|
+|[#1]()| user story|
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+---
+#### Technologies used
 
-**May 28 2024:** Fix Mongo and Links installs
+- ##### Languages:
+    
+    + [Python](https://www.python.org/downloads/release/python-385/): the primary language used to develop the server-side of the website.
 
-**April 26 2024:** Update node version to 16
+    + [JS](https://www.javascript.com/): the primary language used to develop interactive components of the website.
 
-**September 20 2023:** Update Python version to 3.9.17.
+    + [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML): the markup language used to create the website.
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+    + [CSS](https://developer.mozilla.org/en-US/docs/Web/css): the styling language used to style the website.
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+- ##### Frameworks and libraries:
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+    + [Django](https://www.djangoproject.com/): python framework used to create all the logic.
+    + [Django-rest-framework](https://www.django-rest-framework.org/): python framework used to create the API.
+    + [React](https://reactjs.org/): javascript framework used to create the front-end of the website.
+    + [PrimeReact](https://www.primefaces.org/primereact/): a set of components used to create the front-end of the website.
+    + [Primeflex](https://www.primefaces.org/primeflex/): css framework used to style the front-end of the website.
+    + [DJ-Rest-Auth](https://dj-rest-auth.readthedocs.io/en/latest/index.html): was used for user registration
+    + [Corsheaders](https://pypi.org/project/django-cors-headers/): was used to cross origin resource sharing
+    + [Primeicon](https://primereact.org/icons/): was used for the icon for the application.
+    + [moment](https://momentjs.com/): was used to display deadline for tasks
+    + [axios](https://axios-http.com/docs/intro): was used api requests
+    + [React-Router-Dom](https://reactrouter.com/en/main): was used to handle application navigation
+    + [Infinate Scroll](https://www.npmjs.com/package/react-infinite-scroll-component): handle pagination for api requests
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+- ##### Databases:
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+    + [SQLite](https://www.sqlite.org/): was used as a development database.
+    + [PostgreSQL](https://www.postgresql.org/): the database used to store all the data.
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+- ##### Other tools:
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+    + [Git](https://git-scm.com/): the version control system used to manage the code.
+    + [Pip3](https://pypi.org/project/pip/): the package manager used to install the dependencies.
+    + [Render](https://render.com/): the hosting service used to host the website.
+    + [VSCode](https://code.visualstudio.com/): the IDE used to develop the website.
+    + [Chrome DevTools](https://developer.chrome.com/docs/devtools/open/): was used to debug the website.
+    + [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi): was used to debug the website.
+    + [W3C Validator](https://validator.w3.org/): was used to validate HTML5 code for the website.
+    + [W3C CSS validator](https://jigsaw.w3.org/css-validator/): was used to validate CSS code for the website.
+    + [JShint](https://jshint.com/): was used to validate JS code for the website.
+    + [PEP8](https://pep8.org/): was used to validate Python code for the website.
+    + [Figma](https://www.figma.com/): to create the wireframes.
+    + [draw.io](https://www.drawio.com) used to create the ERD
+    + [Canva](https://www.canva.com/en_gb/): to create the logo.
+    + [Gunicorn](https://gunicorn.org/): the webserver used to run the website.
+    + [Psycopg2](https://www.python.org/dev/peps/pep-0249/): the database driver used to connect to the database.
+    + [Django-allauth](https://django-allauth.readthedocs.io/en/latest/): the authentication library used to create the user accounts.
+    + [ElephantSQL](https://www.elephantsql.com/): the cloud database used to store all the data.
+    + [GitHub](https://github.com/): used to host the website's source code.
+    + [GitHub Projects](https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects): used for planning and keeping track of issues.
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
-
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
-
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
-------
-
-## FAQ about the uptime script
-
-**Why have you added this script?**
-
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
-
-**How will this affect me?**
-
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
-
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
-
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
 
 ---
 
-Happy coding!
+### Stage 2: Development
+
+Github Kanban board was used to keep track of tasks and issues
+- [Github Projects](documentation/github_projects.png)
+
+#### FEATURES
+
+Please refer to the [FEATURES.md](FEATURES.md) file for all features-related documentation.
+
+---
+
+#### Design
+
+The design of the application is based on the Material Design principles.
+The central theme of the application is the simplicity of use. Thus, all the components are designed to be easy to use. The minimalistic approach was used to create something meaningful without moving out of focus. As this application is a multifunctional one and consists of many components, the decision to implement white spaces was made as it helps to create a more pleasant user experience. 
+
+##### Color Scheme
+
+The color scheme of the application is based on Prime React color scheme:
+
+[Color Scheme](https://primereact.org/theming/#builtinthemes)
+
+In Summary the prime react color scheme allows the application to be visually appealing and consistent in the design while reinforcing the applications identity to enhance the overall user experience.
+
+##### Typography
+
+As the application is designed using prime react library entirely the decision to stay with the typography for its consistency as is uses a native font stack that selects the best font-family for each OS and device
+
+##### Imagery
+
+- The main part is allocated to the use of icons from [Primeicons](https://primereact.org/icons/) website. The use of icons is essential for the user experience when it comes to multifunctional websites.
+
+
+##### Wireframes
+
+- [Desktop Wireframes](documentation/desktop_wireframe.pdf)
+- [Mobile Wireframes](documentation/mobile_wireframe.pdf)
+
+---
+
+#### Information Architecture
+
+##### Database
+
+* During the earliest stages of the project, the database was created using SQLite.
+* The database was then migrated to PostgreSQL.
+
+##### Entity-Relationship Diagram
+
+* The ERD was created using [draw.io](https://www.drawio.com).
+
+- [Database Scheme](documentation/final_db.pdf)
+
+##### Data Modeling
+
+1. **Allauth User Model**
+    - The user model was created using [Django-allauth](https://django-allauth.readthedocs.io/en/latest/).
+    - The user model was then migrated to PostgreSQL.
+
+2. **Profile Model**
+
+It was created in order to provide more room for manipulation of the database and provide opportunities for future developments.
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| User          | user          | OneToOneField | User, on_delete=models.CASCADE, related_name='profile'    |
+| First Name    | first_name    | CharField    | max_length=25, null=True, blank=True      |
+| Last Name     | last_name     | CharField    | max_length=25, null=True, blank=True      |
+| friends       | friends       | ManyToManyField | to=Profile, blank=True      |
+
+
+---
+
+### Stage 3: Testing
+
+#### Testing
+
+Please refer to the [TESTING.md](TESTING.md) file for all test-related documentation.
+
+---
+
+### Stage 4: Deployment
+
+#### Deployment
+
+- The app was deployed to [Render](https://render.com/).
+- The database was deployed to [ElephantSQL](https://www.elephantsql.com/).
+- The app can be reached by the [link](https://pp5-synergy.onrender.com).
+
+Please refer to the [DEPLOYMENT.md](DEPLOYMENT.md) file for all deployment-related documentation.
+
+---
+
+### Stage 5: Operations
+
+#### Future Improvements and Features
+
+**Subscriptions**
+
+In the future I would like to implement the use of subscriptions plan for user access
+
+**Sign-up and Login options**
+
+In the future I would like to add sign-up and login with Facebook, Google, and other social media platforms.
+Also, I would like to add an option to use a phone number instead of an email and send a verification code to the user's phone.
+
+**Asynchronous functionality**
+
+In the future I would like to make the application asynchronous. So all elements in the frontend will be updated real-time as soon as the backend sends the data.
+
+**Security improvements**
+
+In the future I would like to make the application foolproof against attacks and security vulnerabilities.
+
+**User settings**
+
+In the future I would like to more customization options for the user.
+
+**Group chatting**
+
+In the future I would like to add group chatting for participants.
+
+---
+
+## Credits
+
+- [GitHub](https://github.com/) for giving the idea of the project's design.
+- [Django](https://www.djangoproject.com/) for the backend framework.
+- [React](https://www.djangoproject.com/) for the frontend framework.
+- [Primereact](https://www.djangoproject.com/) for preset components.
+- [Primeflex](https://www.djangoproject.com/) for responsive css utility classes.
+- [Render](https://render.com/): for the free hosting of the website.
+- [ElephantSQL](https://www.elephantsql.com/): for the free hosting of the database.
+- [w3schools.com](https://www.w3schools.com/): for providing a free learning material
+- [Responsive Viewer](https://chrome.google.com/webstore/detail/responsive-viewer/inmopeiepgfljkpkidclfgbgbmfcennb/related?hl=en): for providing a free platform to test website responsiveness
+- [Favicon Generator. For real.](https://realfavicongenerator.net/): for providing a free platform to generate favicons.
+
+*All names are fictional, and any resemblance to actual events or locales or persons, living or dead, is entirely coincidental.*
+
+---
+
+## Acknowledgments
+
+- First and foremost Alhamdulillah which is acknowledgement and thankful to Allah for guiding me with understanding and knowledge, while keeping me sane and calm during the project. 
+- [Aleksei Konovalov](https://github.com/lexach91), my mentor, who guided me and advised to undertake this project.
+- [Iuliia Konovalova](https://github.com/IuliiaKonovalova), my mentor, who guided me through the development of the project with his advice.
+
+
+
+
