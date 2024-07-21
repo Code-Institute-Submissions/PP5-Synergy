@@ -97,7 +97,6 @@ const WorkstreamPage = () => {
         <ScrollPanel style={{ width: '100%', height: '60vh' }}>
           { workstreamList.results.length ? (
             <InfiniteScroll
-            className="w-full flex justify-content-start flex-wrap"
             children={workstreamList.results.map((ws, idx) => (
               ws.id === workstream.results[0]?.id
               ? null
