@@ -4,11 +4,12 @@ import Spinner from '../../assets/Spinner';
 import { Divider } from "primereact/divider";
 import { ScrollPanel } from "primereact/scrollpanel";
 import InviteCard from './InviteCard';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { fetchMoreData } from '../../utils/utils';
 
 const InvitePage = () => {
     const [loaded, setLoaded] = useState(false)
     const [userList, setUserList] = useState({ results: [] });
-    
 
     useEffect(() => {
       const handleMount = async () => {
@@ -33,11 +34,18 @@ const InvitePage = () => {
         </div>
       </Divider>
       <ScrollPanel style={{ width: "100%", height: "40vh" }}>
-        <div className="flex justify-content-start flex-wrap">
+        <div>
           {userList.results.length ? (
-            userList.results.map((object) => (
+            <InfiniteScroll
+            className="flex justify-content-start flex-wrap"
+            children={userList.results.map((object) => (
               <InviteCard key={object.id} url='/api/invite/' id={object.id} title={'User:'} count={object.owner} message={''} icon={object.avatar} display={true}/>
-            ))
+            ))}
+            dataLength={userList.results.length}
+            loader={<Spinner />}
+            hasMore={!!userList.next}
+            next={() => fetchMoreData(userList, setUserList)}
+            />
           )
           : <InviteCard title='0' count='Workstreams' message='Available' icon='pi pi-folder' display={true}/>
           }

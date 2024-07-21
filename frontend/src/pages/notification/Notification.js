@@ -8,6 +8,8 @@ import { axiosReq } from "../../api/axiosDefaults";
 import InviteCard from "./InviteCard";
 import Invite from "./Invite";
 import Spinner from "../../assets/Spinner";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { fetchMoreData } from "../../utils/utils";
 
 const Notification = () => {
   const [invite, setInvite] = useState({ results: [] });
@@ -58,48 +60,61 @@ const Notification = () => {
 
   const pageContent = (
     <>
-    <Divider align="left">
+    <Divider className="my-2" align="left">
         <div className="inline-flex align-items-center">
           <i className="pi pi-envelope mr-2"></i>
           <b>Workstream Invites</b>
         </div>
       </Divider>
-      <ScrollPanel style={{ width: "100%", height: "40vh" }}>
-        <div className="flex justify-content-start flex-wrap">
+      <ScrollPanel style={{ width: "100%", height: "43vh" }}>
+        <div className="">
           {invite.results.length ? (
             <InviteCard title='User' count='Invite' message='New' icon='pi pi-user-plus'/>
           )
           : null
           }
           {invite.results.length ? (
-            invite.results.map((object) => (
+            <InfiniteScroll
+            className="w-full flex justify-content-start flex-wrap"
+            children={invite.results.map((object) => (
               object.is_owner && <Invite key={object.id} rerun={rerun} setRerun={setRerun} setUrl={setUrl} confirmDialog={confirm1} props={object} admin={true} setID={setID} url={`api/invite/${object.id}/`}/>
-              
-            ))
+            ))}
+            dataLength={invite.results.length}
+            loader={<Spinner />}
+            hasMore={!!invite.next}
+            next={() => fetchMoreData(invite, setInvite)}
+            />
           ) : (
             <InviteCard title='Add' count='New' message='Invite' icon='pi pi-user-plus'/>
           )}
           
         </div>
       </ScrollPanel>
-      <Divider align="left">
+      <Divider className="my-2" align="left">
         <div className="inline-flex align-items-center">
           <i className="pi pi-folder mr-2"></i>
           <b>My Join Request</b>
         </div>
       </Divider>
-      <ScrollPanel style={{ width: "100%", height: "40vh" }}>
-      <div className="flex justify-content-start flex-wrap">
+      <ScrollPanel style={{ width: "100%", height: "43vh" }}>
+      <div className="">
           {join.results.length ? (
             <InviteCard title='Workstream' count='Join' message='New' icon='pi pi-send'/>
           )
           : null
           }
           {join.results.length ? (
-            join.results.map((object) => (
+            <InfiniteScroll
+            className="w-full flex justify-content-start flex-wrap"
+            children={join.results.map((object) => (
               object.is_owner && <Invite key={object.id} rerun={rerun} setRerun={setRerun} setUrl={setUrl} confirmDialog={confirm1} props={object} setID={setID} url={`api/join/${object.id}/`} admin={false}/>
               
-            ))
+            ))}
+            dataLength={join.results.length}
+            loader={<Spinner />}
+            hasMore={!!join.next}
+            next={() => fetchMoreData(join, setJoin)}
+            />
           ) : (
             <InviteCard title='Send' count='New' message='Join' icon='pi pi-send'/>
           )}

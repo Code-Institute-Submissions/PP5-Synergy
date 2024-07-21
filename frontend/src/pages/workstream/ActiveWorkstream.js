@@ -16,6 +16,8 @@ import { useNavigate } from "react-router-dom";
 import { OptionsContext } from "../../contexts/OptionsContext";
 import TaskForm from "../tasks/TaskForm";
 import Spinner from "../../assets/Spinner";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { fetchMoreData } from "../../utils/utils";
 
 const ActiveWorkstream = () => {
   const [loaded, setLoaded] = useState(false)
@@ -225,7 +227,8 @@ const ActiveWorkstream = () => {
                 >
                   <div className="card flex flex-wrap gap-2">
                     {category.results.length ? (
-                      category.results.map((object, idx) =>
+                      <InfiniteScroll
+                      children={category.results.map((object, idx) =>
                         object.is_owner ? (
                           <Chip
                             key={idx}
@@ -247,7 +250,12 @@ const ActiveWorkstream = () => {
                         ) : (
                           <Chip label={object.name} key={idx} />
                         )
-                      )
+                      )}
+                    dataLength={category.results.length}
+                    loader={<Spinner />}
+                    hasMore={!!category.next}
+                    next={() => fetchMoreData(category, setCategory)}
+                    />
                     ) : (
                       <Message
                         className="py-0 px-1"
@@ -272,8 +280,9 @@ const ActiveWorkstream = () => {
                   pt={{ headerAction: { className: "py-1" } }}
                 >
                   <div className="card flex flex-wrap gap-2">
-                    {project.results.length
-                      ? project.results.map((object, idx) =>
+                    {project.results.length ? (
+                      <InfiniteScroll
+                        children={project.results.map((object, idx) =>
                           object.is_owner ? (
                             <Chip
                               key={idx}
@@ -294,8 +303,14 @@ const ActiveWorkstream = () => {
                             />
                           ) : (
                             <Chip label={object.title} key={idx} />
-                          )
                         )
+                      )}
+                      dataLength={project.results.length}
+                      loader={<Spinner />}
+                      hasMore={!!project.next}
+                      next={() => fetchMoreData(project, setProject)}
+                      />
+                    )
                       : null}
                     {object.is_staff ? (
                       <Chip
@@ -316,24 +331,31 @@ const ActiveWorkstream = () => {
                   pt={{ headerAction: { className: "py-1" } }}
                 >
                   <ul className="card flex flex-column flex-wrap gap-2 list-none px-0">
-                    {taskO.results.length
-                      ? taskO.results.map((object) =>
-                          object.owner === null ? (
-                            <li
-                              className="flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border"
-                              key={object.id}
-                            >
-                              <WorkstreamTask
-                                props={object}
-                                rerun={rerun}
-                                setRerun={setRerun}
-                                setID={setEditTaskID}
-                                setVisible={setVisibleTask}
-                                setObject={setTaskObj}
-                              />
-                            </li>
-                          ) : null
-                        )
+                    {taskO.results.length ? (
+                      <InfiniteScroll
+                      children={taskO.results.map((object) =>
+                        object.owner === null ? (
+                          <li
+                            className="flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border"
+                            key={object.id}
+                          >
+                            <WorkstreamTask
+                              props={object}
+                              rerun={rerun}
+                              setRerun={setRerun}
+                              setID={setEditTaskID}
+                              setVisible={setVisibleTask}
+                              setObject={setTaskObj}
+                            />
+                          </li>
+                        ) : null
+                      )}
+                      dataLength={taskO.results.length}
+                      loader={<Spinner />}
+                      hasMore={!!taskO.next}
+                      next={() => fetchMoreData(taskO, setTaskO)}
+                      />
+                    )
                       : null}
                   </ul>
                 </TabPanel>
@@ -342,27 +364,34 @@ const ActiveWorkstream = () => {
                   pt={{ headerAction: { className: "py-1" } }}
                 >
                   <ul className="card flex flex-column flex-wrap gap-2 list-none px-0">
-                    {taskA.results.length
-                      ? taskA.results.map((object) =>
-                          object.owner !== null ? (
-                            <li
-                              className="flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border"
-                              key={object.id}
-                            >
-                              <WorkstreamTask
-                                props={object}
-                                resource={taskA}
-                                rerun={rerun}
-                                setRerun={setRerun}
-                                setResource={setTaskA}
-                                setID={setEditTaskID}
-                                setVisible={setVisibleTask}
-                                setObject={setTaskObj}
-                                editList={false}
-                              />
-                            </li>
-                          ) : null
-                        )
+                    {taskA.results.length ? (
+                      <InfiniteScroll
+                      children={taskA.results.map((object) =>
+                        object.owner !== null ? (
+                          <li
+                            className="flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border"
+                            key={object.id}
+                          >
+                            <WorkstreamTask
+                              props={object}
+                              resource={taskA}
+                              rerun={rerun}
+                              setRerun={setRerun}
+                              setResource={setTaskA}
+                              setID={setEditTaskID}
+                              setVisible={setVisibleTask}
+                              setObject={setTaskObj}
+                              editList={false}
+                            />
+                          </li>
+                        ) : null
+                      )}
+                      dataLength={taskA.results.length}
+                      loader={<Spinner />}
+                      hasMore={!!taskA.next}
+                      next={() => fetchMoreData(taskA, setTaskA)}
+                      />
+                      )
                       : null}
                   </ul>
                 </TabPanel>
