@@ -10,6 +10,8 @@ import Workstream from './Workstream';
 import WorkstreamList from './WorkstreamList';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../../assets/Spinner';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { fetchMoreData } from '../../utils/utils';
 
 const WorkstreamPage = () => {
     const currentUser = useCurrentUser();
@@ -94,11 +96,18 @@ const WorkstreamPage = () => {
       <Fieldset style={{height: "70vh"}} className='mx-2 mt-2 text-sm' legend={legendTemplate} pt={{ legend: { className: "bg-surface p-1 text-md" }, toggler: { className: "p-0" }}}>
         <ScrollPanel style={{ width: '100%', height: '60vh' }}>
           { workstreamList.results.length ? (
-            workstreamList.results.map((ws, idx) => (
+            <InfiniteScroll
+            className="w-full flex justify-content-start flex-wrap"
+            children={workstreamList.results.map((ws, idx) => (
               ws.id === workstream.results[0]?.id
               ? null
               : (<WorkstreamList {...ws} key={idx}/>)
-            ))
+            ))}
+            dataLength={workstreamList.results.length}
+            loader={<Spinner />}
+            hasMore={!!invite.next}
+            next={() => fetchMoreData(workstreamList, setWorkstreamList)}
+            />
           ) : <p>No available workstreams Create or Join another</p>
           }
         </ScrollPanel>
