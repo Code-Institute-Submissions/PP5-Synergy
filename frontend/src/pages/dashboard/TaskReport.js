@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
-import ProfileSkeleton from '../../assets/ProfileSkeleton';
+import ProfileSkeleton from '../../components/ProfileSkeleton';
 import { axiosReq } from '../../api/axiosDefaults';
 import { Tag } from 'primereact/tag';
 import { Avatar } from 'primereact/avatar';

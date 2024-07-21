@@ -4,6 +4,7 @@ import { Avatar } from 'primereact/avatar';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCurrentUser, useSetCurrentUser } from '../contexts/CurrentUserContext';
 import axios from "axios";
+import { removeTokenTimestamp } from '../utils/utils';
 
 const DashMenu = () => {
     const currentUser = useCurrentUser();
@@ -14,6 +15,7 @@ const DashMenu = () => {
         try {
             await axios.post("dj-rest-auth/logout/");
             setCurrentUser(null);
+            removeTokenTimestamp()
         } catch (err) {
         }
     };

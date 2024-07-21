@@ -9,7 +9,7 @@ import { axiosReq } from '../../api/axiosDefaults';
 import Workstream from './Workstream';
 import WorkstreamList from './WorkstreamList';
 import { useNavigate } from 'react-router-dom';
-import Spinner from '../../assets/Spinner';
+import Spinner from '../../components/Spinner';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { fetchMoreData } from '../../utils/utils';
 

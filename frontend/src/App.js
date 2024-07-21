@@ -13,6 +13,7 @@ import Notification from './pages/notification/Notification';
 import InvitePage from './pages/notification/InvitePage';
 import JoinPage from './pages/notification/JoinPage';
 import Home from './pages/home/Home';
+import NotFound from './components/NotFound';
 
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
                 <Route exact path="/notification" element={<Notification />} />
                 <Route exact path="/invite" element={<InvitePage />} />
                 <Route exact path="/join" element={<JoinPage />} />
-                <Route path="*" element={<h2>Page not found</h2>} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
               </div>
           </div>

@@ -6,7 +6,7 @@ import { ScrollPanel } from 'primereact/scrollpanel';
 import TaskForm from '../tasks/TaskForm'
 import { OptionsContext } from '../../contexts/OptionsContext';
 import WorkstreamTask from '../../components/WorkstreamTask';
-import Spinner from '../../assets/Spinner';
+import Spinner from '../../components/Spinner';
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from '../../utils/utils';
 

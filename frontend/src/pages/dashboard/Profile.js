@@ -12,7 +12,7 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { FileUpload } from "primereact/fileupload";
 import { Tag } from "primereact/tag";
-import ProfileSkeleton from "../../assets/ProfileSkeleton";
+import ProfileSkeleton from "../../components/ProfileSkeleton";
 
 const Profile = () => {
   const currentUser = useCurrentUser();

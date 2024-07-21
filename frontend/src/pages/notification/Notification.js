@@ -7,7 +7,7 @@ import { Button } from "primereact/button";
 import { axiosReq } from "../../api/axiosDefaults";
 import InviteCard from "./InviteCard";
 import Invite from "./Invite";
-import Spinner from "../../assets/Spinner";
+import Spinner from "../../components/Spinner";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
 

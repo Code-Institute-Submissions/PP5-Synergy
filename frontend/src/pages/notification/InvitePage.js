@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { axiosReq } from '../../api/axiosDefaults';
-import Spinner from '../../assets/Spinner';
+import Spinner from '../../components/Spinner';
 import { Divider } from "primereact/divider";
 import { ScrollPanel } from "primereact/scrollpanel";
 import InviteCard from './InviteCard';

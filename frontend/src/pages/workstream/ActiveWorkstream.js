@@ -15,7 +15,7 @@ import DialogForm from "../../components/DialogForm";
 import { useNavigate } from "react-router-dom";
 import { OptionsContext } from "../../contexts/OptionsContext";
 import TaskForm from "../tasks/TaskForm";
-import Spinner from "../../assets/Spinner";
+import Spinner from "../../components/Spinner";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
 
