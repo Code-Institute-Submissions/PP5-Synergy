@@ -2,14 +2,14 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from 'primereact/button'
 import { Divider } from 'primereact/divider'
-import hero from '../../assets/heroImage.png'
+import hero from '../../assets/heroImage.jpg'
 
 const Home = () => {
     const navigate = useNavigate()
 
     return (
         <>
-        <div className="grid grid-nogutter surface-0 text-800">
+        <div className="card grid grid-nogutter surface-0 text-800">
             <div className="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
                 <section>
                     <span className="block text-6xl font-bold mb-1">Start Managing</span>
@@ -20,10 +20,10 @@ const Home = () => {
                 </section>
             </div>
             <div className="col-12 md:col-6 overflow-hidden">
-                <img src={hero} alt="hero-1" className="md:ml-auto block md:h-full" style={{ clipPath: 'polygon(8% 0, 100% 0%, 100% 100%, 0 100%)' }} />
+                <img src={hero} alt="hero-1" className="md:ml-auto block md:h-full" style={{ clipPath: 'polygon(8% 0, 100% 0%, 100% 100%, 0 100%)'}} />
             </div>
         </div>
-        <div className="surface-0 text-center">
+        <div className="surface-0 text-center pt-4">
             <div className="grid">
                 <div className="col-12 md:col-4 mb-1 px-5">
                     <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>

@@ -7,7 +7,7 @@ Repository: [GitHub Repo](https://github.com/Hussain-Naik/PP5-Synergy)
 
 The app is developed by [Hussain Naik](https://github.com/Hussain-Naik).
 
-![Synergy](documentation/badminton.png)
+![Synergy](documentation/synergy.png)
 
 ## Agile Development
 The Agile framework is an iterative approach to software development. Instead of delivering a final working product at the end of the development lifecycle, teams work in small timeframes.
