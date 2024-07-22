@@ -365,6 +365,7 @@ In the future I would like to add group chatting for participants.
 - [Render](https://render.com/): for the free hosting of the website.
 - [ElephantSQL](https://www.elephantsql.com/): for the free hosting of the database.
 - [w3schools.com](https://www.w3schools.com/): for providing a free learning material
+- [Unsplash](https://unsplash.com/): for providing free hero image.
 - [Responsive Viewer](https://chrome.google.com/webstore/detail/responsive-viewer/inmopeiepgfljkpkidclfgbgbmfcennb/related?hl=en): for providing a free platform to test website responsiveness
 - [Favicon Generator. For real.](https://realfavicongenerator.net/): for providing a free platform to generate favicons.
 
