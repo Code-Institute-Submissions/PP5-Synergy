@@ -10,7 +10,7 @@ const Home = () => {
     return (
         <>
         <div className="card grid grid-nogutter surface-0 text-800">
-            <div className="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
+            <div className="col-12 md:col-6 p-6 text-center md:text-left align-items-center ">
                 <section>
                     <span className="block text-6xl font-bold mb-1">Start Managing</span>
                     <div className="text-6xl text-primary font-bold mb-3">Your Tasks</div>

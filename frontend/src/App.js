@@ -21,25 +21,75 @@ function App() {
   return (
         <div className={styles.App}>
           <NavBar />
-          <div className='grid grid-nogutter'>
-              <DashMenu />
-              <div className="col surface-ground p-0">
               <Routes>
                 <Route exact path="/" element={<Home />} />
                 <Route exact path="/signin" element={<SignIpForm />} />
                 <Route exact path="/signup" element={<SignUpForm />} />
-                <Route exact path="/dashboard" element={<Dashboard />} />
-                <Route exact path="/workstream" element={<WorkstreamPage />} />
-                <Route exact path="/workstream/active" element={<ActiveWorkstream />} />
-                <Route exact path="/task" element={<TaskList />} />
-                <Route exact path="/notification" element={<Notification />} />
-                <Route exact path="/invite" element={<InvitePage />} />
-                <Route exact path="/join" element={<JoinPage />} />
-                <Route path="*" element={<NotFound />} />
+                <Route exact path="/dashboard" element={
+                  <div className='grid grid-nogutter'>
+                    <DashMenu />
+                      <div className="col surface-ground p-0">
+                        <Dashboard />
+                      </div>
+                  </div>
+                } />
+                <Route exact path="/workstream" element={
+                  <div className='grid grid-nogutter'>
+                    <DashMenu />
+                      <div className="col surface-ground p-0">
+                      <WorkstreamPage />
+                      </div>
+                  </div>
+                } />
+                <Route exact path="/workstream/active" element={
+                  <div className='grid grid-nogutter'>
+                    <DashMenu />
+                      <div className="col surface-ground p-0">
+                      <ActiveWorkstream />
+                      </div>
+                  </div>
+                } />
+                <Route exact path="/task" element={
+                  <div className='grid grid-nogutter'>
+                    <DashMenu />
+                      <div className="col surface-ground p-0">
+                      <TaskList />
+                      </div>
+                  </div>
+                } />
+                <Route exact path="/notification" element={
+                  <div className='grid grid-nogutter'>
+                    <DashMenu />
+                      <div className="col surface-ground p-0">
+                      <Notification />
+                      </div>
+                  </div>
+                } />
+                <Route exact path="/invite" element={
+                  <div className='grid grid-nogutter'>
+                    <DashMenu />
+                      <div className="col surface-ground p-0">
+                      <InvitePage />
+                      </div>
+                  </div>
+                } />
+                <Route exact path="/join" element={
+                  <div className='grid grid-nogutter'>
+                    <DashMenu />
+                      <div className="col surface-ground p-0">
+                      <JoinPage />
+                      </div>
+                  </div>
+                } />
+                <Route path="*" element={
+                  <div className='grid grid-nogutter'>
+                    <DashMenu />
+                      <div className="col surface-ground p-0">
+                      <NotFound />
+                      </div>
+                  </div>
+                } />
               </Routes>
-              </div>
-          </div>
-          
         </div>
   );
 }
