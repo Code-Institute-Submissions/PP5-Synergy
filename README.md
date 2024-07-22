@@ -19,7 +19,7 @@ The Agile framework is an iterative approach to software development. Instead of
 
 #### Strategy
 
-Developed for all levels of badminton player from beginners to professional, the app is designed to be easy to use and intuitive. The main goal of the app is to help groups organize and keep track of the match outcomes for all participating users.
+Developed for all levels of users from beginners to professional, the app is designed to be easy to use and intuitive. The main goal of the app is to help groups organize and keep track of tasks.
 
 #### User Stories
 
@@ -27,14 +27,28 @@ Developed for all levels of badminton player from beginners to professional, the
 
 | Issue ID    | User Story |
 |-------------|-------------|
-|[#1]()| user story|
+|[#1](https://github.com/Hussain-Naik/PP5-Synergy/issues/1)| As a ""first time visitor"" I want ""to be able to see an informative page about the application"" so that ""I can understand what it is about"".|
+|[#2](https://github.com/Hussain-Naik/PP5-Synergy/issues/2)| As a ""first time visitor"" I want to ""be able to easily navigate through the application"" so that ""I can find what I am looking for"".|
+|[#3](https://github.com/Hussain-Naik/PP5-Synergy/issues/3)| As a ""first time visitor"" I want ""to be able to register"" so that ""I can have an account"".|
+|[#4](https://github.com/Hussain-Naik/PP5-Synergy/issues/4)| As a ""first time visitor"" I want ""to be able to login"" so that ""I can access my account"".|
 
 
 ##### **Frequent Visitor Goals**
 
 | Issue ID    | User Story |
 |-------------|-------------|
-|[#1]()| user story|
+|[#5](https://github.com/Hussain-Naik/PP5-Synergy/issues/5)| As a ""Registered User"" I want ""Create my workstream"" so that ""start managing my tasks"".|
+|[#6](https://github.com/Hussain-Naik/PP5-Synergy/issues/6)| As a ""Registered User"" I want ""to define my own task categories"" so that ""my task can be effectively managed"".|
+|[#7](https://github.com/Hussain-Naik/PP5-Synergy/issues/7)| As a ""Registered User"" I want ""to create tasks"" so that ""i know what to do"".|
+|[#8](https://github.com/Hussain-Naik/PP5-Synergy/issues/8)| As a ""Registered User"" I want ""to create tasks"" so that ""i know what to do"".|
+|[#9](https://github.com/Hussain-Naik/PP5-Synergy/issues/9)| As a ""Registered User"" I can ""invite other users to my workstream"" so that ""we can complete tasks together"".|
+|[#10](https://github.com/Hussain-Naik/PP5-Synergy/issues/10)| As a ""Registered User"" I can ""Request to join another's workstream"" so that ""we can complete tasks together"".|
+|[#11](https://github.com/Hussain-Naik/PP5-Synergy/issues/12)| As a ""Registered User"" I can ""select the tasks i want to do"" so that ""there will be less for the team to do"".|
+|[#12](https://github.com/Hussain-Naik/PP5-Synergy/issues/13)| As a ""Registered User"" I can ""see report of all completed tasks"" so that ""i know how well i am doing"".|
+|[#13](https://github.com/Hussain-Naik/PP5-Synergy/issues/14)| As a ""Registered User"" I can ""view my dashboard"" so that ""i can see all task assigned to me"".|
+|[#14](https://github.com/Hussain-Naik/PP5-Synergy/issues/16)| As a ""Registered User"" I can ""switch between workspaces"" so that ""i can focus on tasks i need to do"".|
+|[#15](https://github.com/Hussain-Naik/PP5-Synergy/issues/18)| As a ""Registered User"" I can ""create an event/project"" so that ""group a collection of tasks"".|
+|[#16](https://github.com/Hussain-Naik/PP5-Synergy/issues/19)| As a ""Registered User"" I can ""update task details"" so that ""it reflects updated criteria"".|
 
 ---
 #### Technologies used
