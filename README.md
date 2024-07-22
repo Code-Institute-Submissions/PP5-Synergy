@@ -173,11 +173,134 @@ It was created in order to provide more room for manipulation of the database an
 
 | Name          | Database Key  | Field Type    | Validation |
 | ------------- | ------------- | ------------- | ---------- |
-| User          | user          | OneToOneField | User, on_delete=models.CASCADE, related_name='profile'    |
-| First Name    | first_name    | CharField    | max_length=25, null=True, blank=True      |
-| Last Name     | last_name     | CharField    | max_length=25, null=True, blank=True      |
-| friends       | friends       | ManyToManyField | to=Profile, blank=True      |
+| Owner         | owner         | OneToOneField | User, on_delete=models.CASCADE           |
+| First Name    | first_name    | CharField    | max_length=255, blank=True      |
+| Last Name     | last_name     | CharField    | max_length=255, blank=True      |
+| Created At    | created_at    | DateTimeField    | auto_now_add=True      |
+| Updated At    | updated_at    | DateTimeField    | auto_now=True      |
+| Avatar       | avatar       | ImageField | upload_to='images/avatar/', default='../default_profile_dkfqgb'      |
+| Default Workstream    | default_workstream    | ForeignKey    | Workstream, null=True, on_delete=models.SET_NULL      |
 
+```python
+    def create_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(owner=instance)
+
+    def assign_default(sender, instance, created, **kwargs):
+        if created:
+            profile = Profile.objects.get(owner=instance.owner)
+            profile.default_workstream = instance
+            profile.save()
+
+    post_save.connect(create_profile, sender=User)
+
+    post_save.connect(assign_default, sender=Workstream)
+```
+
+3. **Workstream Model**
+
+It was created in order to provide more room for manipulation of the database and provide opportunities for future developments.
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| Owner         | owner         | ForeignKey | User, on_delete=models.CASCADE           |
+| Name    | name    | CharField    | max_length=255, blank=True      |
+| Created At    | created_at    | DateTimeField    | auto_now_add=True      |
+| Updated At    | updated_at    | DateTimeField    | auto_now=True      |
+| Users       | users       | ManyToManyField | User, through='Participant', related_name='workstream_users' |
+
+
+4. **Participant Model**
+
+It was created in order to provide more room for manipulation of the database and provide opportunities for future developments and user privileges.
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| Owner         | owner         | ForeignKey | User, on_delete=models.CASCADE, related_name='user_participant'|
+| Workstream    | workstream    | ForeignKey    | Workstream, on_delete=models.CASCADE, related_name='ws_participants'|
+| Is Staff      | is_staff    | BooleanField    | default=False      |
+
+```python
+    def assign_owner(sender, instance, created, **kwargs):
+    if created:
+        Participant.objects.create(owner=instance.owner, workstream=instance, is_staff=True)
+
+    post_save.connect(assign_owner, sender=Workstream)
+```
+
+5. **Category Model**
+
+It was created in order to provide user specific category for each workstream.
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| Owner         | owner         | ForeignKey | User, on_delete=models.CASCADE           |
+| Name    | name    | CharField    | max_length=255, blank=True      |
+| Created At    | created_at    | DateTimeField    | auto_now_add=True      |
+| Updated At    | updated_at    | DateTimeField    | auto_now=True      |
+| Workstream       | workstream       | ForeignKey | Workstream, on_delete=models.CASCADE, related_name='category_workstream' |
+
+6. **Project Model**
+
+It was created in order to provide user specific project for each workstream to group tasks.
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| Owner         | owner         | ForeignKey | User, on_delete=models.CASCADE           |
+| Title    | title    | CharField    | max_length=255    |
+| Created At    | created_at    | DateTimeField    | auto_now_add=True      |
+| Updated At    | updated_at    | DateTimeField    | auto_now=True      |
+| Workstream       | workstream       | ForeignKey | Workstream, on_delete=models.CASCADE   |
+
+
+7. **Task Model**
+
+It was created in order to provide and manage tasks.
+
+PRIORITY_LEVELS = [
+        (1, 'No-priority'),
+        (2, 'Low-priority'),
+        (3, 'Medium-priority'),
+        (4, 'High-priority'),
+    ]
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| Owner         | owner         | ForeignKey | User, on_delete=models.CASCADE           |
+| Author         | author         | ForeignKey | User, on_delete=models.CASCADE, related_name='author'           |
+| Name    | name    | CharField    | max_length=255    |
+| Detail    | detail    | TextField    | blank=True   |
+| Created At    | created_at    | DateTimeField    | auto_now_add=True      |
+| Updated At    | updated_at    | DateTimeField    | auto_now=True      |
+| Category         | category         | ForeignKey | Category, on_delete=models.SET_NULL, null=True|
+| Project         | Project         | ForeignKey | Project, on_delete=models.SET_NULL, null=True, blank=True|
+| Deadline    | deadline    | DateTimeField    |       |
+| Priority    | priority    | IntegerField    | choices=PRIORITY_LEVELS, default=1      |
+| Is Completed    | is_completed    | BooleanField    |default=False       |
+
+
+8. **Invite Model**
+
+It was created in order allow users to request or invite others to join workstreams.
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| Created At    | created_at    | DateTimeField    | auto_now_add=True      |
+| Updated At    | updated_at    | DateTimeField    | auto_now=True      |
+| User         | user         | ForeignKey | User, on_delete=models.CASCADE, related_name='user_invite'|
+| Workstream    | workstream    | ForeignKey    | Workstream, on_delete=models.CASCADE, related_name='ws_invite' |
+| Accepted      | accepted    | BooleanField    | default=False      |
+| Inbound      | inbound    | BooleanField    | default=True      |
+
+```python
+    def accept_request(sender, instance, created, **kwargs):
+    if instance.accepted:
+        ws = Workstream.objects.get(id=instance.workstream.id)
+        ws.users.add(instance.user)
+        instance.delete()
+
+    post_save.connect(accept_request, sender=Invite)
+```
 
 ---
 
