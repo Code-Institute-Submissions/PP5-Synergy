@@ -3,7 +3,7 @@
 - The app was deployed to [Render](https://render.com/).
 - The database was deployed to [ElephantSQL](https://www.elephantsql.com/).
 
-- The app can be reached by the [link](https://pp4-mygamestats.onrender.com/).
+- The app can be reached by the [link](https://pp5-synergy.onrender.com).
 
 ## Local deployment
 
@@ -15,7 +15,7 @@
 Create a local copy of the GitHub repository by following one of the two processes below:
 
 - Download ZIP file:
-  1. Go to the [GitHub Repo page](https://github.com/Hussain-Naik/PP4-MyGameStats).
+  1. Go to the [GitHub Repo page](https://github.com/Hussain-Naik/PP5-Synergy).
   1. Click the Code button and download the ZIP file containing the project.
   1. Extract the ZIP file to a location on your PC.
 
@@ -26,7 +26,7 @@ Create a local copy of the GitHub repository by following one of the two process
 
 - Alternatively, if using Gitpod, you can click below to create your own workspace using this repository.
 
-  [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Hussain-Naik/PP4-MyGameStats)
+  [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Hussain-Naik/PP5-Synergy)
 
 ---
 
