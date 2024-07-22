@@ -15,7 +15,7 @@ The Agile framework is an iterative approach to software development. Instead of
 ### Stage 1: Ideation
 
 
-[Synergy](https://github.com/Hussain-Naik/PP5-Synergy) is a task management application to allow user to manage task alone or with other users. Users can create or join multiple workstreams.
+[Synergy](https://github.com/Hussain-Naik/PP5-Synergy) is a task management application to allow user to manage task alone or with other users. Users can create or join multiple workstreams and easily assign or pick up tasks that suit the users preference.
 
 #### Strategy
 
