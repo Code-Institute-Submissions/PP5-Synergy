@@ -47,7 +47,7 @@ const InvitePage = () => {
             next={() => fetchMoreData(userList, setUserList)}
             />
           )
-          : <InviteCard title='0' count='Workstreams' message='Available' icon='pi pi-folder' display={true}/>
+          : <InviteCard title='0' count='Users' message='Available' icon='pi pi-folder' display={true}/>
           }
           
         </div>
