@@ -159,8 +159,8 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
                                     checked={checked} onChange={(e) => {setChecked(e.value); {e.value ? setInputData({...inputData,owner: currentUser.pk}) : setInputData({...inputData,owner: null})}}} className="w-10 m-1" />
                                 </div>
                                 <div className="mt-auto">
-                                    <hr className="mb-3 mx-3 border-top-1 border-none surface-border" />
-                                    <Button label='Submit' onClick={handleSubmit} />
+                                    <hr className="mb-1 mx-3 border-top-1 border-none surface-border" />
+                                    <Button className='mx-2 my-1 w-11' label='Submit' onClick={handleSubmit} />
                                 </div>
                             </div>
                         </div>
