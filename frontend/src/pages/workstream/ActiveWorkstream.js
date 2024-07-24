@@ -114,6 +114,7 @@ const ActiveWorkstream = () => {
         setTaskO(taskO);
         setTaskA(taskA);
         setLoaded(true)
+        console.log(workstream)
       } catch (err) {
         setErrors(err.response?.data);
       }
@@ -205,12 +206,12 @@ const ActiveWorkstream = () => {
                 >
                   <div className="card flex justify-content-start">
                     <AvatarGroup>
-                      {object.workstream.users?.map((user, idx) => (
+                      {object.workstream.users?.map((user) => (
                         <Avatar
                           image={user?.profile_avatar}
                           size="large"
                           shape="circle"
-                          key={idx}
+                          key={user.pk}
                         />
                       ))}
                       {object.workstream.is_owner ? (
@@ -219,6 +220,19 @@ const ActiveWorkstream = () => {
                     </AvatarGroup>
                   </div>
                 </TabPanel>
+                {object.workstream.is_owner && 
+                <TabPanel
+                  header="Set Privileges"
+                  pt={{ headerAction: { className: "py-1" } }}
+                >
+                  <ul>
+                  {object.workstream.users?.map((user) => (
+                        <li key={user.pk}>{user.username}</li>
+                      ))}
+                    
+                  </ul>
+                </TabPanel>
+                }
               </TabView>
               <TabView>
                 <TabPanel
