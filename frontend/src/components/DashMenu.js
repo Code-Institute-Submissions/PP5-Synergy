@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Menu } from 'primereact/menu';
 import { Avatar } from 'primereact/avatar';
+import { Sidebar } from 'primereact/sidebar';
+import { Button } from 'primereact/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCurrentUser, useSetCurrentUser } from '../contexts/CurrentUserContext';
 import axios from "axios";
@@ -11,6 +13,7 @@ const DashMenu = () => {
     const currentUser = useCurrentUser();
     const setCurrentUser = useSetCurrentUser();
     const navigate = useNavigate()
+    const [visible, setVisible] = useState(false);
 
     const handelLogout = async () => {
         try {
@@ -50,6 +53,11 @@ const DashMenu = () => {
                         <span className="font-medium text-xl font-semibold">
                             SYN<span className="text-primary">ERGY</span>
                         </span>
+                        {visible && 
+                        <span className='pl-3'>
+                            <Button type="button" onClick={() => setVisible(false)} icon="pi pi-times" rounded outlined className="h-2rem w-2rem"></Button>
+                        </span>
+                        }
                     </span>
                 );
             }
@@ -109,13 +117,37 @@ const DashMenu = () => {
     ];
 
     const userMenu = (
+        <>
         <div className='hidden sm:block col-fixed p-0 md:w-15rem'>
             <Menu model={itemsIn} className="hidden sm:block md:w-15rem p-0" pt={{ menu: { className: "h-screen flex flex-column align-content-evenly justify-content-between"}}}/>
         </div>
+        <div className='block sm:hidden fixed z-5 m-1'>
+             <Button size='small' icon="pi pi-bars" onClick={() => setVisible(true)} />
+        </div>
+        </>
+    )
+
+    const sidebar = (
+        <Sidebar
+                visible={visible}
+                onHide={() => setVisible(false)}
+                content={({ closeIconRef, hide }) => (
+                    <div className="min-h-screen flex relative lg:static surface-ground">
+                        <div id="app-sidebar-2" className="surface-section h-screen block flex-shrink-0 absolute lg:static left-0 top-0 z-1 border-right-1 surface-border select-none" style={{ width: '100%' }}>
+                            <div className="flex flex-column h-full">
+                                <div className="flex align-items-center justify-content-between flex-shrink-0">
+                                <Menu model={itemsIn} pt={{ menu: { className: "h-screen flex flex-column align-content-evenly justify-content-between"}, root: {className: 'w-full'}}}/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            ></Sidebar>
     )
   return (
     <>
         {currentUser && userMenu}
+        {currentUser && sidebar}
     </>
   )
 }
