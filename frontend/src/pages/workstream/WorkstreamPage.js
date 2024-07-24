@@ -93,7 +93,7 @@ const WorkstreamPage = () => {
         null
       )}
       {btnGroup}
-      <Fieldset style={{height: "70vh"}} className='mx-2 mt-2 text-sm' legend={legendTemplate} pt={{ legend: { className: "bg-surface p-1 text-md" }, toggler: { className: "p-0" }}}>
+      <Fieldset style={{height: "70vh"}} className='mx-2 mt-2 text-sm' legend={legendTemplate} pt={{ legend: { className: "bg-surface p-1 text-md ml-6" }, toggler: { className: "p-0" }}}>
         <ScrollPanel style={{ width: '100%', height: '60vh' }}>
           { workstreamList.results.length ? (
             <InfiniteScroll

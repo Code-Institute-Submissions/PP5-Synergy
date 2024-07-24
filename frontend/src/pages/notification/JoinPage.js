@@ -28,7 +28,7 @@ const JoinPage = () => {
 
     const pageContent = (
       <>
-      <Divider align="left">
+      <Divider align="right">
         <div className="inline-flex align-items-center">
           <i className="pi pi-envelope mr-2"></i>
           <b>Workstream Join Requests</b>

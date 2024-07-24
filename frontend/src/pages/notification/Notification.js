@@ -60,7 +60,7 @@ const Notification = () => {
 
   const pageContent = (
     <>
-    <Divider className="my-2" align="left">
+    <Divider className="my-2" align="right">
         <div className="inline-flex align-items-center">
           <i className="pi pi-envelope mr-2"></i>
           <b>Workstream Invites</b>
@@ -90,7 +90,7 @@ const Notification = () => {
           
         </div>
       </ScrollPanel>
-      <Divider className="my-2" align="left">
+      <Divider className="my-2" align="right">
         <div className="inline-flex align-items-center">
           <i className="pi pi-folder mr-2"></i>
           <b>My Join Request</b>

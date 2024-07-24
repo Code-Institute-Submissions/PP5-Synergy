@@ -190,7 +190,7 @@ const ActiveWorkstream = () => {
             key={idx}
             legend={legendTemplate}
             pt={{
-              legend: { className: "bg-surface p-1 text-md" },
+              legend: { className: "bg-surface p-1 text-md ml-6" },
               content: { className: "p-0" },
             }}
           >
