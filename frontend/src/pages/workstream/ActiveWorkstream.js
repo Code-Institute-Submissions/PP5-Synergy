@@ -18,6 +18,7 @@ import TaskForm from "../tasks/TaskForm";
 import Spinner from "../../components/Spinner";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
+import Staff from "./Staff";
 
 const ActiveWorkstream = () => {
   const [loaded, setLoaded] = useState(false)
@@ -26,6 +27,7 @@ const ActiveWorkstream = () => {
   const [workstreamName, setWorkstreamName] = useState("");
   const [category, setCategory] = useState({ results: [] });
   const [project, setProject] = useState({ results: [] });
+  const [staff, setStaff] = useState({ results: [] });
   const [taskO, setTaskO] = useState({ results: [] });
   const [taskA, setTaskA] = useState({ results: [] });
   const [visibleCat, setVisibleCat] = useState(false);
@@ -99,12 +101,14 @@ const ActiveWorkstream = () => {
           { data: project },
           { data: taskO },
           { data: taskA },
+          { data: staff },
         ] = await Promise.all([
           axiosReq.get(`/api/workstream/active/`),
           axiosReq.get(`/api/category/`),
           axiosReq.get(`/api/project/`),
           axiosReq.get(`/api/task/open/`),
           axiosReq.get(`/api/task/assigned/`),
+          axiosReq.get(`/api/workstream/participant/`),
         ]);
         setWorkstream(workstream);
         setWorkstreamID(workstream.results[0].workstream.id);
@@ -113,8 +117,9 @@ const ActiveWorkstream = () => {
         setProject(project);
         setTaskO(taskO);
         setTaskA(taskA);
+        setStaff(staff);
         setLoaded(true)
-        console.log(workstream)
+        console.log(staff)
       } catch (err) {
         setErrors(err.response?.data);
       }
@@ -125,12 +130,14 @@ const ActiveWorkstream = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [{ data: taskO }, { data: taskA }] = await Promise.all([
+        const [{ data: taskO }, { data: taskA }, { data: staff }] = await Promise.all([
           axiosReq.get(`/api/task/open/`),
           axiosReq.get(`/api/task/assigned/`),
+          axiosReq.get(`/api/workstream/participant/`),
         ]);
         setTaskO(taskO);
         setTaskA(taskA);
+        setStaff(staff);
       } catch (err) {
         setErrors(err.response?.data);
       }
@@ -225,9 +232,9 @@ const ActiveWorkstream = () => {
                   header="Set Privileges"
                   pt={{ headerAction: { className: "py-1" } }}
                 >
-                  <ul>
-                  {object.workstream.users?.map((user) => (
-                        <li key={user.pk}>{user.username}</li>
+                  <ul className="card flex flex-column flex-wrap gap-2 my-0 list-none px-0">
+                  {staff.results?.map((user) => (
+                        <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={user.id}><Staff props={user} rerun={rerun} setRerun={setRerun} /></li>
                       ))}
                     
                   </ul>

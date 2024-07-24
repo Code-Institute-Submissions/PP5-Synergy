@@ -58,8 +58,15 @@ class ParticipantList(generics.ListAPIView):
     List all profiles.
     No create view as profile creation is handled by django signals.
     """
-    queryset = Participant.objects.all()
     serializer_class = ParticipantSerializer
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        user = self.request.user
+        return Participant.objects.filter(workstream=user.profile.default_workstream)
 
 
 class ParticipantListActive(generics.ListAPIView):
