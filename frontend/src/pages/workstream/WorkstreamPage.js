@@ -75,7 +75,7 @@ const WorkstreamPage = () => {
     const btnGroup = (
       <div className={workstream.results.length ? "flex justify-content-center align-items-center gap-2 -my-3" : "flex justify-content-center align-items-center gap-2 -mb-3 mt-1"}>
           <Button icon="pi pi-plus" label={workstream.results.length ? null: 'Create'} rounded severity="primary" aria-label="Create Workstream" onClick={() => setVisible(true)}/>
-          <Button icon="pi pi-send" label={workstream.results.length ? null: 'Join'} rounded severity="primary" aria-label="Send Workstream Join request" />
+          <Button icon="pi pi-send" label={workstream.results.length ? null: 'Join'} rounded severity="primary" aria-label="Send Workstream Join request" onClick={() => navigate('/join')} />
       </div>
     );
 
