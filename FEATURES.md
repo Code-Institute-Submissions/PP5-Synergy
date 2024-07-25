@@ -116,3 +116,30 @@ If the user made a mistake in the username or password, the field will be highli
 Under the fields, there is a button "Sign in" which leads user profile page.
 
 
+**Dashboard page**
+
+  ![Dashboard page](documentation/features/login.png)
+
+**Task page**
+
+  ![Task page](documentation/features/login.png)
+
+**Workstream page**
+
+  ![Workstream page](documentation/features/login.png)
+
+**Active Workstream page**
+
+  ![Active Workstream page](documentation/features/login.png)
+
+**Notification page**
+
+  ![Notification page](documentation/features/login.png)
+
+**Invite page**
+
+  ![Invite page](documentation/features/login.png)
+
+**Join page**
+
+  ![Join page](documentation/features/login.png)
