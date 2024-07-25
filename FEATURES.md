@@ -1,4 +1,4 @@
-# Badminton
+# Synergy
 
 ## Features
 
@@ -80,7 +80,7 @@ If the user leaves an empty field, they will be prompted to fill the required fi
 
 If the user an username already take the username field will be highlighted.
 
-  ![Registration page email field](documentation/features/username_error.png)
+  ![Registration page username](documentation/features/username_error.png)
 
 
 If the user typed an incorrect password, the password field will be highlighted.
@@ -113,7 +113,7 @@ If the user made a mistake in the username or password, the field will be highli
 
   ![Login page error field](documentation/features/login_error.png)
 
-Under the fields, there is a button "Sign in" which leads user profile page.
+Under the fields, there is a button "Sign in" which leads to Dashboard page.
 
 
 **Dashboard page**
