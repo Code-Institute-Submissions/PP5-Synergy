@@ -10,6 +10,7 @@ import { Calendar } from 'primereact/calendar';
 import { ToggleButton } from 'primereact/togglebutton';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useOptions } from '../../contexts/OptionsContext';
+import { Message } from 'primereact/message';
 
 
 const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh, edit, taskObj}) => {
@@ -63,6 +64,7 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
             setVisible(false)
             
         } catch (err) {
+            console.log(err)
             setErrors(err.response?.data);
         }
     }
@@ -141,20 +143,39 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
                                 </div>
                                 <div className="overflow-y-auto">
                                     <FloatLabel className='mt-4 mx-1'>
-                                        <InputText className='w-10' value={name} onChange={handleChange} id='name' label='name' name='name'/>
+                                        {errors.name 
+                                        ? <InputText invalid className='w-10' value={name} onChange={handleChange} id='name' label='name' name='name'/>
+                                        : <InputText className='w-10' value={name} onChange={handleChange} id='name' label='name' name='name'/>
+                                        }
                                         <label htmlFor="name">Task Name</label>
                                      </FloatLabel>
+                                    {errors.name?.map((message, idx) => (
+                                        <Message className="w-11 m-1" severity="error" text={message} key={idx}/>
+                                    ))}
                                     <FloatLabel className='mt-4 mx-1'>
                                         <InputTextarea autoResize id='detail' name='detail' value={detail} onChange={handleChange} rows={4} cols={30}/>
                                         <label htmlFor="detail" >Detail</label>
                                     </FloatLabel>
                                     <Dropdown value={selectedPriority} onChange={(e) => {setSelectedPriority(e.value); setInputData({...inputData,priority: e.value?.id});}} options={priorityOption} optionLabel="name" 
                                     showClear placeholder="Task Priority" className="w-10 m-1" />
-                                    <Dropdown value={selectedCategory} onChange={(e) => {setSelectedCategory(e.value); {e.value !== undefined ? setInputData({...inputData,category: e.value.id}) : setInputData({...inputData,category: null})};}} options={optionsDropdown[0]} optionLabel="name" 
+                                    {errors.category 
+                                    ? <Dropdown invalid value={selectedCategory} onChange={(e) => {setSelectedCategory(e.value); {e.value !== undefined ? setInputData({...inputData,category: e.value.id}) : setInputData({...inputData,category: null})};}} options={optionsDropdown[0]} optionLabel="name" 
                                     showClear placeholder="Categories" className="w-10 m-1" />
+                                    : <Dropdown value={selectedCategory} onChange={(e) => {setSelectedCategory(e.value); {e.value !== undefined ? setInputData({...inputData,category: e.value.id}) : setInputData({...inputData,category: null})};}} options={optionsDropdown[0]} optionLabel="name" 
+                                    showClear placeholder="Categories" className="w-10 m-1" />
+                                    }
+                                    {errors.category?.map((message, idx) => (
+                                        <Message className="w-11 m-1" severity="error" text={message} key={idx}/>
+                                    ))}
                                     <Dropdown value={selectedProject} onChange={(e) => {setSelectedProject(e.value); {e.value !== undefined ? setInputData({...inputData,project: e.value.id}) : setInputData({...inputData,project: null})};}} options={optionsDropdown[1]} optionLabel="title" 
                                     showClear placeholder="Projects" className="w-10 m-1" />
-                                    <Calendar className='w-10 m-1' dateFormat="yy/mm/dd" value={date} name='deadline' onChange={(e) => {setDate(e.value); handleDateFormat()}} showButtonBar placeholder="Deadline" touchUI/>
+                                    {errors.deadline 
+                                    ? <Calendar invalid className='w-10 m-1' dateFormat="yy/mm/dd" value={date} name='deadline' onChange={(e) => {setDate(e.value); handleDateFormat()}} showButtonBar placeholder="Deadline" touchUI/>
+                                    : <Calendar className='w-10 m-1' dateFormat="yy/mm/dd" value={date} name='deadline' onChange={(e) => {setDate(e.value); handleDateFormat()}} showButtonBar placeholder="Deadline" touchUI/>
+                                    }
+                                    {errors.deadline?.map((message, idx) => (
+                                        <Message className="w-11 m-1" severity="error" text={message} key={idx}/>
+                                    ))}
                                     <ToggleButton onLabel="Self Assigned" offLabel="Unassigned Task" onIcon="pi pi-check" offIcon="pi pi-times" 
                                     checked={checked} onChange={(e) => {setChecked(e.value); {e.value ? setInputData({...inputData,owner: currentUser.pk}) : setInputData({...inputData,owner: null})}}} className="w-10 m-1" />
                                 </div>
