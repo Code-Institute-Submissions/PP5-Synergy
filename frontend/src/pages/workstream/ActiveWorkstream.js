@@ -119,7 +119,7 @@ const ActiveWorkstream = () => {
         setTaskA(taskA);
         setStaff(staff);
         setLoaded(true)
-        console.log(staff)
+        console.log(workstream, staff)
       } catch (err) {
         setErrors(err.response?.data);
       }
@@ -234,7 +234,10 @@ const ActiveWorkstream = () => {
                 >
                   <ul className="card flex flex-column flex-wrap gap-2 my-0 list-none px-0">
                   {staff.results?.map((user) => (
+                      workstream.results[0].owner !== user.owner 
+                      ?
                         <li className='flex flex-column gap-3 md:flex-row md:align-items-center p-2 border-bottom-1 surface-border' key={user.id}><Staff props={user} rerun={rerun} setRerun={setRerun} /></li>
+                      : <span>Add more users to set staff Privileges</span>
                       ))}
                     
                   </ul>
