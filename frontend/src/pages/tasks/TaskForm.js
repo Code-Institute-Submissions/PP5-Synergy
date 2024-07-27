@@ -11,14 +11,17 @@ import { ToggleButton } from 'primereact/togglebutton';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useOptions } from '../../contexts/OptionsContext';
 import { Message } from 'primereact/message';
+import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 
-const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh, edit, taskObj}) => {
+const TaskForm = ({ url, visible, setVisible, refresh, setRefresh, edit, taskObj}) => {
     const currentUser = useCurrentUser();
     const [errors, setErrors] = useState({});
     const optionsDropdown = useOptions();
     const [checked, setChecked] = useState(false);
     const [date, setDate] = useState(Date());
+    const navigate = useNavigate()
     const [inputData, setInputData] = useState({
         name: '',
         detail: '',
@@ -42,7 +45,7 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
     
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedProject, setSelectedProject] = useState(null);
-    const [selectedPriority, setSelectedPriority] = useState(null);
+    const [selectedPriority, setSelectedPriority] = useState({ name: 'No-priority', id: 1 });
     const priorityOption = [
         { name: 'No-priority', id: 1 },
         { name: 'Low-priority', id: 2 },
@@ -61,6 +64,20 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
                 const { data } = await axiosReq.post(url, inputData);
                 {data.is_owner && setRefresh(!refresh);}
             }
+            setRefresh(!refresh)
+            setInputData({
+                name: '',
+                detail: '',
+                priority: 1,
+                deadline: null,
+                category: null,
+                project: null,
+                owner: null,
+            });
+            setSelectedPriority({ name: 'No-priority', id: 1 });
+            setSelectedProject(null);
+            setSelectedCategory(null);
+            setDate(Date());
             setVisible(false);
             
         } catch (err) {
@@ -76,12 +93,11 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
     };
 
     const handleDateFormat = () => {
-        let newDate = new Date(date).toLocaleDateString();
-        let dateArray = newDate.split("/");
-        let dateFormat = dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0];
+        console.log(date);
+        console.log(moment(date).format('YYYY[-]MM[-]DD'));
         setInputData({
             ...inputData,
-            deadline: dateFormat,
+            deadline: moment(date).format('YYYY[-]MM[-]DD'),
             });
     };
 
@@ -157,6 +173,7 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
                                     </FloatLabel>
                                     <Dropdown value={selectedPriority} onChange={(e) => {setSelectedPriority(e.value); setInputData({...inputData,priority: e.value?.id});}} options={priorityOption} optionLabel="name" 
                                     showClear placeholder="Task Priority" className="w-10 m-1" />
+                                    {optionsDropdown[0].length === 0 && <Message className="w-11 m-1" severity="warn" text={'No Category click to create'} onClick={() => {navigate('/workstream/active')}} />}
                                     {errors.category 
                                     ? <Dropdown invalid value={selectedCategory} onChange={(e) => {setSelectedCategory(e.value); {e.value !== undefined ? setInputData({...inputData,category: e.value.id}) : setInputData({...inputData,category: null})};}} options={optionsDropdown[0]} optionLabel="name" 
                                     showClear placeholder="Categories" className="w-10 m-1" />

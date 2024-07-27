@@ -19,7 +19,6 @@ const TaskList = () => {
   const [editID, setEditID] = useState();
   const [taskObj, setTaskObj] = useState({});
   const [loaded, setLoaded] = useState(false);
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -99,7 +98,7 @@ const TaskList = () => {
       }
       
       <OptionsContext>
-        <TaskForm url={`/api/task/create/`} visible={visible} setVisible={setVisible} setAttribute={setTaskList} refresh={rerun} setRefresh={setRerun} edit={false}/>
+        <TaskForm url={`/api/task/create/`} visible={visible} setVisible={setVisible} refresh={rerun} setRefresh={setRerun} edit={false}/>
         <TaskForm url={`/api/task/${editID}/`} taskObj={taskObj} visible={visibleEdit} setVisible={setVisibleEdit} refresh={rerun} setRefresh={setRerun} edit={true}/>
       </OptionsContext>
     </div>
