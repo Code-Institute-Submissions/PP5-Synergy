@@ -88,7 +88,7 @@ Bug after group creation would not allow host user view as code would check for 
 
 ### CSS Validation:
 
-- All application CSS using Bootstrap 5 library, no other external CSS used
+- All application CSS using Primereact and Primeflex library, no other external CSS used
 
 ### JS Validation:
 
@@ -124,7 +124,7 @@ Testing was conducted on the following browsers;
 
 The responsiveness was checked manually by using devtools (Chrome) throughout the whole development. It was also checked with [Responsive Viewer](https://chrome.google.com/webstore/detail/responsive-viewer/inmopeiepgfljkpkidclfgbgbmfcennb/related?hl=en) Chrome extension.
 
-Bootstrap 5 library used to handle responsive mobile first approach.
+Primeflex library used to handle responsive mobile first approach.
 
 - [Responsive Report](documentation/responsive_report.pdf)
 ---
