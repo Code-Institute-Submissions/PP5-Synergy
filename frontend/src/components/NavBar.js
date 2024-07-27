@@ -32,9 +32,9 @@ const NavBar = () => {
     const loggedOutMenu = <Menubar model={items} start={start} end={end} />
     const loggedInMenu = <></>
     return (
-        <div className="card">
+        <header className="card">
             {currentUser ? loggedInMenu : loggedOutMenu}
-        </div>
+        </header>
     )
 }
 
