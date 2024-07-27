@@ -5,8 +5,12 @@ from rest_framework import serializers
 class CurrentUserSerializer(UserDetailsSerializer):
     profile_id = serializers.ReadOnlyField(source='profile.id')
     profile_avatar = serializers.ReadOnlyField(source='profile.avatar.url')
-    default_workstream = serializers.ReadOnlyField(source='profile.default_workstream.name')
-    default_workstream_id = serializers.ReadOnlyField(source='profile.default_workstream.id')
+    default_workstream = serializers.ReadOnlyField(
+        source='profile.default_workstream.name'
+        )
+    default_workstream_id = serializers.ReadOnlyField(
+        source='profile.default_workstream.id'
+        )
 
     class Meta(UserDetailsSerializer.Meta):
         fields = UserDetailsSerializer.Meta.fields + (
