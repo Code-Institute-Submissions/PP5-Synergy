@@ -1,3 +1,4 @@
+'''apps for category app'''
 from django.apps import AppConfig
 
 

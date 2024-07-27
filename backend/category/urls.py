@@ -1,3 +1,4 @@
+'''urls for category app'''
 from django.urls import path
 from category import views
 

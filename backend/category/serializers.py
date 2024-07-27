@@ -1,3 +1,4 @@
+'''serializer for category app'''
 from rest_framework import serializers
 from .models import Category
 
