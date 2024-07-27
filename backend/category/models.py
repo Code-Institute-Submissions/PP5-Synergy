@@ -8,8 +8,10 @@ class Category(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=255, blank=True)
-    workstream = models.ForeignKey(Workstream, on_delete=models.CASCADE, related_name='category_workstream')
-
+    workstream = models.ForeignKey(
+        Workstream, on_delete=models.CASCADE,
+        related_name='category_workstream'
+        )
 
     class Meta:
         ordering = ['-created_at']

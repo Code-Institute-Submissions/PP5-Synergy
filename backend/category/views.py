@@ -18,8 +18,10 @@ class CategoryList(generics.ListCreateAPIView):
         for the currently authenticated user.
         """
         user = self.request.user
-        return Category.objects.filter(workstream=user.profile.default_workstream)
-    
+        return Category.objects.filter(
+            workstream=user.profile.default_workstream
+            )
+
     def perform_create(self, serializer):
         serializer.save(
             owner=self.request.user,
