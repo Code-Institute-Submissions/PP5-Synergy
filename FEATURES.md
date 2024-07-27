@@ -154,6 +154,10 @@ Each task has a drop down menu to edit, unassign or delete the task.
 
   ![Create/Edit Task sidebar](documentation/features/task_form.png)
 
+  ![task error](documentation/features/task_error.png)
+
+  task requires a name, category and deadline to create task
+
 - unassign task option
 
   remove the task from the users task list as no longer assigner to user

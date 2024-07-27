@@ -1,11 +1,11 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Button } from 'primereact/button'
-import { Divider } from 'primereact/divider'
-import hero from '../../assets/heroImage.jpg'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from 'primereact/button';
+import { Divider } from 'primereact/divider';
+import hero from '../../assets/heroImage.jpg';
 
 const Home = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     return (
         <>
