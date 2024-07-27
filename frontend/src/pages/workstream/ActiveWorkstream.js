@@ -119,7 +119,6 @@ const ActiveWorkstream = () => {
         setTaskA(taskA);
         setStaff(staff);
         setLoaded(true)
-        console.log(workstream, staff)
       } catch (err) {
         setErrors(err.response?.data);
       }

@@ -64,7 +64,6 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
             setVisible(false);
             
         } catch (err) {
-            console.log(err);
             setErrors(err.response?.data);
         }
     };
