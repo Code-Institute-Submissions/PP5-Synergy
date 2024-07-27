@@ -1,3 +1,4 @@
+'''apps for invite app'''
 from django.apps import AppConfig
 
 

@@ -1,3 +1,4 @@
+'''urls for invites app'''
 from django.urls import path
 from invite import views
 
