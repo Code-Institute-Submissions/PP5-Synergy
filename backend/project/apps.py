@@ -1,3 +1,4 @@
+'''apps for project app'''
 from django.apps import AppConfig
 
 
