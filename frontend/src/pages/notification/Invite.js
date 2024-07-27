@@ -20,16 +20,16 @@ const Invite = ({ props, admin, url, setID, setUrl, confirmDialog, rerun, setRer
 
   const inputData = {
     accepted: true
-  }
+  };
 
   const handleAccept = async () => {
     try{
       const { data } = await axiosReq.put(url, inputData);
-      setRerun(!rerun)
+      setRerun(!rerun);
     } catch (err) {
 
     }
-  }
+  };
 
   return (
     <>

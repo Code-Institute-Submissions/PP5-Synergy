@@ -2,8 +2,8 @@ import styles from './App.module.css';
 import NavBar from './components/NavBar';
 import { Route, Routes } from 'react-router-dom/';
 import './api/axiosDefaults';
-import SignIpForm from './pages/auth/SignInForm'
-import SignUpForm from './pages/auth/SignUpForm'
+import SignIpForm from './pages/auth/SignInForm';
+import SignUpForm from './pages/auth/SignUpForm';
 import Dashboard from './pages/dashboard/Dashboard';
 import DashMenu from './components/DashMenu';
 import WorkstreamPage from './pages/workstream/WorkstreamPage';

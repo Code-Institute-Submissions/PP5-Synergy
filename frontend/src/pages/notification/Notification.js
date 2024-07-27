@@ -13,7 +13,7 @@ import { fetchMoreData } from "../../utils/utils";
 
 const Notification = () => {
   const [invite, setInvite] = useState({ results: [] });
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(false);
   const [join, setJoin] = useState({ results: [] });
   const [rerun, setRerun] = useState(false);
   const [errors, setErrors] = useState({});
@@ -30,7 +30,7 @@ const Notification = () => {
         ]);
         setInvite(invite);
         setJoin(join);
-        setLoaded(true)
+        setLoaded(true);
       } catch (err) {
         setErrors(err.response?.data);
       }

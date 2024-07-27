@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import ProfileSkeleton from '../../components/ProfileSkeleton';
 import { axiosReq } from '../../api/axiosDefaults';
@@ -7,10 +7,10 @@ import { Avatar } from 'primereact/avatar';
 import { useNavigate } from 'react-router-dom';
 
 const TaskReport = () => {
-    const currentUser = useCurrentUser()
-    const [loaded, setLoaded] = useState(false)
+    const currentUser = useCurrentUser();
+    const [loaded, setLoaded] = useState(false);
     const [profileData, setProfileData] = useState({});
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {

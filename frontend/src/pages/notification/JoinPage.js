@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { axiosReq } from '../../api/axiosDefaults';
 import Spinner from '../../components/Spinner';
 import { Divider } from "primereact/divider";
@@ -8,7 +8,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { fetchMoreData } from '../../utils/utils';
 
 const JoinPage = () => {
-    const [loaded, setLoaded] = useState(false)
+    const [loaded, setLoaded] = useState(false);
     const [workstreamList, setWorkstreamList] = useState({ results: [] });
     
 
@@ -18,8 +18,8 @@ const JoinPage = () => {
               const [{ data: workstreamList }] = await Promise.all([
                 axiosReq.get(`/api/workstream/join/`),
               ]);
-              setWorkstreamList(workstreamList)
-              setLoaded(true)
+              setWorkstreamList(workstreamList);
+              setLoaded(true);
             } catch (err) {
             }
           };

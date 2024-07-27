@@ -21,14 +21,14 @@ export const editResourceState = (arg, resource, setResource) => {
     if (arg.id === object.id) {
       return arg;
     } else {
-      return object
+      return object;
     }
   });
   setResource((prevState) => ({
     ...prevState,
     results: updatedRes,
-  }))
-}
+  }));
+};
 
 export const setTokenTimestamp = (data) => {
   const refreshTokenTimestamp = jwtDecode(data?.refresh).exp;

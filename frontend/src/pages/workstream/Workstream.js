@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Fieldset } from 'primereact/fieldset';
 import { Avatar } from 'primereact/avatar';
 import { AvatarGroup } from 'primereact/avatargroup';
@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Workstream = (props) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const {
         id,
         owner,

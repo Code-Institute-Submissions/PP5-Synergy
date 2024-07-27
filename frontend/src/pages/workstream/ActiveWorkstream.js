@@ -21,7 +21,7 @@ import { fetchMoreData } from "../../utils/utils";
 import Staff from "./Staff";
 
 const ActiveWorkstream = () => {
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(false);
   const [workstream, setWorkstream] = useState({ results: [] });
   const [workstreamID, setWorkstreamID] = useState(0);
   const [workstreamName, setWorkstreamName] = useState("");

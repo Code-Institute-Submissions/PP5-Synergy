@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
@@ -15,12 +15,12 @@ import { fetchMoreData } from '../../utils/utils';
 
 const WorkstreamPage = () => {
     const currentUser = useCurrentUser();
-    const navigate = useNavigate()
-    const [loaded, setLoaded] = useState(false)
+    const navigate = useNavigate();
+    const [loaded, setLoaded] = useState(false);
     const [errors, setErrors] = useState({});
 
-    const [workstream , setWorkstream] = useState({ results: [] })
-    const [workstreamList , setWorkstreamList] = useState({ results: [] })
+    const [workstream , setWorkstream] = useState({ results: [] });
+    const [workstreamList , setWorkstreamList] = useState({ results: [] });
 
     const legendTemplate = (
       <div className="flex align-items-center gap-2 px-2">

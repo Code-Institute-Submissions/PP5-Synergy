@@ -6,8 +6,8 @@ export const optionsContext = createContext();
 export const useOptions = () => useContext(optionsContext);
 
 export const OptionsContext = ({ children }) => {
-    const [categoryOptions, setCategoryOptions] = useState([])
-    const [projectOptions, setProjectOptions] = useState([])
+    const [categoryOptions, setCategoryOptions] = useState([]);
+    const [projectOptions, setProjectOptions] = useState([]);
 
     const handleMount = async () => {
         try {
@@ -16,8 +16,8 @@ export const OptionsContext = ({ children }) => {
                 axiosReq.get(`/api/category/`),
                 axiosReq.get(`/api/project/`),
             ]);
-            setCategoryOptions(category.results)
-            setProjectOptions(project.results)
+            setCategoryOptions(category.results);
+            setProjectOptions(project.results);
         } catch (err) {
         }
     };

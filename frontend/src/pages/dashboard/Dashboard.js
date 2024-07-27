@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Divider } from "primereact/divider";
 import { ScrollPanel } from "primereact/scrollpanel";
 import Profile from './Profile';

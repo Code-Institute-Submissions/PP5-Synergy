@@ -1,33 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Tag } from 'primereact/tag';
 import { useNavigate } from 'react-router-dom';
 import { Avatar } from 'primereact/avatar';
 import { axiosReq } from '../../api/axiosDefaults';
 
 const InviteCard = ({title, message, count, icon, display, id, url}) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const handleClick = () => {
         if (icon === 'pi pi-user-plus') {
-            navigate('/invite')
+            navigate('/invite');
         } else {
-            navigate('/join')
+            navigate('/join');
         }
-    }
+    };
 
     const handleJoin = async () => {
         const formData = new FormData();
         if (message !== '') {
-            formData.append("workstream", id)
+            formData.append("workstream", id);
         } else {
-            formData.append("user", id)
+            formData.append("user", id);
         }
         try {
             const { data } = await axiosReq.post(url, formData);
-            navigate('/notification')
+            navigate('/notification');
         } catch (err) {
         }
-    }
+    };
 
     return (
     <div className={display ? "col-12 md:col-6 lg:col-3 cursor-pointer" : "col-12 md:col-6 lg:col-3"}>

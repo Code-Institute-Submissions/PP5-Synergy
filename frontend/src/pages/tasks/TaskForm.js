@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { axiosReq } from '../../api/axiosDefaults'
+import React, { useEffect, useState } from 'react';
+import { axiosReq } from '../../api/axiosDefaults';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from "primereact/inputtextarea";
@@ -14,11 +14,11 @@ import { Message } from 'primereact/message';
 
 
 const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh, edit, taskObj}) => {
-    const currentUser = useCurrentUser()
-    const [errors, setErrors] = useState({})
-    const optionsDropdown = useOptions()
+    const currentUser = useCurrentUser();
+    const [errors, setErrors] = useState({});
+    const optionsDropdown = useOptions();
     const [checked, setChecked] = useState(false);
-    const [date, setDate] = useState(Date())
+    const [date, setDate] = useState(Date());
     const [inputData, setInputData] = useState({
         name: '',
         detail: '',
@@ -55,39 +55,39 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
         try {
             if(edit) {
                 const { data } = await axiosReq.put(url, inputData);
-                setRefresh(!refresh)
+                setRefresh(!refresh);
             }
             else {
                 const { data } = await axiosReq.post(url, inputData);
-                {data.is_owner && setRefresh(!refresh)}
+                {data.is_owner && setRefresh(!refresh);}
             }
-            setVisible(false)
+            setVisible(false);
             
         } catch (err) {
-            console.log(err)
+            console.log(err);
             setErrors(err.response?.data);
         }
-    }
+    };
 
     const handleChange = (event) => {
         setInputData({
             ...inputData,
             [event.target.name]: event.target.value,
-            })
+            });
     };
 
     const handleDateFormat = () => {
         let newDate = new Date(date).toLocaleDateString();
         let dateArray = newDate.split("/");
-        let dateFormat = dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0]
+        let dateFormat = dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0];
         setInputData({
             ...inputData,
             deadline: dateFormat,
-            })
+            });
     };
 
     const changeInput = () => {
-        let newDate = new Date(taskObj.deadline)
+        let newDate = new Date(taskObj.deadline);
         
         {taskObj.project ? setInputData({
             ...inputData,
@@ -108,18 +108,18 @@ const TaskForm = ({ url, visible, setVisible, setAttribute, refresh, setRefresh,
             category: taskObj.category?.id,
             deadline: taskObj.deadline,
             owner: taskObj.owner?.pk
-            })
+            });
         }
-        setSelectedPriority(priorityOption[taskObj.priority - 1])
-        setSelectedProject(taskObj.project)
-        setSelectedCategory(taskObj.category)
-        setDate(newDate)
-        {taskObj.is_owner && setChecked(true)}
-    }
+        setSelectedPriority(priorityOption[taskObj.priority - 1]);
+        setSelectedProject(taskObj.project);
+        setSelectedCategory(taskObj.category);
+        setDate(newDate);
+        {taskObj.is_owner && setChecked(true);}
+    };
 
     useEffect(() => {
         const handleMount = () => {
-            {taskObj && changeInput()}
+            {taskObj && changeInput();}
         };
         handleMount();
     }, [taskObj]);

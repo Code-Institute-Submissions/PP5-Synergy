@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { axiosReq } from '../../api/axiosDefaults';
 import { Divider } from 'primereact/divider';
 import { Button } from 'primereact/button';
 import { ScrollPanel } from 'primereact/scrollpanel';
-import TaskForm from '../tasks/TaskForm'
+import TaskForm from '../tasks/TaskForm';
 import { OptionsContext } from '../../contexts/OptionsContext';
 import WorkstreamTask from '../../components/WorkstreamTask';
 import Spinner from '../../components/Spinner';
@@ -12,13 +12,13 @@ import { fetchMoreData } from '../../utils/utils';
 
 const TaskList = () => {
   const [errors, setErrors] = useState({});
-  const [taskList , setTaskList] = useState({ results: [] })
-  const [visible, setVisible] = useState(false)
-  const [visibleEdit, setVisibleEdit] = useState(false)
-  const [rerun, setRerun] = useState(false)
-  const [editID, setEditID] = useState()
-  const [taskObj, setTaskObj] = useState({})
-  const [loaded, setLoaded] = useState(false)
+  const [taskList , setTaskList] = useState({ results: [] });
+  const [visible, setVisible] = useState(false);
+  const [visibleEdit, setVisibleEdit] = useState(false);
+  const [rerun, setRerun] = useState(false);
+  const [editID, setEditID] = useState();
+  const [taskObj, setTaskObj] = useState({});
+  const [loaded, setLoaded] = useState(false);
   
 
   useEffect(() => {
@@ -29,9 +29,9 @@ const TaskList = () => {
             axiosReq.get(`/api/tasklist/`),
           ]);
         setTaskList(taskList);
-        setLoaded(true)
+        setLoaded(true);
       } catch (err) {
-        setErrors(err)
+        setErrors(err);
       }
     };
     fetchData();

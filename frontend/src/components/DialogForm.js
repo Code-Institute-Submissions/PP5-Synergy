@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { axiosReq } from '../api/axiosDefaults'
+import React, { useState } from 'react';
+import { axiosReq } from '../api/axiosDefaults';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
@@ -8,8 +8,8 @@ import { useCurrentUser } from '../contexts/CurrentUserContext';
 import { editResourceState } from '../utils/utils';
 
 const DialogForm = ({url, title, inputData, setInputData, visible, setVisible, setAttribute, edit, resource, setResource}) => {
-    const currentUser = useCurrentUser()
-    const [errors, setErrors] = useState({})
+    const currentUser = useCurrentUser();
+    const [errors, setErrors] = useState({});
 
 
     const handleSubmit = async (e) => {
@@ -17,8 +17,8 @@ const DialogForm = ({url, title, inputData, setInputData, visible, setVisible, s
         try {
             if(edit) {
                 const { data } = await axiosReq.put(url, inputData);
-                {setResource && editResourceState(data, resource, setResource)};
-                {setAttribute && setAttribute(data.name)};
+                {setResource && editResourceState(data, resource, setResource);}
+                {setAttribute && setAttribute(data.name);}
                 
             }
             else {
@@ -33,14 +33,14 @@ const DialogForm = ({url, title, inputData, setInputData, visible, setVisible, s
         } catch (err) {
             setErrors(err.response?.data);
         }
-        setVisible(false)
-    }
+        setVisible(false);
+    };
 
     const handleChange = (event) => {
         setInputData({
             ...inputData,
             [event.target.name]: event.target.value,
-            })
+            });
     };
 
     return (

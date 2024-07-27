@@ -5,7 +5,7 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Message } from 'primereact/message';
-import logo from '../../assets/logo.png'
+import logo from '../../assets/logo.png';
 
 const SignUpForm = () => {
     const [signUpData, setSignUpData] = useState({
@@ -28,7 +28,7 @@ const SignUpForm = () => {
         event.preventDefault();
         try {
             await axios.post("/dj-rest-auth/registration/", signUpData);
-            navigate('/signin')
+            navigate('/signin');
         } catch (err) {
             setErrors(err.response?.data);
         }

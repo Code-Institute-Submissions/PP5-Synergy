@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { axiosReq } from '../../api/axiosDefaults';
 import Spinner from '../../components/Spinner';
 import { Divider } from "primereact/divider";
@@ -8,7 +8,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { fetchMoreData } from '../../utils/utils';
 
 const InvitePage = () => {
-    const [loaded, setLoaded] = useState(false)
+    const [loaded, setLoaded] = useState(false);
     const [userList, setUserList] = useState({ results: [] });
 
     useEffect(() => {
@@ -17,8 +17,8 @@ const InvitePage = () => {
             const [{ data: userList }] = await Promise.all([
               axiosReq.get(`/api/profiles/invite/`),
             ]);
-            setUserList(userList)
-            setLoaded(true)
+            setUserList(userList);
+            setLoaded(true);
           } catch (err) {
           }
         };

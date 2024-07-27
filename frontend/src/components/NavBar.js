@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Menubar } from 'primereact/menubar';
 import { Button } from 'primereact/button';
 import { NavLink } from 'react-router-dom';

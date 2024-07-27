@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react';
 import { Card } from 'primereact/card';
 import { Toast } from 'primereact/toast';
 import { useNavigate } from 'react-router-dom';
@@ -7,11 +7,11 @@ import { axiosReq } from '../../api/axiosDefaults';
 
 
 const Workstream = (props) => {
-    const currentUser = useCurrentUser()
+    const currentUser = useCurrentUser();
     const [errors, setErrors] = useState({});
     const toast = useRef(null);
     
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const {
         id,
         owner,
@@ -21,7 +21,7 @@ const Workstream = (props) => {
         users,
         is_owner,
     } = props;
-    const inputData = {default_workstream: id}
+    const inputData = {default_workstream: id};
 
     const showError = () => {
         toast.current.show({

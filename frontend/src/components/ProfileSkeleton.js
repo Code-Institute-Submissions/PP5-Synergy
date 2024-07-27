@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Skeleton } from 'primereact/skeleton';
 
 const ProfileSkeleton = () => {

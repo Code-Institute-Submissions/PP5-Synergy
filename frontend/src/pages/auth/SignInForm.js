@@ -8,7 +8,7 @@ import { Password } from 'primereact/password';
 import { Message } from 'primereact/message';
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { setTokenTimestamp } from "../../utils/utils";
-import logo from '../../assets/logo.png'
+import logo from '../../assets/logo.png';
 
 const SignInForm = () => {
     const SetCurrentUser = useSetCurrentUser();
@@ -26,9 +26,9 @@ const SignInForm = () => {
     
         try {
           const { data } = await axios.post("/dj-rest-auth/login/", signInData);
-          SetCurrentUser(data.user)
-          navigate('/dashboard')
-          setTokenTimestamp(data)
+          SetCurrentUser(data.user);
+          navigate('/dashboard');
+          setTokenTimestamp(data);
         } catch (err) {
             setErrors(err.response?.data);
         }

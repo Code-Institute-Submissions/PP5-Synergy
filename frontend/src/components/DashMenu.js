@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Menu } from 'primereact/menu';
 import { Avatar } from 'primereact/avatar';
 import { Sidebar } from 'primereact/sidebar';
@@ -7,20 +7,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCurrentUser, useSetCurrentUser } from '../contexts/CurrentUserContext';
 import axios from "axios";
 import { removeTokenTimestamp } from '../utils/utils';
-import logo from '../assets/logo.png'
+import logo from '../assets/logo.png';
 
 const DashMenu = () => {
     const currentUser = useCurrentUser();
     const setCurrentUser = useSetCurrentUser();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [visible, setVisible] = useState(false);
 
     const handelLogout = async () => {
         try {
             await axios.post("dj-rest-auth/logout/");
             setCurrentUser(null);
-            removeTokenTimestamp()
-            navigate('/signin')
+            removeTokenTimestamp();
+            navigate('/signin');
         } catch (err) {
         }
     };
@@ -125,7 +125,7 @@ const DashMenu = () => {
              <Button size='small' icon="pi pi-bars" onClick={() => setVisible(true)} />
         </div>
         </>
-    )
+    );
 
     const sidebar = (
         <Sidebar
@@ -143,7 +143,7 @@ const DashMenu = () => {
                     </div>
                 )}
             ></Sidebar>
-    )
+    );
   return (
     <>
         {currentUser && userMenu}

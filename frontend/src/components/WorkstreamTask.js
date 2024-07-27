@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react';
 import { Checkbox } from "primereact/checkbox";
 import { Menu } from 'primereact/menu';
 import { Avatar } from 'primereact/avatar';
@@ -10,7 +10,7 @@ import { editResourceState } from '../utils/utils';
 
 const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResource, rerun, setRerun, editList}) => {
     const taskMenu = useRef(null);
-    const [task, setTask] = useState(props)
+    const [task, setTask] = useState(props);
     const {
         category,
         created_at,
@@ -24,8 +24,8 @@ const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResou
         owner,
         priority,
         updated_at,
-    } = task
-    const [isCompleted, setIsCompleted] = useState(is_completed)
+    } = task;
+    const [isCompleted, setIsCompleted] = useState(is_completed);
     const items = [
         {
             label: 'Edit',
@@ -33,21 +33,21 @@ const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResou
             command: () => {
                 setID(id);
                 setVisible(true);
-                setObject(props)
+                setObject(props);
             }
         },
         {
             label: 'Unassign',
             icon: 'pi pi-user-minus',
             command: () => {
-                handleRemove()
+                handleRemove();
             }
         },
         {
             label: 'Delete',
             icon: 'pi pi-trash',
             command: () => {
-                handleDelete()
+                handleDelete();
             }
         }
     ];
@@ -56,19 +56,19 @@ const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResou
         const formData = new FormData();
         formData.append("is_completed", !isCompleted);
         try {
-            const {data} = await axiosReq.put(`/api/task/${id}/complete/`, formData)
+            const {data} = await axiosReq.put(`/api/task/${id}/complete/`, formData);
             setTask({
                 ...task,
                 is_completed: data.is_completed
             });
         } catch (err) {
         }
-    }
+    };
 
     
     useEffect(() => {
         const updateSate = () => {
-            {editList && editResourceState(task, resource, setResource)}
+            {editList && editResourceState(task, resource, setResource);}
             
         };
         updateSate();
@@ -76,7 +76,7 @@ const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResou
 
     const handleDelete = async () => {
         try {
-            const {data} = await axiosReq.delete(`/api/task/${id}/`)
+            const {data} = await axiosReq.delete(`/api/task/${id}/`);
             let taskList = resource.results.filter((item) => item.id !== id);
             setResource((prevState) => ({
             ...prevState,
@@ -85,31 +85,31 @@ const WorkstreamTask = ({props, setID, setVisible, setObject, resource, setResou
         } catch (err) {
 
         }
-    }
+    };
 
     const handleRemove = async () => {
         const formData = new FormData();
         formData.append("owner", 1);
         try {
-            const {data} = await axiosReq.put(`/api/task/${id}/leave/`, formData)
+            const {data} = await axiosReq.put(`/api/task/${id}/leave/`, formData);
             let taskList = resource.results.filter((item) => item.id !== id);
             setResource((prevState) => ({
             ...prevState,
             results: taskList,
             }));
-            setRerun(!rerun)
+            setRerun(!rerun);
         } catch (err) {
         }
-    }
+    };
 
     const handleAccept = async () => {
         try {
-            const {data} = await axiosReq.put(`/api/task/${id}/assign/`)
-            setRerun(!rerun)
+            const {data} = await axiosReq.put(`/api/task/${id}/assign/`);
+            setRerun(!rerun);
         } catch (err) {
         }
 
-    }
+    };
 
 
     return (

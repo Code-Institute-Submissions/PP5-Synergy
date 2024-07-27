@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { InputSwitch } from "primereact/inputswitch";
 import { axiosReq } from '../../api/axiosDefaults';
 
@@ -7,18 +7,18 @@ const Staff = ({props, rerun, setRerun}) => {
         id,
         owner,
         is_staff,
-    } = props
-    const [isStaff, setIsStaff] = useState(is_staff)
+    } = props;
+    const [isStaff, setIsStaff] = useState(is_staff);
 
     const handlePermission = async () => {
-        const formData = new FormData()
-        formData.append("is_staff", !isStaff)
+        const formData = new FormData();
+        formData.append("is_staff", !isStaff);
         try {
-            const {data} = await axiosReq.put(`/api/workstream/participant/${id}/`, formData)
-            setRerun(!rerun)
+            const {data} = await axiosReq.put(`/api/workstream/participant/${id}/`, formData);
+            setRerun(!rerun);
         } catch (err) {
         }
-    }
+    };
 
     return (
         <>

@@ -1,5 +1,5 @@
-import { ProgressSpinner } from 'primereact/progressspinner'
-import React from 'react'
+import React from 'react';
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 const Spinner = () => {
   return (
