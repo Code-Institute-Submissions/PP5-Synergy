@@ -111,6 +111,9 @@ const ActiveWorkstream = () => {
           axiosReq.get(`/api/workstream/participant/`),
         ]);
         setWorkstream(workstream);
+        if (workstream.count === 0) {
+          navigate('/workstream')
+        }
         setWorkstreamID(workstream.results[0].workstream.id);
         setWorkstreamName(workstream.results[0].workstream.name);
         setCategory(category);
@@ -231,6 +234,11 @@ const ActiveWorkstream = () => {
                   header="Set Privileges"
                   pt={{ headerAction: { className: "py-1" } }}
                 >
+                  <Message
+                        className="py-0 px-1"
+                        severity="warn"
+                        text="Users can not be kicked from workstream, however you can kindly request them to leave"
+                      />
                   <ul className="card flex flex-column flex-wrap gap-2 my-0 list-none px-0">
                   {staff.results?.map((user) => (
                       workstream.results[0].owner !== user.owner 
