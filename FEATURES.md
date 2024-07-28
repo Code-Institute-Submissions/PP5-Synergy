@@ -154,9 +154,10 @@ Each task has a drop down menu to edit, unassign or delete the task.
 
   ![Create/Edit Task sidebar](documentation/features/task_form.png)
 
+  task requires a name, category and deadline to create task
+
   ![task error](documentation/features/task_error.png)
 
-  task requires a name, category and deadline to create task
 
 - unassign task option
 
@@ -253,7 +254,8 @@ Page is split with two dividers one for users active workstream invites and the 
   - pending cards
 
     current user invites have option to be deleted
-    ![Delete invite](documentation/features/delete_invite.png)
+
+  ![Delete invite](documentation/features/delete_invite.png)
 
     join request for current users workstream have option to be accepted only
 
@@ -265,7 +267,8 @@ Page is split with two dividers one for users active workstream invites and the 
   - pending cards
 
     current user join requests have option to be deleted
-    ![Delete join](documentation/features/delete_join.png)
+
+  ![Delete join](documentation/features/delete_join.png)
 
     workstream invites from other users have option to be accepted only
 
