@@ -63,28 +63,30 @@ Usability was tested with the below user acceptance testing, sent to new users t
 
 ### Known bugs
 
-Due to the user navbar including a session detail and group detail button the code app would display error when viewing different pages which did not contain the relevant model objects. All page view included a session object with the context name of 'object_detail' to match and a method called get_group_id on the session and group model to fix the error
+Due to the user updated to the react router dom the history.push no longer works
 
-Due to the removal of singles badminton the game creation button on the session detail page would be removed. Upon investigating and testing the application the condition for the button display was calculated based on the session status integer multiplied by 4, which once a session was in session would require 8 players in session to display button. This was fixed by adding the correct variable 'game_type' to multiplied by 4.
+
 
 ### Solved bugs
 
 There were plenty of bugs during the development process since this project was a learning platform for me and allowed me to improve my skills and knowledge significantly.
 
-One of the bugs was due to a zero division as the win percentage to be calculated would cause an error for new users when viewing their profile page which did not contain any statistics
+One of the bugs was due to the deadline taking local date format causing an error for american date format. This was solved using the moments.js date formatter to pass correct value when form was submitted
 
-Due to changes to fontawesome mid way the project the application stopped displaying the icons or the fontawesome icon resizing which was used. Viewing the application with chrome dev tools it identified the broken link and i changed the fontawesome icons to bootstrap 5 native icons.
+Due to this being my first application utilizing my own api the endpoint required the trailing slash which was omitted.
 
-Bug after group creation would not allow host user view as code would check for participating members in group which are part of a session and since new group do not have session objects would not allow host to view group. Fixed by adding additional check to see if user is group host.
+There was a bug that new users can access their active workstream page before they created a workstream which only displayed the loading spinner. I solved this by adding a conditional if statement in the active workstream component to return the user to the workstream page.
 
 ---
 
 ## Validation:
 ### HTML Validation:
 
-- [Full HTML Validation Report](documentation/validation/html_validation.pdf)
+- [HTML Validation Report](documentation/validation/html_validation.png)
 
 - No errors or warnings were found when passing through the official [W3C](https://validator.w3.org/) validator. This checking was done manually by copying the view page source code (Ctrl+U) and pasting it into the validator.
+
+- Since the application's frontend is written in React the page source only displays reacts initial index.html
 
 ### CSS Validation:
 
@@ -92,7 +94,13 @@ Bug after group creation would not allow host user view as code would check for 
 
 ### JS Validation:
 
-- All application JavaScript using Bootstrap 5 library, no other Javascript code used
+- Since the application's frontend is written in React, I could not use the JSHint validator to validate the application. As you can down below, JSHint just doesn't understand JSX syntax.
+
+![JSHint output](documentation/validation/jshint.png)
+
+- But React itself validates the code on each build, and if there were any errors, the application would not be able to run.
+- Since it runs correctly, we can consider all the code to be valid.
+
 
 ### Python Validation:
 
@@ -116,7 +124,7 @@ Testing was conducted on the following browsers;
 - Chrome;
 - Firefox;
 
-- [Compatibility Report](documentation/responsive_report.pdf)
+- [Compatibility Report](documentation/compatibility_report.pdf)
 
 ---
 
