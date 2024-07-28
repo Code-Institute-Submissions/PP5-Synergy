@@ -128,6 +128,7 @@ The dashboard has a page header divider with the page title 'Dashboard'. The das
 - profile edit  
 
   edit button to open dialog box
+  
   ![profile card dialog](documentation/features/profile_dialog.png)
 
   input field for users first name and last name and image file selector for user avatar
