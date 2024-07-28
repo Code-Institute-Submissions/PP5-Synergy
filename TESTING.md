@@ -124,7 +124,7 @@ Testing was conducted on the following browsers;
 - Chrome;
 - Firefox;
 
-- [Compatibility Report](documentation/compatibility_report.pdf)
+- [Compatibility Report](documentation/validation/compatibility_report.pdf)
 
 ---
 
@@ -134,5 +134,5 @@ The responsiveness was checked manually by using devtools (Chrome) throughout th
 
 Primeflex library used to handle responsive mobile first approach.
 
-- [Responsive Report](documentation/responsive_report.pdf)
+- [Responsive Report](documentation/validation/responsive_report.pdf)
 ---
