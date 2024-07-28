@@ -32,28 +32,27 @@ Usability was tested with the below user acceptance testing, sent to new users t
 
 | First Time Visitor Goals | Requirement met | Image |
 | ------------------------- | --------------- | ----- |
-| As a ""user"" I can ""create an account"" so that ""i can use the application"". | Y | ![Sign Up](documentation/signup.png) |
-| As a ""User"" I can ""login"" so that ""I can view my profile"". | Y | ![Login](documentation/login.png) |
-| As a ""User"" I can ""Add my friends"" so that ""we can organize events to play"". | Y | ![Add Friend](documentation/friend.png) |
+|As a ""first time visitor"" I want ""to be able to see an informative page about the application"" so that ""I can understand what it is about"".| Y |  ![Home Info](documentation/home_info.png)  |
+|As a ""first time visitor"" I want to ""be able to easily navigate through the application"" so that ""I can find what I am looking for"".| Y |  ![Dashmenu](documentation/dashmenu.png)  |
+|As a ""first time visitor"" I want ""to be able to register"" so that ""I can have an account"".| Y |  ![Sign Up](documentation/signup.png)  |
+|As a ""first time visitor"" I want ""to be able to login"" so that ""I can access my account"".| Y |  ![Sign In](documentation/signin.png)  |
 
 
 | Frequent Visitor Goals    | Requirement met | Image |
 | ------------------------- | --------------- | ----- |
-| As a ""User"" I can ""invite friends to group"" so that ""we can play together"". | Y | ![Group List](documentation/group.png) |
-| As a ""User"" I can ""create a game session"" so that ""available players can play"". | Y | ![Session](documentation/session.png) |
-| As a ""User"" I can ""accept session invitation"" so that ""i can join the session"". | Y | ![Session Invite](documentation/session_invite.png) |
-| As a ""User"" I can ""view my previous session"" so that ""i can compare my progress"". | Y | ![Profile](documentation/profile.png) |
-| As a ""User"" I can ""View group leaderboards"" so that ""i can improve my rank"". | Y | ![Group Leader Boards](documentation/leaderboard.png) |
-| As a ""Session Admin"" I can ""appoint game admin"" so that ""they can enter team results"". | Y | ![Session Admin](documentation/session_admin.png) |
-| As a ""Session Admin"" I can ""generate all game fixtures"" so that ""we know which games to play"". | Y | ![Game Match Ups](documentation/game.png) |
-| As a ""Game Admin"" I can ""Enter game score results"" so that ""we know who won"". | Y | ![Game Score](documentation/game_score.png) |
-| As a ""Session Admin"" I can ""assign teams manually"" so that ""the match can start"". | Y | new game select field displays all available teams |
-| As a ""Session Admin"" I can ""invite more players from group"" so that ""we can play more match ups"". | Y | ![Session Send Invite](documentation/send_invite.png) |
-| As a ""Group User"" I can ""join open sessions"" so that ""I can play"". | Y | ![Join Session](documentation/join_session.png) |
-| As a ""User"" I can ""Change my user details"" so that ""i reflect most recent changes"". | Y | ![Edit Profile](documentation/update_profile.png) |
-| As a ""Group Host"" I can ""Change group name and details"" so that ""it reflects the current changes"". | Y | ![Group Host](documentation/group_update.png) |
-| As a ""User participating in a session"" I can ""see all groups"" so that ""i can join future session"". | Y | ![Group](documentation/join_session.png) |
-| As a ""Session Admin"" I can ""update session details"" so that ""player know of date changes"". | Y | ![Session Update](documentation/session_update.png) |
+|As a ""Registered User"" I want ""Create my workstream"" so that ""start managing my tasks"".| Y |  ![Create Workstream](documentation/create_workstream.png)  |
+|As a ""Registered User"" I want ""to define my own task categories"" so that ""my task can be effectively managed"".| Y |  ![Category](documentation/category.png)  |
+|As a ""Registered User"" I want ""to create tasks"" so that ""i know what to do"".| Y |  ![Create Task](documentation/create_task.png)  |
+|As a ""Registered User"" I want ""to set task to completed"" so that ""i know which are done"".| Y |  ![Task Status](documentation/task_status.png)  |
+|As a ""Registered User"" I can ""invite other users to my workstream"" so that ""we can complete tasks together"".| Y |  ![Invite](documentation/invite.png)  |
+|As a ""Registered User"" I can ""Request to join another's workstream"" so that ""we can complete tasks together"".| Y |  ![Join](documentation/join.png)  |
+|As a ""Registered User"" I can ""select the tasks i want to do"" so that ""there will be less for the team to do"".| Y |  ![Accept Task](documentation/assign_task.png)  |
+|As a ""Registered User"" I can ""see report of all completed tasks"" so that ""i know how well i am doing"".| Y |  ![Task Report](documentation/task_report.png)  |
+|As a ""Registered User"" I can ""view my dashboard"" so that ""i can see all task assigned to me"".| Y |  ![Task Page](documentation/task_page.png)  |
+|As a ""Registered User"" I can ""switch between workspaces"" so that ""i can focus on tasks i need to do"".| Y |  ![Change Workstream](documentation/switch.png)  |
+|As a ""Registered User"" I can ""create an event/project"" so that ""group a collection of tasks"".| Y |  ![Project](documentation/project.png)  |
+|As a ""Registered User"" I can ""update task details"" so that ""it reflects updated criteria"".| Y |  ![Task Update](documentation/task_update.png)  |
+|As a ""Workstream Owner"" I can ""give staff permission to participating"" so that ""other users can create category or projects"".| Y |  ![Staff permissions](documentation/staff.png)  |
 
 
 ---

@@ -40,7 +40,7 @@ Developed for all levels of users from beginners to professional, the app is des
 |[#5](https://github.com/Hussain-Naik/PP5-Synergy/issues/5)| As a ""Registered User"" I want ""Create my workstream"" so that ""start managing my tasks"".|
 |[#6](https://github.com/Hussain-Naik/PP5-Synergy/issues/6)| As a ""Registered User"" I want ""to define my own task categories"" so that ""my task can be effectively managed"".|
 |[#7](https://github.com/Hussain-Naik/PP5-Synergy/issues/7)| As a ""Registered User"" I want ""to create tasks"" so that ""i know what to do"".|
-|[#8](https://github.com/Hussain-Naik/PP5-Synergy/issues/8)| As a ""Registered User"" I want ""to create tasks"" so that ""i know what to do"".|
+|[#8](https://github.com/Hussain-Naik/PP5-Synergy/issues/8)| As a ""Registered User"" I want ""to set task to completed"" so that ""i know which are done"".|
 |[#9](https://github.com/Hussain-Naik/PP5-Synergy/issues/9)| As a ""Registered User"" I can ""invite other users to my workstream"" so that ""we can complete tasks together"".|
 |[#10](https://github.com/Hussain-Naik/PP5-Synergy/issues/10)| As a ""Registered User"" I can ""Request to join another's workstream"" so that ""we can complete tasks together"".|
 |[#11](https://github.com/Hussain-Naik/PP5-Synergy/issues/12)| As a ""Registered User"" I can ""select the tasks i want to do"" so that ""there will be less for the team to do"".|
@@ -49,6 +49,7 @@ Developed for all levels of users from beginners to professional, the app is des
 |[#14](https://github.com/Hussain-Naik/PP5-Synergy/issues/16)| As a ""Registered User"" I can ""switch between workspaces"" so that ""i can focus on tasks i need to do"".|
 |[#15](https://github.com/Hussain-Naik/PP5-Synergy/issues/18)| As a ""Registered User"" I can ""create an event/project"" so that ""group a collection of tasks"".|
 |[#16](https://github.com/Hussain-Naik/PP5-Synergy/issues/19)| As a ""Registered User"" I can ""update task details"" so that ""it reflects updated criteria"".|
+|[#17](https://github.com/Hussain-Naik/PP5-Synergy/issues/11)| As a ""Workstream Owner"" I can ""give staff permission to participating"" so that ""other users can create category or projects"".|
 
 ---
 #### Technologies used
