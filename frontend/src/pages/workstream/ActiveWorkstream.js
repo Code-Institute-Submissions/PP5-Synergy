@@ -194,10 +194,10 @@ const ActiveWorkstream = () => {
 
   const pageContent = (
     workstream.results.length
-      ? workstream.results.map((object, idx) => (
+      ? workstream.results.map((object) => (
           <Fieldset
             className="h-screen"
-            key={idx}
+            key={object.id}
             legend={legendTemplate}
             pt={{
               legend: { className: "bg-surface p-1 text-md ml-6" },
@@ -259,10 +259,10 @@ const ActiveWorkstream = () => {
                   <div className="card flex flex-wrap gap-2">
                     {category.results.length ? (
                       <InfiniteScroll
-                      children={category.results.map((object, idx) =>
+                      children={category.results.map((object) =>
                         object.is_owner ? (
                           <Chip
-                            key={idx}
+                            key={object.id}
                             className="pl-0 pr-3"
                             template={
                               <>
@@ -279,7 +279,7 @@ const ActiveWorkstream = () => {
                             }}
                           />
                         ) : (
-                          <Chip label={object.name} key={idx} />
+                          <Chip label={object.name} key={object.id} />
                         )
                       )}
                     dataLength={category.results.length}
@@ -313,10 +313,10 @@ const ActiveWorkstream = () => {
                   <div className="card flex flex-wrap gap-2">
                     {project.results.length ? (
                       <InfiniteScroll
-                        children={project.results.map((object, idx) =>
+                        children={project.results.map((object) =>
                           object.is_owner ? (
                             <Chip
-                              key={idx}
+                              key={object.id}
                               className="pl-0 pr-3"
                               template={
                                 <>
@@ -333,7 +333,7 @@ const ActiveWorkstream = () => {
                               }}
                             />
                           ) : (
-                            <Chip label={object.title} key={idx} />
+                            <Chip label={object.title} key={object.id} />
                         )
                       )}
                       dataLength={project.results.length}

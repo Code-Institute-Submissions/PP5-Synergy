@@ -93,8 +93,6 @@ const TaskForm = ({ url, visible, setVisible, refresh, setRefresh, edit, taskObj
     };
 
     const handleDateFormat = () => {
-        console.log(date);
-        console.log(moment(date).format('YYYY[-]MM[-]DD'));
         setInputData({
             ...inputData,
             deadline: moment(date).format('YYYY[-]MM[-]DD'),
